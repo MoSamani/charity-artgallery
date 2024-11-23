@@ -8,6 +8,10 @@ const PORT = 5000
 app.use(cors(corsOptions))
 app.use(express.json())
 
+app.get('/', (req, res) => {
+  res.send('<h1>Wellcome ...</h1>')
+})
+
 app.get('/api', (req, res) => {
   res.json({ app: 'artgallery' })
 })
