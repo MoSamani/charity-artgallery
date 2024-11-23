@@ -1,11 +1,9 @@
 import React from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 function Navbar() {
-  const navigate = useNavigate()
-
   return (
-    <div className="navbar">
+    <div className="navbar cormorant-garamond-regular">
       <div className="left-part">
         <Link className="link" to={`/`}>
           Home

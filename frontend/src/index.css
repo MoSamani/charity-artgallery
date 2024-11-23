@@ -4,7 +4,26 @@ body {
   color: #ffffff;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.cormorant-garamond-regular {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.cormorant-garamond-bold {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.cormorant-garamond-regular-italic {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.cormorant-garamond-bold-italic {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 700;
+  font-style: italic;
 }
