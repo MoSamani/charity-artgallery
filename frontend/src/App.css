@@ -5,15 +5,17 @@
 }
 
 .navbar {
-  text-decoration: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-top: 80px;
   padding-bottom: 40px;
+  font-size: 1.5rem;
 }
 
 .navbar .link {
+  text-decoration: none;
+  color: black;
   padding-left: 10px;
   padding-right: 10px;
 }
