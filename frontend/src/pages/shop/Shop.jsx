@@ -1,12 +1,12 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import Navbar from '../../components/Navbar'
 
 function Shop() {
-  const navigate = useNavigate()
   return (
     <div>
-      <div>Shop</div>
-      <button onClick={() => navigate(`/`)}>Home</button>
+      <div>
+        <Navbar />
+      </div>
     </div>
   )
 }
