@@ -12,7 +12,7 @@ import './App.css'
 
 const App = () => {
   const fetchAPI = async () => {
-    const response = await axios.get('http://localhost:5000/api')
+    const response = await axios.get('http://localhost:5000/api/user')
     console.log(response.data)
   }
   useEffect(() => {
