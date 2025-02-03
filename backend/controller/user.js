@@ -50,7 +50,6 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   try {
     const { id: userId } = req.params
-    console.log(userId)
     const user = await User.findOneAndDelete({ _id: userId })
     if (!user) {
       res.status(404).json({ msg: `No User with id: ${userId}` })
