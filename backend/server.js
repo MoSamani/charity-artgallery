@@ -1,7 +1,9 @@
 const express = require('express')
 const cors = require('cors')
 const corsOptions = { origin: ['http://localhost:3000'] }
-const userTasks = require('./routes/user')
+const userRouter = require('./routes/user')
+const authRouter = require('./routes/auth')
+// DB connection
 const connectDB = require('./db/connect')
 require('dotenv').config()
 
@@ -10,7 +12,8 @@ const PORT = 5000
 
 app.use(cors(corsOptions))
 app.use(express.json())
-app.use('/api/user', userTasks)
+app.use('/api/user', userRouter)
+app.use('/api/user/auth', authRouter)
 
 const start = async () => {
   try {
