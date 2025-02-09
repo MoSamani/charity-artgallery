@@ -2,14 +2,18 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { loginUser, registerUser } from '../../features/user/userSlice'
+import {
+  loginUser,
+  registerUser,
+  logoutUser,
+} from '../../features/user/userSlice'
 import FormRow from '../../components/FormRow'
 
 import Navbar from '../../components/Navbar'
 
 const initialState = {
   firstname: '',
-  lastemail: '',
+  lastname: '',
   email: '',
   favorites: '',
   token: '',
@@ -30,25 +34,25 @@ function Login() {
   }
   const onSubmit = (e) => {
     e.preventDefault()
-    const { name, email, password, isMember } = values
+    const { firstname, lastname, email, password, isMember } = values
 
     if (isMember) {
       dispatch(loginUser({ email: email, password: password }))
       return
     }
-    dispatch(registerUser({ name, email, password }))
+    dispatch(registerUser({ firstname, lastname, email, password }))
   }
 
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember })
   }
-  // useEffect(() => {
-  //   if (user) {
-  //     setTimeout(() => {
-  //       navigate('/')
-  //     }, 2000)
-  //   }
-  // }, [user])
+  useEffect(() => {
+    if (user) {
+      setTimeout(() => {
+        navigate('/')
+      }, 2000)
+    }
+  }, [user])
 
   return (
     <div>
@@ -57,12 +61,21 @@ function Login() {
         <h3>{values.isMember ? 'Login' : 'Register'}</h3>
         {/* name field */}
         {!values.isMember && (
-          <FormRow
-            type="text"
-            name="name"
-            value={values.name}
-            handleChange={handleChange}
-          />
+          <>
+            <FormRow
+              type="text"
+              name="firstname"
+              value={values.firstname}
+              handleChange={handleChange}
+            />
+
+            <FormRow
+              type="text"
+              name="lastname"
+              value={values.lastname}
+              handleChange={handleChange}
+            />
+          </>
         )}
         {/* email field */}
         <FormRow
@@ -84,7 +97,7 @@ function Login() {
         <button
           type="button"
           className="btn btn-block btn-hipster"
-          // disabled={isLoading}
+          disabled={isLoading}
           onClick={() =>
             dispatch(
               loginUser({ email: 'testUser@test.com', password: 'secret' })
@@ -99,6 +112,15 @@ function Login() {
             {values.isMember ? 'Register' : 'Login'}
           </button>
         </p>
+        <button
+          type="button"
+          onClick={() => {
+            dispatch(logoutUser())
+          }}
+          className="member-btn"
+        >
+          {'Logout'}
+        </button>
       </form>
     </div>
   )
