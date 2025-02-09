@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     validate: [validator.validate, 'Please fill a valid email address'],
   },
-  favorites: [String],
+  favorites: { type: [String], default: [] },
 })
 
 userSchema.methods.comparePassword = async function (canditatePassword) {
@@ -36,6 +36,7 @@ userSchema.methods.comparePassword = async function (canditatePassword) {
 }
 
 userSchema.pre('save', async function () {
+  if (!this.isModified('password')) return
   const salt = await bcrypt.genSalt(10)
   this.password = await bcrypt.hash(this.password, salt)
 })

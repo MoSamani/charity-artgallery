@@ -25,8 +25,8 @@ app.use(express.json())
 app.use('/api/user', userRouter)
 app.use('/api/user/auth', authRouter)
 
-app.use(errorHandlerMiddleware)
 app.use(notFoundMiddleware)
+app.use(errorHandlerMiddleware)
 
 const start = async () => {
   try {

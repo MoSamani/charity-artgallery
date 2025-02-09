@@ -22,14 +22,14 @@ const getUser = async (req, res) => {
   }
 }
 
-const createUser = async (req, res) => {
-  try {
-    const user = await User.create(req.body)
-    res.status(201).json(user)
-  } catch (error) {
-    res.status(500).json({ msg: error })
-  }
-}
+// const createUser = async (req, res) => {
+//   try {
+//     const user = await User.create(req.body)
+//     res.status(201).json(user)
+//   } catch (error) {
+//     res.status(500).json({ msg: error })
+//   }
+// }
 
 const updateUser = async (req, res) => {
   try {
@@ -60,4 +60,4 @@ const deleteUser = async (req, res) => {
   }
 }
 
-module.exports = { getAllUsers, getUser, createUser, updateUser, deleteUser }
+module.exports = { getAllUsers, getUser, updateUser, deleteUser }
