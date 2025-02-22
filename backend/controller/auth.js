@@ -2,6 +2,7 @@ const User = require('../models/user')
 const { StatusCodes } = require('http-status-codes')
 const jwt = require('jsonwebtoken')
 const { BadRequestError, UnauthenticatedError } = require('../errors')
+const user = require('../models/user')
 
 const register = async (req, res) => {
   try {
@@ -83,4 +84,44 @@ const updateUser = async (req, res) => {
   })
 }
 
-module.exports = { login, register, updateUser }
+const updatePassword = async (req, res) => {
+  const { email, password, newpassword } = req.body
+  console.log(req.body)
+
+  const user = await User.findOne({ email })
+
+  const isPasswordCorrect = await user.comparePassword(password)
+  if (!isPasswordCorrect) {
+    // throw new UnauthenticatedError('Invalid credentials!')
+    return res.status(StatusCodes.UNAUTHORIZED).send('Invalid Credentials!')
+  }
+
+  const _token = user.createJWT()
+  res.status(StatusCodes.OK).json({
+    user: {
+      firstname: user.firstname,
+      lastname: user.lastname,
+      email: user.email,
+      favorites: user.favorites,
+      token: _token,
+    },
+  })
+}
+
+const deleteUser = async (req, res) => {
+  const { email } = req.body
+  console.log('Remove', req.body)
+  // const user = await User.findOne({ email })
+
+  try {
+    const user = await User.findOneAndDelete({ email: email })
+    if (!user) {
+      res.status(404).json({ msg: `No User with id: ${userId}` })
+    }
+    res.status(200).json({ user: user })
+  } catch (error) {
+    res.status(500).json({ msg: error })
+  }
+}
+
+module.exports = { login, register, updateUser, updatePassword, deleteUser }

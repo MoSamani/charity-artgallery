@@ -11,6 +11,7 @@ import Login from './pages/login/Login'
 import User from './pages/user/User'
 import './App.css'
 import EditUser from './pages/editUser/EditUser'
+import EditPassword from './pages/editPassword/EditPassword'
 
 const App = () => {
   const fetchAPI = async () => {
@@ -31,6 +32,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/user" element={<User />} />
         <Route path="/EditUser" element={<EditUser />} />
+        <Route path="/EditPassword" element={<EditPassword />} />
       </Routes>
     </div>
   )

@@ -31,16 +31,16 @@ const userSchema = new mongoose.Schema({
 })
 
 userSchema.methods.comparePassword = async function (canditatePassword) {
-  const isMatch = await bcrypt.compare(canditatePassword, this.password)
-  // const isMatch = this.password === canditatePassword
+  // const isMatch = await bcrypt.compare(canditatePassword, this.password)
+  const isMatch = this.password === canditatePassword
   return isMatch
 }
 
-userSchema.pre('save', async function () {
-  if (!this.isModified('password')) return
-  const salt = await bcrypt.genSalt(10)
-  this.password = await bcrypt.hash(this.password, salt)
-})
+// userSchema.pre('save', async function () {
+//   if (!this.isModified('password')) return
+//   const salt = await bcrypt.genSalt(10)
+//   this.password = await bcrypt.hash(this.password, salt)
+// })
 
 userSchema.methods.createJWT = function () {
   return jwt.sign(
