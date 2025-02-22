@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import { useSelector } from 'react-redux'
 function Navbar() {
+  const { user } = useSelector((store) => store.user)
   return (
     <div className="navbar cormorant-garamond-regular">
       <div className="left-part">
@@ -23,7 +24,7 @@ function Navbar() {
           Upload
         </Link>
         <Link className="link" to={`/login`}>
-          Login
+          {user ? user.firstname : 'Login'}
         </Link>
       </div>
     </div>
