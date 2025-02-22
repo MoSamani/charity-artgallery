@@ -1,5 +1,6 @@
 const User = require('../models/user')
 const { StatusCodes } = require('http-status-codes')
+const jwt = require('jsonwebtoken')
 const { BadRequestError, UnauthenticatedError } = require('../errors')
 
 const register = async (req, res) => {
@@ -54,4 +55,32 @@ const login = async (req, res) => {
   })
 }
 
-module.exports = { login, register }
+const updateUser = async (req, res) => {
+  const { firstname, lastname, email } = req.body
+
+  const user = await User.findOne({ email })
+  user.name = firstname
+  user.lastname = lastname
+
+  // await user.save()
+  await User.findByIdAndUpdate(
+    { _id: user._id },
+    { firstname: firstname, lastname: lastname },
+    {
+      new: true,
+      runValidators: true,
+    }
+  )
+  const _token = user.createJWT()
+  res.status(StatusCodes.OK).json({
+    user: {
+      firstname: user.firstname,
+      lastname: user.lastname,
+      email: user.email,
+      favorites: user.favorites,
+      token: _token,
+    },
+  })
+}
+
+module.exports = { login, register, updateUser }

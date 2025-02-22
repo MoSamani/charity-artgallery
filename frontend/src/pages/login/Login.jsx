@@ -2,11 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import {
-  loginUser,
-  registerUser,
-  logoutUser,
-} from '../../features/user/userSlice'
+import { loginUser, registerUser } from '../../features/user/userSlice'
 import FormRow from '../../components/FormRow'
 
 import Navbar from '../../components/Navbar'
@@ -49,8 +45,8 @@ function Login() {
   useEffect(() => {
     if (user) {
       setTimeout(() => {
-        navigate('/')
-      }, 2000)
+        navigate('/User')
+      }, 1000)
     }
   }, [user])
 
@@ -91,36 +87,16 @@ function Login() {
           value={values.password}
           handleChange={handleChange}
         />
-        <button type="submit" className="btn btn-block" disabled={isLoading}>
+        <button type="submit" disabled={isLoading}>
           {isLoading ? 'loading...' : 'submit'}
         </button>
-        <button
-          type="button"
-          className="btn btn-block btn-hipster"
-          disabled={isLoading}
-          onClick={() =>
-            dispatch(
-              loginUser({ email: 'testUser@test.com', password: 'secret' })
-            )
-          }
-        >
-          {isLoading ? 'loading...' : 'demo app'}
-        </button>
+
         <p>
           {values.isMember ? 'Not a member yet?' : 'Already a member?'}
-          <button type="button" onClick={toggleMember} className="member-btn">
+          <button type="button" onClick={toggleMember}>
             {values.isMember ? 'Register' : 'Login'}
           </button>
         </p>
-        <button
-          type="button"
-          onClick={() => {
-            dispatch(logoutUser())
-          }}
-          className="member-btn"
-        >
-          {'Logout'}
-        </button>
       </form>
     </div>
   )

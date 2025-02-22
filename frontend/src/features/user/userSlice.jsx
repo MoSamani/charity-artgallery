@@ -33,7 +33,7 @@ export const loginUser = createAsyncThunk(
 export const updateUser = createAsyncThunk(
   'user/updateUser',
   async (user, thunkAPI) => {
-    return updateUserThunk('/auth/updateUser', user, thunkAPI)
+    return updateUserThunk('user/auth/updateUser', user, thunkAPI)
   }
 )
 export const clearStore = createAsyncThunk('user/clearStore', clearStoreThunk)

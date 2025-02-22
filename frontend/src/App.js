@@ -8,7 +8,9 @@ import Shop from './pages/shop/Shop'
 import Contact from './pages/contact/Contact'
 import Upload from './pages/upload/Upload'
 import Login from './pages/login/Login'
+import User from './pages/user/User'
 import './App.css'
+import EditUser from './pages/editUser/EditUser'
 
 const App = () => {
   const fetchAPI = async () => {
@@ -27,6 +29,8 @@ const App = () => {
         <Route path="/cantact" element={<Contact />} />
         <Route path="/upload" element={<Upload />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/user" element={<User />} />
+        <Route path="/EditUser" element={<EditUser />} />
       </Routes>
     </div>
   )
