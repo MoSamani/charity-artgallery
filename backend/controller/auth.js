@@ -110,8 +110,6 @@ const updatePassword = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   const { email } = req.body
-  console.log('Remove', req.body)
-  // const user = await User.findOne({ email })
 
   try {
     const user = await User.findOneAndDelete({ email: email })

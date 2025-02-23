@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const validator = require('email-validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const Artwork = require('./artwork')
 
 const userSchema = new mongoose.Schema({
   firstname: {
@@ -49,5 +50,17 @@ userSchema.methods.createJWT = function () {
     { expiresIn: process.env.JWT_LIFETIME }
   )
 }
+
+userSchema.pre('findOneAndDelete', async function (next) {
+  try {
+    const doc = await this.model.findOne(this.getFilter())
+    if (doc) {
+      await mongoose.model('Artwork').deleteMany({ createdBy: doc._id })
+    }
+    next()
+  } catch (err) {
+    next(err)
+  }
+})
 
 module.exports = mongoose.model('User', userSchema)

@@ -3,7 +3,7 @@ const cors = require('cors')
 const corsOptions = { origin: ['http://localhost:3000'] }
 const userRouter = require('./routes/user')
 const authRouter = require('./routes/auth')
-
+const artworkRouter = require('./routes/artworks')
 // User authentication
 const authenticateUser = require('./middleware/authentication')
 
@@ -24,6 +24,7 @@ app.use(express.json())
 // Routes
 app.use('/api/user', userRouter)
 app.use('/api/user/auth', authRouter)
+app.use('/api/artwork', artworkRouter)
 
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)
