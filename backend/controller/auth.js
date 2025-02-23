@@ -18,7 +18,7 @@ const register = async (req, res) => {
       },
     })
   } catch (error) {
-    res.status(500).json({ msg: error })
+    res.status(StatusCodes.BAD_REQUEST).json({ msg: error })
   }
 }
 
@@ -60,7 +60,7 @@ const updateUser = async (req, res) => {
   const { firstname, lastname, email } = req.body
 
   const user = await User.findOne({ email })
-  user.name = firstname
+  user.firstname = firstname
   user.lastname = lastname
 
   // await user.save()

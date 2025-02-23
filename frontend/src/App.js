@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect } from 'react'
 import axios from 'axios'
 import { Routes, Route } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 import Home from './pages/home/Home'
 import About from './pages/about/About'
 import Shop from './pages/shop/Shop'
@@ -34,6 +35,7 @@ const App = () => {
         <Route path="/EditUser" element={<EditUser />} />
         <Route path="/EditPassword" element={<EditPassword />} />
       </Routes>
+      <ToastContainer position="top-right" />
     </div>
   )
 }
