@@ -4,7 +4,8 @@ import Navbar from '../../components/Navbar'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { updateUser, removeUser } from '../../features/user/userSlice'
+import { updateUser } from '../../features/user/userSlice'
+import DeleteButton from '../../components/DeleteButton'
 
 // const initialState = {
 //   firstname: '',
@@ -84,7 +85,8 @@ function EditUser() {
       </button>
       <br />
       <br />
-      <button
+      <DeleteButton />
+      {/* <button
         type="button"
         onClick={() => {
           dispatch(removeUser({ email: user.email }))
@@ -92,7 +94,7 @@ function EditUser() {
         style={{ backgroundColor: 'red' }}
       >
         {'remove user'}
-      </button>
+      </button> */}
       <br />
       <br />
       <button
