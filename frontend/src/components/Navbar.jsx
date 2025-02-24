@@ -14,12 +14,12 @@ function Navbar() {
         <Link className="link" to={`/about`}>
           About
         </Link>
-        <Link className="link" to={`/shop`}>
+        {/* <Link className="link" to={`/shop`}>
           Shop
         </Link>
         <Link className="link" to={`/cantact`}>
           Contact
-        </Link>
+        </Link> */}
       </div>
       <div className="right-part">
         <Link className="link" to={`/upload`}>
