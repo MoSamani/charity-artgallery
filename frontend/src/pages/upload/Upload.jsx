@@ -19,6 +19,8 @@ const initialState = {
 function Upload() {
   const [values, setValues] = useState(initialState)
   const [checked, setChecked] = useState(false)
+  const [file, setFile] = useState(null)
+
   const { user, isLoading } = useSelector((store) => store.user)
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -28,7 +30,16 @@ function Upload() {
     const { name, medium, size, description, mprise, donate } = values
     const email = user.email
     dispatch(
-      postArtwork({ name, medium, size, description, mprise, donate, email })
+      postArtwork({
+        name,
+        medium,
+        size,
+        description,
+        mprise,
+        donate,
+        email,
+        file,
+      })
     )
     setValues(initialState)
   }
@@ -47,6 +58,14 @@ function Upload() {
     setValues({ ...values, [name]: !checked })
     console.log(values)
   }
+
+  const handleChangeFile = (e) => {
+    if (e.target.files) {
+      setFile(e.target.files[0])
+    }
+    console.log(file)
+  }
+
   useEffect(() => {
     if (!user) {
       setTimeout(() => {
@@ -85,11 +104,18 @@ function Upload() {
           />
 
           <Textarea
-            // type="textarea"
             name="description"
             value={values.description}
             handleChange={handleChange}
           />
+
+          <FormRow type="file" name="image" handleChange={handleChangeFile} />
+          {file && (
+            <div>
+              <p>File name: {file.name} </p>
+              <p>Type : {file.type}</p>
+            </div>
+          )}
 
           <FormRow
             type="text"
