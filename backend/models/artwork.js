@@ -6,7 +6,7 @@ const artworkSchema = new mongoose.Schema({
     required: [true, 'firstname must be provided'],
     trim: true,
   },
-  type: {
+  medium: {
     type: String,
     trim: true,
   },
@@ -30,7 +30,7 @@ const artworkSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  img1: {
+  image1: {
     type: String,
   },
   createdBy: {

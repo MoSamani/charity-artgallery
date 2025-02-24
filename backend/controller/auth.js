@@ -2,7 +2,6 @@ const User = require('../models/user')
 const { StatusCodes } = require('http-status-codes')
 const jwt = require('jsonwebtoken')
 const { BadRequestError, UnauthenticatedError } = require('../errors')
-const user = require('../models/user')
 
 const register = async (req, res) => {
   try {
@@ -18,7 +17,7 @@ const register = async (req, res) => {
       },
     })
   } catch (error) {
-    res.status(StatusCodes.BAD_REQUEST).json({ msg: error })
+    res.status(StatusCodes.BAD_REQUEST).json({ msg: error.message })
   }
 }
 
@@ -118,7 +117,7 @@ const deleteUser = async (req, res) => {
     }
     res.status(200).json({ user: user })
   } catch (error) {
-    res.status(500).json({ msg: error })
+    res.status(500).json({ msg: error.message })
   }
 }
 

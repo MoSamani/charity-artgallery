@@ -2,21 +2,24 @@ const { StatusCodes } = require('http-status-codes')
 const jwt = require('jsonwebtoken')
 const { BadRequestError, UnauthenticatedError } = require('../errors')
 const Artwork = require('../models/artwork')
+const User = require('../models/user')
 
 const postImage = async (req, res) => {
   console.log(req.body)
+
+  const user = await User.findOne({ email: req.body.email })
+  console.log(user)
   try {
-    const artwork = await Artwork.create({ ...req.body })
+    const artwork = await Artwork.create({
+      ...req.body,
+      createdBy: user._id,
+    })
     console.log('artwork', artwork)
     res.status(StatusCodes.CREATED).json({
-      artwork: {
-        name: artwork.name,
-        lastname: artwork.type,
-        prise: artwork.mprise,
-      },
+      artwork: 'Done',
     })
   } catch (error) {
-    res.status(StatusCodes.BAD_REQUEST).json({ msg: error })
+    res.status(StatusCodes.BAD_REQUEST).json({ msg: error.message })
   }
 }
 
