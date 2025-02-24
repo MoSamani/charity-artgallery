@@ -4,7 +4,8 @@ import Navbar from '../../components/Navbar'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { updateUser, logoutUser } from '../../features/user/userSlice'
+import { updateUser } from '../../features/user/userSlice'
+import DeleteButton from '../../components/DeleteButton'
 
 // const initialState = {
 //   firstname: '',
@@ -21,13 +22,6 @@ function EditUser() {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  useEffect(() => {
-    if (!user) {
-      setTimeout(() => {
-        navigate('/User')
-      }, 1000)
-    }
-  }, [user])
 
   const handleChange = (e) => {
     const name = e.target.name
@@ -46,6 +40,14 @@ function EditUser() {
       })
     )
   }
+
+  useEffect(() => {
+    if (!user) {
+      setTimeout(() => {
+        navigate('/Login')
+      }, 1000)
+    }
+  }, [user])
 
   return (
     <div>
@@ -71,10 +73,33 @@ function EditUser() {
           {isLoading ? 'loading...' : 'submit'}
         </button>
       </form>
+
+      <h3>{'change password'}</h3>
       <button
         type="button"
         onClick={() => {
-          dispatch(logoutUser())
+          navigate('/EditPassword')
+        }}
+      >
+        {'change password'}
+      </button>
+      <br />
+      <br />
+      <DeleteButton />
+      {/* <button
+        type="button"
+        onClick={() => {
+          dispatch(removeUser({ email: user.email }))
+        }}
+        style={{ backgroundColor: 'red' }}
+      >
+        {'remove user'}
+      </button> */}
+      <br />
+      <br />
+      <button
+        type="button"
+        onClick={() => {
           navigate('/User')
         }}
       >

@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { toast } from 'react-toastify'
 import {
   addUserToLocalStorage,
   getUserFromLocalStorage,
@@ -8,6 +9,8 @@ import {
   loginUserThunk,
   registerUserThunk,
   updateUserThunk,
+  updatePasswordThunk,
+  removeUserThunk,
   clearStoreThunk,
 } from './userThunk'
 
@@ -36,6 +39,18 @@ export const updateUser = createAsyncThunk(
     return updateUserThunk('user/auth/updateUser', user, thunkAPI)
   }
 )
+export const updatePassword = createAsyncThunk(
+  'user/updatePassword',
+  async (user, thunkAPI) => {
+    return updatePasswordThunk('user/auth/updatePassword', user, thunkAPI)
+  }
+)
+export const removeUser = createAsyncThunk(
+  'user/removeUser',
+  async (user, thunkAPI) => {
+    return removeUserThunk('user/auth/removeUser', user, thunkAPI)
+  }
+)
 export const clearStore = createAsyncThunk('user/clearStore', clearStoreThunk)
 const userSlice = createSlice({
   name: 'user',
@@ -43,7 +58,6 @@ const userSlice = createSlice({
   reducers: {
     logoutUser: (state) => {
       state.user = null
-      state.isSidebarOpen = false
       removeUserFromLocalStorage()
     },
   },
@@ -58,9 +72,11 @@ const userSlice = createSlice({
         state.isLoading = false
         state.user = user
         addUserToLocalStorage(user)
+        toast.success(`Welcome There ${user.firstname}`)
       })
-      .addCase(registerUser.rejected, (state) => {
+      .addCase(registerUser.rejected, (state, { payload }) => {
         state.isLoading = false
+        toast.error(payload || 'Registration failed')
       })
       .addCase(loginUser.pending, (state) => {
         state.isLoading = true
@@ -70,10 +86,13 @@ const userSlice = createSlice({
         state.isLoading = false
         state.user = user
         console.log(payload)
+        removeUserFromLocalStorage()
         addUserToLocalStorage(user)
+        toast.success(`Welcome Back ${user.firstname}`)
       })
-      .addCase(loginUser.rejected, (state) => {
+      .addCase(loginUser.rejected, (state, { payload }) => {
         state.isLoading = false
+        toast.error(payload || 'Login failed')
       })
       .addCase(updateUser.pending, (state) => {
         state.isLoading = true
@@ -82,10 +101,40 @@ const userSlice = createSlice({
         const { user } = payload
         state.isLoading = false
         state.user = user
+        removeUserFromLocalStorage()
         addUserToLocalStorage(user)
+        toast.success(`Account Updated`)
       })
-      .addCase(updateUser.rejected, (state) => {
+      .addCase(updateUser.rejected, (state, { payload }) => {
         state.isLoading = false
+        toast.error(payload || 'Update failed')
+      })
+      .addCase(updatePassword.rejected, (state) => {
+        state.isLoading = false
+      })
+      .addCase(updatePassword.pending, (state, { payload }) => {
+        state.isLoading = true
+        toast.error(payload || 'Change password failed')
+      })
+      .addCase(updatePassword.fulfilled, (state, { payload }) => {
+        // const { user } = payload
+        state.isLoading = false
+        // state.user = user
+        // addUserToLocalStorage(user)
+        toast.success(`Password changed`)
+      })
+      .addCase(removeUser.rejected, (state) => {
+        state.isLoading = false
+      })
+      .addCase(removeUser.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(removeUser.fulfilled, (state, { payload }) => {
+        // const { user } = payload
+        state.isLoading = false
+        state.user = null
+        removeUserFromLocalStorage()
+        toast.success(`Account is deleted!`)
       })
       .addCase(clearStore.rejected, () => {})
   },

@@ -28,6 +28,25 @@ export const updateUserThunk = async (url, user, thunkAPI) => {
   }
 }
 
+export const updatePasswordThunk = async (url, user, thunkAPI) => {
+  try {
+    const resp = await customFetch.patch(url, user)
+    return resp.data
+  } catch (error) {
+    return checkForUnauthorizedResponse(error, thunkAPI)
+  }
+}
+
+export const removeUserThunk = async (url, user, thunkAPI) => {
+  try {
+    console.log(user)
+    const resp = await customFetch.delete(url, { data: user })
+    return resp.data
+  } catch (error) {
+    return checkForUnauthorizedResponse(error, thunkAPI)
+  }
+}
+
 export const clearStoreThunk = async (message, thunkAPI) => {
   try {
     thunkAPI.dispatch(logoutUser(message))

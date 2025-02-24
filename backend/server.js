@@ -3,6 +3,8 @@ const cors = require('cors')
 const corsOptions = { origin: ['http://localhost:3000'] }
 const userRouter = require('./routes/user')
 const authRouter = require('./routes/auth')
+const artworkRouter = require('./routes/artworks')
+// const fileUpload = require('express-fileupload')
 
 // User authentication
 const authenticateUser = require('./middleware/authentication')
@@ -18,12 +20,15 @@ require('dotenv').config()
 const app = express()
 const PORT = 5000
 
-app.use(cors(corsOptions))
 app.use(express.json())
+// app.use(fileUpload({ useTempFiles: true }))
+
+app.use(cors(corsOptions))
 
 // Routes
 app.use('/api/user', userRouter)
 app.use('/api/user/auth', authRouter)
+app.use('/api/artwork', artworkRouter)
 
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)
