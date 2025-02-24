@@ -2,6 +2,7 @@
 
 ### dotenv ###
 .env
+/frontend/public/data/images
 
 # dependencies
 /node_modules

@@ -1,0 +1,90 @@
+/* filter.css */
+
+/* Main container */
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;  /* Allow wrapping on smaller screens */
+  gap: 10px;  /* Space between elements */
+  justify-content: center;  /* Center elements horizontally */ /* Center elements vertically */
+  padding: 20px;
+  margin-left: 10%;
+  max-width: 1000px; /* Optional: set a maximum width */
+}
+
+/* Buttons and selects */
+.filter-button,
+select {
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ffffff;
+  background-color: #fefefe;
+  cursor: pointer;
+  margin: 5px 0;
+  width: auto;
+  flex-grow: 0; 
+  font-size: medium; /* Prevent buttons and selects from growing */
+}
+
+/* Specific styles for buttons */
+.filter-button {
+  background-color: #ffffff;
+  color: rgb(9, 9, 9);
+  border: none;
+}
+
+.filter-button:hover {
+  background-color: #6f94bc;
+}
+
+/* Price Filter */
+.price-filter {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 350px;  /* Optional: set a maximum width for price filter */
+}
+
+.price-inputs {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.price-inputs input {
+  width: 45%;
+  padding: 5px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.range-slider {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.range-input {
+  width: 45%;
+  margin: 0 5px;
+}
+
+.range-input.min-range {
+  background-color: #e6e6e6;
+}
+
+.range-input.max-range {
+  background-color: #e6e6e6;
+}
+/* Add a style for the labels */
+.price-inputs div span {
+  display: inline-block;  /* Ensure the span is displayed inline with other elements */
+  margin-right: 2px;  /* Space between the label and the input */
+  color: black ;
+  font-size: small;
+}
