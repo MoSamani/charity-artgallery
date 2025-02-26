@@ -1,6 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { toast } from 'react-toastify'
-import { postArtworkThunk } from './artworkthunk'
+import { postArtworkThunk, getAllArtworksThunk } from './artworkthunk'
+
+export const getAllArtworks = createAsyncThunk(
+  'artwork/getAllArtworks',
+  async (artwork, thunkAPI) => {
+    return getAllArtworksThunk('artwork/all', artwork, thunkAPI)
+  }
+)
 
 export const postArtwork = createAsyncThunk(
   'artwork/postArtwork',
@@ -12,6 +18,7 @@ export const postArtwork = createAsyncThunk(
 const initialState = {
   isLoading: false,
   artwork: {},
+  artworks: [],
 }
 
 const artworkSlice = createSlice({
@@ -24,16 +31,23 @@ const artworkSlice = createSlice({
         state.isLoading = true
       })
       .addCase(postArtwork.fulfilled, (state, { payload }) => {
-        console.log('success', payload)
-
         const { artwork } = payload
         state.isLoading = false
         state.artwork = artwork
-        toast.success(`Your artwork is saved`)
       })
       .addCase(postArtwork.rejected, (state, { payload }) => {
         state.isLoading = false
-        toast.error(payload || 'Save failed')
+      })
+      .addCase(getAllArtworks.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(getAllArtworks.fulfilled, (state, { payload }) => {
+        const { artworks } = payload
+        state.isLoading = false
+        state.artworks = artworks
+      })
+      .addCase(getAllArtworks.rejected, (state, { payload }) => {
+        state.isLoading = false
       })
   },
 })

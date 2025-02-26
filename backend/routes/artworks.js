@@ -2,19 +2,19 @@ const express = require('express')
 const router = express.Router()
 
 const {
-  postImage,
-  getAllImages,
-  getImage,
-  updateImage,
-  deleteImage,
+  postArtwork,
+  getAllArtworks,
+  getArtwork,
+  updateArtwork,
+  deleteArtwork,
 } = require('../controller/artwork')
 
 router
   .route('/')
-  .get(getImage)
-  .post(postImage)
-  .patch(updateImage)
-  .delete(deleteImage)
-router.get('/all', getAllImages)
+  .get(getArtwork)
+  .post(postArtwork)
+  .patch(updateArtwork)
+  .delete(deleteArtwork)
+router.get('/all', getAllArtworks)
 
 module.exports = router
