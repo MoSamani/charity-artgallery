@@ -9,6 +9,15 @@ const postArtwork = async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ msg: 'No file uploaded' })
     }
+
+    if (!req.file.mimetype.startsWith('image')) {
+      return res.status(400).json({ msg: 'Please Upload Image!' })
+    }
+
+    if (req.file.size > 1024 * 1024) {
+      return res.status(400).json({ msg: 'Please upload image smaller 1MB!' })
+    }
+
     const result = await uploadFromBuffer(req.file.buffer)
     image = { url: result.secure_url, public_id: result.public_id }
   } catch (error) {
