@@ -1,0 +1,43 @@
+{
+  "paintings": [
+    {
+      "id": 1,
+      "image": "1.jpg",
+      "name": "Mona Lisa",
+      "price": 20,
+      "size": "20x30",
+      "technique": "Oil",
+      "artist": "Leonardo da Vinci"
+    },
+    {
+      "id": 2,
+      "image": "2.jpg",
+      "name": "Starry Night",
+      "price": 5,
+      "size": "30x40",
+      "technique": "Acrylic",
+      "artist": "Vincent van Gogh"
+    },
+    {
+      "id": 3,
+      "image": "3.jpg",
+      "name": "The Scream",
+      "price": 10,
+      "size": "50x70",
+      "technique": "Watercolor",
+      "artist": "Edvard Munch"
+    },
+    {
+      "id": 4,
+      "image": "4.jpg",
+      "name": "The Persistence of Memory",
+      "price": 50,
+      "size": "50x70",
+      "technique": "Watercolor",
+      "artist": "Salvador Dalí"
+    }
+  ],
+  "sizes": ["20x30", "30x40", "50x70"],
+  "techniques": ["Oil", "Acrylic", "Watercolor", "Digital"],
+  "artists": ["Leonardo da Vinci", "Vincent van Gogh", "Edvard Munch", "Salvador Dalí"]
+}

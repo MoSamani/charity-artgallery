@@ -29,18 +29,31 @@ function Upload() {
     e.preventDefault()
     const { name, medium, size, description, mprise, donate } = values
     const email = user.email
-    dispatch(
-      postArtwork({
-        name,
-        medium,
-        size,
-        description,
-        mprise,
-        donate,
-        email,
-        file,
-      })
-    )
+
+    const formData = new FormData()
+    formData.append('name', name)
+    formData.append('medium', medium)
+    formData.append('size', size)
+    formData.append('description', description)
+    formData.append('mprise', mprise)
+    formData.append('donate', donate)
+    formData.append('email', email)
+    formData.append('image', file)
+    console.log(file)
+
+    dispatch(postArtwork(formData))
+    // dispatch(
+    //   postArtwork({
+    //     name,
+    //     medium,
+    //     size,
+    //     description,
+    //     mprise,
+    //     donate,
+    //     email,
+    //     file,
+    //   })
+    // )
     setValues(initialState)
   }
 

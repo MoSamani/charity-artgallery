@@ -1,8 +1,8 @@
 import customFetch from '../../utils/axios'
 import { toast } from 'react-toastify'
-export const postArtworkThunk = async (url, user, thunkAPI) => {
+export const postArtworkThunk = async (url, artwork, thunkAPI) => {
   try {
-    const resp = await customFetch.post(url, user)
+    const resp = await customFetch.post(url, artwork)
     toast.success(`Your artwork is saved`)
     console.log(resp)
     return resp.data

@@ -1,0 +1,43 @@
+.footer {
+    
+    color: rgb(0, 0, 0);
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+  }
+  
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .copyright {
+    margin-bottom: 10px;
+  }
+  
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .social-icon i {
+    font-size: 30px;
+    color: rgb(4, 4, 4);
+    transition: transform 0.3s ease;
+  }
+  
+  .social-icon i:hover {
+    transform: scale(1.2);
+  }
+  
+  @media (max-width: 600px) {
+    .footer-content {
+      padding: 15px;
+    }
+  
+    .social-icon i {
+      font-size: 25px;
+    }
+  }
+  
