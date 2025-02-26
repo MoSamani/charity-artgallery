@@ -1,15 +1,14 @@
 .home-container {
-    background-color: #f8f9fa;
-    padding: 20px;
-    font-family: 'Cormorant Garamond', serif;
-  }
-  
-  .painting-card {
-    transition: transform 0.3s ease;
-  }
-  
-  .painting-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
+  /* background-color: #f8f9fa; */
+  /* padding: 20px; */
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.painting-card {
+  transition: transform 0.3s ease;
+}
+
+.painting-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
