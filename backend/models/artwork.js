@@ -30,9 +30,15 @@ const artworkSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  image1: {
-    data: Buffer,
-    contentType: String,
+  // image1: {
+  //   data: Buffer,
+  //   contentType: String,
+  // },
+  image1_url: {
+    type: String,
+  },
+  image1_public_id: {
+    type: String,
   },
   createdBy: {
     type: mongoose.Types.ObjectId,

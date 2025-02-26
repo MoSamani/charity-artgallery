@@ -21,7 +21,9 @@ function Upload() {
   const [checked, setChecked] = useState(false)
   const [file, setFile] = useState(null)
 
-  const { user, isLoading } = useSelector((store) => store.user)
+  const { user } = useSelector((store) => store.user)
+  const { isLoading } = useSelector((store) => store.artwork)
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
 

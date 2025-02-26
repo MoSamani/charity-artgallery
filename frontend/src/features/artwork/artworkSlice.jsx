@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { toast } from 'react-toastify'
 import { postArtworkThunk } from './artworkthunk'
 
 export const postArtwork = createAsyncThunk(
@@ -24,16 +23,12 @@ const artworkSlice = createSlice({
         state.isLoading = true
       })
       .addCase(postArtwork.fulfilled, (state, { payload }) => {
-        console.log('success', payload)
-
         const { artwork } = payload
         state.isLoading = false
         state.artwork = artwork
-        toast.success(`Your artwork is saved`)
       })
       .addCase(postArtwork.rejected, (state, { payload }) => {
         state.isLoading = false
-        toast.error(payload || 'Save failed')
       })
   },
 })

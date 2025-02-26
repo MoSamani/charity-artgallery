@@ -4,8 +4,6 @@ const corsOptions = { origin: ['http://localhost:3000'] }
 const userRouter = require('./routes/user')
 const authRouter = require('./routes/auth')
 const artworkRouter = require('./routes/artworks')
-// const multer = require('multer')
-// const path = require('path')
 const { localUpload } = require('./controller/upload')
 const cloudinary = require('cloudinary').v2
 
@@ -31,16 +29,6 @@ cloudinary.config({
   api_key: process.env.cloud_api_key,
   api_secret: process.env.cloud_api_secret,
 })
-
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, path.join(__dirname, 'uploads'))
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, Date.now() + file.originalname)
-//   },
-// })
-// const upload = multer({ storage: storage })
 
 // Routes
 app.use('/api/user', userRouter)
