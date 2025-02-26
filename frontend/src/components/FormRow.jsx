@@ -10,7 +10,8 @@ const FormRow = ({ type, name, value, handleChange, labelText }) => {
         id={name}
         type={type}
         name={name}
-        value={value}
+        // value={value}
+        {...(type !== 'file' && { value })}
         onChange={handleChange}
         className="form-input"
       />

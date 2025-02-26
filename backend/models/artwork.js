@@ -31,7 +31,8 @@ const artworkSchema = new mongoose.Schema({
     default: false,
   },
   image1: {
-    type: String,
+    data: Buffer,
+    contentType: String,
   },
   createdBy: {
     type: mongoose.Types.ObjectId,
