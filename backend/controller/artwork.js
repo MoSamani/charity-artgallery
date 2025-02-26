@@ -4,7 +4,7 @@ const { StatusCodes } = require('http-status-codes')
 const fs = require('fs')
 const { uploadFromBuffer } = require('./upload')
 
-const postImage = async (req, res) => {
+const postArtwork = async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ msg: 'No file uploaded' })
@@ -40,28 +40,38 @@ const postImage = async (req, res) => {
   }
 }
 
-const getAllImages = async (req, res) => {
+const getAllArtworks = async (req, res) => {
   try {
-    const artworks = await Artwork.find({})
+    const artworks = await Artwork.find({}).populate(
+      'createdBy',
+      'firstname lastname'
+    )
+
     res.status(200).json({ artworks: artworks })
   } catch (error) {
     res.status(500).json({ msg: error })
   }
 }
 
-const getImage = async (req, res) => {
+const getArtwork = async (req, res) => {
   console.log('getImage')
   res.status(200).json({ msg: 'getImage' })
 }
 
-const updateImage = async (req, res) => {
+const updateArtwork = async (req, res) => {
   console.log('updateImage')
   res.status(200).json({ msg: 'updateImage' })
 }
 
-const deleteImage = async (req, res) => {
+const deleteArtwork = async (req, res) => {
   console.log('deleteImage')
   res.status(200).json({ msg: 'deleteImage' })
 }
 
-module.exports = { postImage, getAllImages, getImage, updateImage, deleteImage }
+module.exports = {
+  postArtwork,
+  getAllArtworks,
+  getArtwork,
+  updateArtwork,
+  deleteArtwork,
+}
