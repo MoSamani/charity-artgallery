@@ -13,6 +13,18 @@ export const postArtworkThunk = async (url, artwork, thunkAPI) => {
   }
 }
 
+export const updateArtworkThunk = async (url, artwork, thunkAPI) => {
+  try {
+    const resp = await customFetch.patch(url, artwork)
+    toast.success(`Your artwork is updated`)
+    return resp.data
+  } catch (error) {
+    const errorMsg = error.response?.data?.msg || 'update failed'
+    toast.error(errorMsg)
+    return thunkAPI.rejectWithValue(error.response.data.msg)
+  }
+}
+
 export const getAllArtworksThunk = async (url, artwork, thunkAPI) => {
   try {
     const resp = await customFetch.get(url, artwork)

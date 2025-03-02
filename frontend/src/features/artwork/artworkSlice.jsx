@@ -3,12 +3,20 @@ import {
   postArtworkThunk,
   getAllArtworksThunk,
   getUsersArtworksThunk,
+  updateArtworkThunk,
 } from './artworkthunk'
 
 export const getAllArtworks = createAsyncThunk(
   'artwork/getAllArtworks',
   async (artwork, thunkAPI) => {
     return getAllArtworksThunk('artwork/all', artwork, thunkAPI)
+  }
+)
+
+export const getUsersArtworks = createAsyncThunk(
+  'artwork/getUsersArtworks',
+  async (artwork, thunkAPI) => {
+    return getUsersArtworksThunk('artwork/user', artwork, thunkAPI)
   }
 )
 
@@ -19,10 +27,10 @@ export const postArtwork = createAsyncThunk(
   }
 )
 
-export const getUsersArtworks = createAsyncThunk(
-  'artwork/getUsersArtworks',
+export const updateArtwork = createAsyncThunk(
+  'artwork/updateArtwork',
   async (artwork, thunkAPI) => {
-    return getUsersArtworksThunk('artwork/user', artwork, thunkAPI)
+    return updateArtworkThunk('artwork', artwork, thunkAPI)
   }
 )
 
@@ -36,7 +44,11 @@ const initialState = {
 const artworkSlice = createSlice({
   name: 'artwork',
   initialState,
-  reducers: {},
+  reducers: {
+    setArtwork: (state, action) => {
+      state.artwork = action.payload
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(postArtwork.pending, (state) => {
@@ -47,7 +59,18 @@ const artworkSlice = createSlice({
         state.isLoading = false
         state.artwork = artwork
       })
-      .addCase(postArtwork.rejected, (state, { payload }) => {
+      .addCase(postArtwork.rejected, (state) => {
+        state.isLoading = false
+      })
+      .addCase(updateArtwork.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(updateArtwork.fulfilled, (state, { payload }) => {
+        const { artwork } = payload
+        state.isLoading = false
+        state.artwork = artwork
+      })
+      .addCase(updateArtwork.rejected, (state) => {
         state.isLoading = false
       })
       .addCase(getAllArtworks.pending, (state) => {
@@ -74,5 +97,7 @@ const artworkSlice = createSlice({
       })
   },
 })
+
+export const { setArtwork } = artworkSlice.actions
 
 export default artworkSlice.reducer

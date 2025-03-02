@@ -7,6 +7,7 @@ import { getUsersArtworks } from '../../features/artwork/artworkSlice.jsx'
 import { useSelector } from 'react-redux'
 import PaintingCard from '../../components/PaintingCard'
 import Footer from '../../components/Footer.jsx'
+import { setArtwork } from '../../features/artwork/artworkSlice.jsx'
 
 function User() {
   const dispatch = useDispatch()
@@ -55,8 +56,9 @@ function User() {
             <PaintingCard
               key={artwork._id}
               painting={artwork}
-              onClick={(painting) => {
+              onClick={(artwork) => {
                 navigate('/EditArtwork')
+                dispatch(setArtwork(artwork))
               }}
             />
           ))

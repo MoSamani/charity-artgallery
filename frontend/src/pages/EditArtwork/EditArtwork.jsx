@@ -5,32 +5,24 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Textarea from '../../components/Textarea'
 import FormRow from '../../components/FormRow'
-import { postArtwork } from '../../features/artwork/artworkSlice'
-
-const initialState = {
-  name: '',
-  medium: '',
-  size: '',
-  description: '',
-  mprise: 20,
-  donate: false,
-}
+import { updateArtwork } from '../../features/artwork/artworkSlice'
 
 function EditArtwork() {
-  const [values, setValues] = useState(initialState)
-  const [checked, setChecked] = useState(false)
-  const [file, setFile] = useState(null)
-  const [preview, setPreview] = useState(null)
-
   const { user } = useSelector((store) => store.user)
-  const { isLoading } = useSelector((store) => store.artwork)
+  const { artwork, isLoading } = useSelector((store) => store.artwork)
+  const [values, setValues] = useState(artwork)
+
+  const [checked, setChecked] = useState(artwork.donate || false)
+  const [file, setFile] = useState(null)
+  const [preview, setPreview] = useState(artwork.image1_url || null)
+  console.log('EditArtwork', artwork)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const onSubmit = (e) => {
     e.preventDefault()
-    const { name, medium, size, description, mprise, donate } = values
+    const { name, medium, size, description, mprise, donate, _id } = values
     const email = user.email
 
     const formData = new FormData()
@@ -41,11 +33,13 @@ function EditArtwork() {
     formData.append('mprise', mprise)
     formData.append('donate', donate)
     formData.append('email', email)
-    formData.append('image', file)
-    console.log(file)
+    formData.append('_id', _id)
+    if (file) {
+      formData.append('image', file)
+    }
 
-    dispatch(postArtwork(formData))
-    setValues(initialState)
+    dispatch(updateArtwork(formData))
+    navigate('/User')
   }
 
   const handleChange = (e) => {
@@ -53,14 +47,16 @@ function EditArtwork() {
     const value = e.target.value
 
     setValues({ ...values, [name]: value })
-    console.log(values)
+    console.log('handleChange', values)
   }
 
   const handleChangeDonate = (e) => {
     setChecked(!checked)
-    const name = e.target.name
-    setValues({ ...values, [name]: !checked })
-    console.log(values)
+    setValues((prevValues) => ({
+      ...prevValues,
+      donate: !checked,
+    }))
+    console.log('handleChangeDonate', values)
   }
 
   const handleChangeFile = (e) => {
@@ -83,6 +79,7 @@ function EditArtwork() {
       }, 1000)
     }
   }, [user])
+
   return (
     <div>
       <Navbar />
@@ -122,8 +119,8 @@ function EditArtwork() {
           <FormRow type="file" name="image" handleChange={handleChangeFile} />
           {preview && (
             <div>
-              <p>File name: {file.name} </p>
-              <p>Type : {file.type}</p>
+              <p>File name: {file?.name} </p>
+              <p>Type : {file?.type}</p>
               <img
                 src={preview}
                 alt="Preview"
@@ -137,7 +134,7 @@ function EditArtwork() {
               />
             </div>
           )}
-          <button
+          {/* <button
             type="button"
             onClick={(e) => {
               e.preventDefault()
@@ -146,7 +143,7 @@ function EditArtwork() {
             }}
           >
             Remove Image
-          </button>
+          </button> */}
 
           <FormRow
             type="text"
