@@ -51,7 +51,7 @@ function User() {
           marginTop: '20px',
         }}
       >
-        {usersArtworks.length > 0 ? (
+        {usersArtworks ? (
           usersArtworks.map((artwork) => (
             <PaintingCard
               key={artwork._id}

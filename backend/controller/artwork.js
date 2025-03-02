@@ -169,9 +169,6 @@ const getArtwork = async (req, res) => {
 //   }
 // }
 const updateArtwork = async (req, res) => {
-  console.log('Updateimage')
-  console.log(req.body)
-
   const { name, medium, size, description, mprise, donate, _id } = req.body
   let image = null // Speichert die neue Bild-URL, falls vorhanden
 
@@ -254,8 +251,17 @@ const getArtworksOFUser = async (req, res) => {
   }
 }
 const deleteArtwork = async (req, res) => {
-  console.log('deleteImage')
-  res.status(200).json({ msg: 'deleteImage' })
+  const artworkid = req.body.artworkID
+
+  try {
+    const artwork = await Artwork.findOneAndDelete({ _id: artworkid })
+    if (!artwork) {
+      res.status(404).json({ msg: `No Artwork with id: ${artworkid}` })
+    }
+    res.status(200).json({ artwork: artwork })
+  } catch (error) {
+    res.status(500).json({ msg: error.message })
+  }
 }
 
 module.exports = {

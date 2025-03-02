@@ -6,15 +6,16 @@ import { useNavigate } from 'react-router-dom'
 import Textarea from '../../components/Textarea'
 import FormRow from '../../components/FormRow'
 import { updateArtwork } from '../../features/artwork/artworkSlice'
+import DeleteArtworkButton from '../../components/DeleteArtworkButton'
 
 function EditArtwork() {
   const { user } = useSelector((store) => store.user)
   const { artwork, isLoading } = useSelector((store) => store.artwork)
   const [values, setValues] = useState(artwork)
 
-  const [checked, setChecked] = useState(artwork.donate || false)
+  const [checked, setChecked] = useState(artwork?.donate || false)
   const [file, setFile] = useState(null)
-  const [preview, setPreview] = useState(artwork.image1_url || null)
+  const [preview, setPreview] = useState(artwork?.image1_url || null)
   console.log('EditArtwork', artwork)
 
   const dispatch = useDispatch()
@@ -39,7 +40,9 @@ function EditArtwork() {
     }
 
     dispatch(updateArtwork(formData))
-    navigate('/User')
+    setTimeout(() => {
+      navigate('/User')
+    }, 2000)
   }
 
   const handleChange = (e) => {
@@ -72,13 +75,21 @@ function EditArtwork() {
     console.log(file)
   }
 
+  //   useEffect(() => {
+  //     if (!user) {
+  //       setTimeout(() => {
+  //         navigate('/Login')
+  //       }, 1000)
+  //     }
+  //   }, [user])
+
   useEffect(() => {
-    if (!user) {
+    if (!artwork) {
       setTimeout(() => {
-        navigate('/Login')
+        navigate('/User')
       }, 1000)
     }
-  }, [user])
+  }, [artwork])
 
   return (
     <div>
@@ -165,6 +176,8 @@ function EditArtwork() {
           </button>
         </form>
       </div>
+
+      <DeleteArtworkButton artworkID={artwork?._id} />
 
       <button
         type="button"

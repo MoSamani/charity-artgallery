@@ -4,6 +4,7 @@ import {
   getAllArtworksThunk,
   getUsersArtworksThunk,
   updateArtworkThunk,
+  removeArtworkThunk,
 } from './artworkthunk'
 
 export const getAllArtworks = createAsyncThunk(
@@ -31,6 +32,13 @@ export const updateArtwork = createAsyncThunk(
   'artwork/updateArtwork',
   async (artwork, thunkAPI) => {
     return updateArtworkThunk('artwork', artwork, thunkAPI)
+  }
+)
+
+export const removeArtwork = createAsyncThunk(
+  'artwork/removeArtwork',
+  async (artwork, thunkAPI) => {
+    return removeArtworkThunk('artwork', artwork, thunkAPI)
   }
 )
 
@@ -93,6 +101,17 @@ const artworkSlice = createSlice({
         state.usersArtworks = artworks
       })
       .addCase(getUsersArtworks.rejected, (state) => {
+        state.isLoading = false
+      })
+      .addCase(removeArtwork.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(removeArtwork.fulfilled, (state, { payload }) => {
+        const { artworks } = payload
+        state.isLoading = false
+        state.usersArtworks = artworks
+      })
+      .addCase(removeArtwork.rejected, (state) => {
         state.isLoading = false
       })
   },

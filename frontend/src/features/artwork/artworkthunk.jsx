@@ -19,7 +19,20 @@ export const updateArtworkThunk = async (url, artwork, thunkAPI) => {
     toast.success(`Your artwork is updated`)
     return resp.data
   } catch (error) {
-    const errorMsg = error.response?.data?.msg || 'update failed'
+    const errorMsg = error.response?.data?.msg || 'Update failed'
+    toast.error(errorMsg)
+    return thunkAPI.rejectWithValue(error.response.data.msg)
+  }
+}
+
+export const removeArtworkThunk = async (url, artwork, thunkAPI) => {
+  console.log('removeArtworkThunk: ', artwork)
+  try {
+    const resp = await customFetch.delete(url, { data: artwork })
+    toast.success(`Your artwork is removed`)
+    return resp.data
+  } catch (error) {
+    const errorMsg = error.response?.data?.msg || 'Remove failed'
     toast.error(errorMsg)
     return thunkAPI.rejectWithValue(error.response.data.msg)
   }
