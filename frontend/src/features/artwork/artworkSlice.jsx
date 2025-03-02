@@ -1,5 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { postArtworkThunk, getAllArtworksThunk } from './artworkthunk'
+import {
+  postArtworkThunk,
+  getAllArtworksThunk,
+  getUsersArtworksThunk,
+} from './artworkthunk'
 
 export const getAllArtworks = createAsyncThunk(
   'artwork/getAllArtworks',
@@ -15,10 +19,18 @@ export const postArtwork = createAsyncThunk(
   }
 )
 
+export const getUsersArtworks = createAsyncThunk(
+  'artwork/getUsersArtworks',
+  async (artwork, thunkAPI) => {
+    return getUsersArtworksThunk('artwork/user', artwork, thunkAPI)
+  }
+)
+
 const initialState = {
   isLoading: false,
   artwork: {},
   artworks: [],
+  usersArtworks: [],
 }
 
 const artworkSlice = createSlice({
@@ -46,7 +58,18 @@ const artworkSlice = createSlice({
         state.isLoading = false
         state.artworks = artworks
       })
-      .addCase(getAllArtworks.rejected, (state, { payload }) => {
+      .addCase(getAllArtworks.rejected, (state) => {
+        state.isLoading = false
+      })
+      .addCase(getUsersArtworks.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(getUsersArtworks.fulfilled, (state, { payload }) => {
+        const { artworks } = payload
+        state.isLoading = false
+        state.usersArtworks = artworks
+      })
+      .addCase(getUsersArtworks.rejected, (state) => {
         state.isLoading = false
       })
   },

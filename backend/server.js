@@ -33,7 +33,12 @@ cloudinary.config({
 // Routes
 app.use('/api/user', userRouter)
 app.use('/api/user/auth', authRouter)
-app.use('/api/artwork', localUpload.single('image'), artworkRouter)
+app.use(
+  '/api/artwork',
+  authenticateUser,
+  localUpload.single('image'),
+  artworkRouter
+)
 
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)

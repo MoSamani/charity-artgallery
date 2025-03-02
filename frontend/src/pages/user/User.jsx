@@ -1,13 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { logoutUser } from '../../features/user/userSlice'
 import Navbar from '../../components/Navbar.jsx'
 import { useNavigate } from 'react-router-dom'
+import { getUsersArtworks } from '../../features/artwork/artworkSlice.jsx'
+import { useSelector } from 'react-redux'
+import PaintingCard from '../../components/PaintingCard'
+import Footer from '../../components/Footer.jsx'
 
 function User() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  useEffect(() => {
+    dispatch(getUsersArtworks({}))
+  }, [])
+  let { usersArtworks } = useSelector((store) => store.artwork)
+
+  // artworks = artworks.filter((artwork) =>{artwork.createdBy._id == user._id})
   return (
     <div className="home-container">
       <Navbar />
@@ -30,6 +40,33 @@ function User() {
       >
         {'Edit user information'}
       </button>
+
+      <div
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          gap: '20px',
+          marginTop: '20px',
+        }}
+      >
+        {usersArtworks.length > 0 ? (
+          usersArtworks.map((artwork) => (
+            <PaintingCard
+              key={artwork._id}
+              painting={artwork}
+              onClick={(painting) => {
+                navigate('/EditArtwork')
+              }}
+            />
+          ))
+        ) : (
+          <p>No paintings is uploaded!</p>
+        )}
+      </div>
+      <div>
+        <Footer />
+      </div>
     </div>
   )
 }

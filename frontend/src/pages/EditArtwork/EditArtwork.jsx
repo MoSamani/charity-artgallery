@@ -16,7 +16,7 @@ const initialState = {
   donate: false,
 }
 
-function Upload() {
+function EditArtwork() {
   const [values, setValues] = useState(initialState)
   const [checked, setChecked] = useState(false)
   const [file, setFile] = useState(null)
@@ -86,7 +86,7 @@ function Upload() {
   return (
     <div>
       <Navbar />
-      <h1>Upload Artwork</h1>
+      <h1>Edit Artwork</h1>
 
       <div>
         <form className="form" onSubmit={onSubmit}>
@@ -168,8 +168,18 @@ function Upload() {
           </button>
         </form>
       </div>
+
+      <button
+        type="button"
+        onClick={() => {
+          navigate(-1)
+        }}
+        className="member-btn"
+      >
+        {'Back'}
+      </button>
     </div>
   )
 }
 
-export default Upload
+export default EditArtwork

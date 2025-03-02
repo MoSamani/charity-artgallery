@@ -42,6 +42,14 @@ const postArtwork = async (req, res) => {
     })
     res.status(StatusCodes.CREATED).json({
       artworkId: artwork._id,
+      name: artwork.name,
+      medium: artwork.medium,
+      size: artwork.size,
+      description: artwork.description,
+      mprise: artwork.mprise,
+      donate: artwork.donate,
+      image1_url: image.url,
+      image1_public_id: image.public_id,
     })
   } catch (error) {
     console.log(error.message)
@@ -68,10 +76,77 @@ const getArtwork = async (req, res) => {
 }
 
 const updateArtwork = async (req, res) => {
-  console.log('updateImage')
-  res.status(200).json({ msg: 'updateImage' })
+  try {
+    if (!req.file) {
+      return res.status(400).json({ msg: 'No file uploaded' })
+    }
+
+    if (!req.file.mimetype.startsWith('image')) {
+      return res.status(400).json({ msg: 'Please Upload Image!' })
+    }
+
+    if (req.file.size > 1024 * 1024) {
+      return res.status(400).json({ msg: 'Please upload image smaller 1MB!' })
+    }
+
+    const result = await uploadFromBuffer(req.file.buffer)
+    image = { url: result.secure_url, public_id: result.public_id }
+  } catch (error) {
+    console.error('Cloudinary Upload Error:', error)
+    res.status(500).json({ msg: error.message })
+  }
+
+  const { name, medium, size, description, mprise, donate, email } = req.body
+  const user = await User.findOne({ email: email })
+
+  try {
+    const artwork = await Artwork.findByIdAndUpdate(
+      { _id: _id },
+      {
+        name,
+        medium,
+        size,
+        description,
+        mprise,
+        donate,
+        image1_url: image.url,
+        image1_public_id: image.public_id,
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    )
+    res.status(StatusCodes.CREATED).json({
+      artworkId: artwork._id,
+      name: artwork.name,
+      medium: artwork.medium,
+      size: artwork.size,
+      description: artwork.description,
+      mprise: artwork.mprise,
+      donate: artwork.donate,
+      image1_url: image.url,
+      image1_public_id: image.public_id,
+    })
+  } catch (error) {
+    console.log(error.message)
+    res.status(StatusCodes.BAD_REQUEST).json({ msg: error.message })
+  }
 }
 
+const getArtworksOFUser = async (req, res) => {
+  if (!req.user || !req.user.userID) {
+    return res.status(401).json({ msg: 'User not authenticated' })
+  }
+  try {
+    const artworks = await Artwork.find({
+      createdBy: req.user.userID,
+    }).populate('createdBy', 'firstname lastname')
+    res.status(200).json({ artworks: artworks })
+  } catch (error) {
+    res.status(500).json({ msg: error })
+  }
+}
 const deleteArtwork = async (req, res) => {
   console.log('deleteImage')
   res.status(200).json({ msg: 'deleteImage' })
@@ -83,4 +158,5 @@ module.exports = {
   getArtwork,
   updateArtwork,
   deleteArtwork,
+  getArtworksOFUser,
 }

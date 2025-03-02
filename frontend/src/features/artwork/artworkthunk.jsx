@@ -16,7 +16,19 @@ export const postArtworkThunk = async (url, artwork, thunkAPI) => {
 export const getAllArtworksThunk = async (url, artwork, thunkAPI) => {
   try {
     const resp = await customFetch.get(url, artwork)
-    console.log(resp.data)
+    console.log('getAllArtworksThunk', resp.data)
+    return resp.data
+  } catch (error) {
+    const errorMsg = error.response?.data?.msg || 'Fetch failed'
+    toast.error(errorMsg)
+    return thunkAPI.rejectWithValue(error.response.data.msg)
+  }
+}
+
+export const getUsersArtworksThunk = async (url, artwork, thunkAPI) => {
+  try {
+    const resp = await customFetch.get(url, artwork)
+    console.log('getUsersArtworksThunk', resp.data)
     return resp.data
   } catch (error) {
     const errorMsg = error.response?.data?.msg || 'Fetch failed'

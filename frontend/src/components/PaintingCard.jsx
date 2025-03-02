@@ -1,10 +1,11 @@
 import React from 'react'
 import FavoriteIcon from './FavoriteIcon'
 
-function PaintingCard({ painting }) {
+function PaintingCard({ painting, onClick }) {
   return (
     <div
       className="painting-card"
+      onClick={() => onClick(painting)}
       style={{
         border: '1px solid #ccc',
         padding: '10px',
