@@ -7,20 +7,23 @@ function FavoriteIcon({ itemId }) {
   let { user } = useSelector((store) => store.user)
 
   const [favorites, setFavorites] = useState(user?.favorites || [])
+
   useEffect(() => {
     setFavorites(user?.favorites || [])
   }, [user?.favorites])
-
+  console.log(favorites)
   const isFavorite = user?.favorites.includes(itemId)
 
   const toggleFavorite = () => {
-    const updatedFavorites = isFavorite
+    let updatedFavorites = isFavorite
       ? favorites.filter((id) => id !== itemId)
       : [...favorites, itemId]
 
     setFavorites(() => {
       return { updatedFavorites }
     })
+    console.log('updatedFavorites', updatedFavorites)
+    console.log(updatedFavorites.includes(itemId))
 
     dispatch(
       updateUser({
@@ -31,14 +34,13 @@ function FavoriteIcon({ itemId }) {
       })
     )
   }
-  console.log(favorites)
-  console.log('Fivorteicon', user)
+  console.log('favorites', favorites)
 
   return (
     <span
       onClick={toggleFavorite}
       style={{
-        color: user?.favorites.includes(itemId) ? 'red' : 'gray',
+        color: isFavorite ? 'red' : 'gray',
         cursor: 'pointer',
         fontSize: '35px',
       }}

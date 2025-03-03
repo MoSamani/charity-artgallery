@@ -10,7 +10,7 @@ import {
 export const getAllArtworks = createAsyncThunk(
   'artwork/getAllArtworks',
   async (artwork, thunkAPI) => {
-    return getAllArtworksThunk('artwork/all', artwork, thunkAPI)
+    return getAllArtworksThunk('public', artwork, thunkAPI)
   }
 )
 

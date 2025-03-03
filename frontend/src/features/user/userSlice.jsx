@@ -14,11 +14,6 @@ import {
   clearStoreThunk,
 } from './userThunk'
 
-const initialState = {
-  isLoading: false,
-  user: getUserFromLocalStorage(),
-}
-
 export const registerUser = createAsyncThunk(
   'user/registerUser',
   async (user, thunkAPI) => {
@@ -52,6 +47,12 @@ export const removeUser = createAsyncThunk(
   }
 )
 export const clearStore = createAsyncThunk('user/clearStore', clearStoreThunk)
+
+const initialState = {
+  isLoading: false,
+  user: getUserFromLocalStorage(),
+}
+
 const userSlice = createSlice({
   name: 'user',
   initialState,
