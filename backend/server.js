@@ -3,7 +3,7 @@ const cors = require('cors')
 const corsOptions = { origin: ['http://localhost:3000'] }
 const userRouter = require('./routes/user')
 const authRouter = require('./routes/auth')
-const artworkRouter = require('./routes/artworks')
+const { artworkRouter, publicRouter } = require('./routes/artworks')
 const { localUpload } = require('./controller/upload')
 const cloudinary = require('cloudinary').v2
 
@@ -39,6 +39,7 @@ app.use(
   localUpload.single('image'),
   artworkRouter
 )
+app.use('/api/public', publicRouter)
 
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)
