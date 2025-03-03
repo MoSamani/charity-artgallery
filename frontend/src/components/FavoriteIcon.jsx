@@ -8,22 +8,18 @@ function FavoriteIcon({ itemId }) {
 
   const [favorites, setFavorites] = useState(user?.favorites || [])
 
-  useEffect(() => {
-    setFavorites(user?.favorites || [])
-  }, [user?.favorites])
-  console.log(favorites)
-  const isFavorite = user?.favorites.includes(itemId)
+  // useEffect(() => {
+  //   setFavorites(user?.favorites || [])
+  // }, [user?.favorites])
+
+  const isFavorite = favorites.includes(itemId)
 
   const toggleFavorite = () => {
     let updatedFavorites = isFavorite
       ? favorites.filter((id) => id !== itemId)
       : [...favorites, itemId]
 
-    setFavorites(() => {
-      return { updatedFavorites }
-    })
-    console.log('updatedFavorites', updatedFavorites)
-    console.log(updatedFavorites.includes(itemId))
+    setFavorites(updatedFavorites)
 
     dispatch(
       updateUser({
@@ -34,7 +30,6 @@ function FavoriteIcon({ itemId }) {
       })
     )
   }
-  console.log('favorites', favorites)
 
   return (
     <span
