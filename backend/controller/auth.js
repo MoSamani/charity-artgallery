@@ -56,16 +56,19 @@ const login = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-  const { firstname, lastname, email } = req.body
+  const { firstname, lastname, email, favorites } = req.body
 
   const user = await User.findOne({ email })
+  if (!user) {
+    return res.status(StatusCodes.NOT_FOUND).json({ msg: 'User not found' })
+  }
   user.firstname = firstname
   user.lastname = lastname
 
   // await user.save()
   await User.findByIdAndUpdate(
     { _id: user._id },
-    { firstname: firstname, lastname: lastname },
+    { firstname: firstname, lastname: lastname, favorites: favorites },
     {
       new: true,
       runValidators: true,
@@ -121,4 +124,10 @@ const deleteUser = async (req, res) => {
   }
 }
 
-module.exports = { login, register, updateUser, updatePassword, deleteUser }
+module.exports = {
+  login,
+  register,
+  updateUser,
+  updatePassword,
+  deleteUser,
+}

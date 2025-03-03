@@ -7,6 +7,7 @@ const {
   getArtwork,
   updateArtwork,
   deleteArtwork,
+  getArtworksOFUser,
 } = require('../controller/artwork')
 
 router
@@ -16,5 +17,6 @@ router
   .patch(updateArtwork)
   .delete(deleteArtwork)
 router.get('/all', getAllArtworks)
+router.get('/user', getArtworksOFUser)
 
 module.exports = router

@@ -1,7 +1,7 @@
 import React from 'react'
 import FavoriteIcon from './FavoriteIcon'
 
-function PaintingCard({ painting }) {
+function PaintingCard({ painting, onClick }) {
   return (
     <div
       className="painting-card"
@@ -17,6 +17,7 @@ function PaintingCard({ painting }) {
     >
       <img
         src={painting.image1_url}
+        onClick={() => onClick(painting)}
         alt={''}
         style={{
           width: '100%',

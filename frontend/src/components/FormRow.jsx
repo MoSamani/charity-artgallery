@@ -1,6 +1,6 @@
 import React from 'react'
 
-const FormRow = ({ type, name, value, handleChange, labelText }) => {
+const FormRow = ({ type, name, value, handleChange, labelText, checked }) => {
   return (
     <div className="form-row">
       <label htmlFor={name} className="form-label">
@@ -11,7 +11,8 @@ const FormRow = ({ type, name, value, handleChange, labelText }) => {
         type={type}
         name={name}
         // value={value}
-        {...(type !== 'file' && { value })}
+        {...(type !== 'file' && type !== 'checkbox' && { value })}
+        {...(type === 'checkbox' && { checked })}
         onChange={handleChange}
         className="form-input"
       />

@@ -18,7 +18,8 @@ import DeleteButton from '../../components/DeleteButton'
 
 function EditUser() {
   const { user, isLoading } = useSelector((store) => store.user)
-  const [values, setValues] = useState(user)
+  const { artwork } = useSelector((store) => store.artwork)
+  const [values, setValues] = useState(artwork)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()

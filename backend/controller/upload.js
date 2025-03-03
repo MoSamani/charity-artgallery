@@ -19,7 +19,7 @@ const localUpload = multer({ storage })
 const uploadFromBuffer = (buffer) => {
   return new Promise((resolve, reject) => {
     const uploadStream = cloudinary.uploader.upload_stream(
-      { folder: 'artgallery' }, // Optional: Ordner in Cloudinary
+      { folder: 'artgallery' },
       (error, result) => {
         if (error) {
           reject(error)
