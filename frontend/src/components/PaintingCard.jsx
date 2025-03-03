@@ -5,7 +5,6 @@ function PaintingCard({ painting, onClick }) {
   return (
     <div
       className="painting-card"
-      onClick={() => onClick(painting)}
       style={{
         border: '1px solid #ccc',
         padding: '10px',
@@ -18,6 +17,7 @@ function PaintingCard({ painting, onClick }) {
     >
       <img
         src={painting.image1_url}
+        onClick={() => onClick(painting)}
         alt={''}
         style={{
           width: '100%',

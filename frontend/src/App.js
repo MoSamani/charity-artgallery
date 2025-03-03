@@ -13,7 +13,8 @@ import User from './pages/user/User'
 import './App.css'
 import EditUser from './pages/editUser/EditUser'
 import EditPassword from './pages/editPassword/EditPassword'
-import EditArtwork from './pages/EditArtwork/EditArtwork'
+import EditArtwork from './pages/editArtwork/EditArtwork'
+import ViewArtwork from './pages/viewArtwork/ViewArtwork'
 
 const App = () => {
   // const fetchAPI = async () => {
@@ -36,6 +37,7 @@ const App = () => {
         <Route path="/EditUser" element={<EditUser />} />
         <Route path="/EditPassword" element={<EditPassword />} />
         <Route path="/EditArtwork" element={<EditArtwork />} />
+        <Route path="/ViewArtwork" element={<ViewArtwork />} />
       </Routes>
       <ToastContainer position="top-right" />
     </div>

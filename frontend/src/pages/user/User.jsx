@@ -18,7 +18,6 @@ function User() {
   }, [])
   let { usersArtworks } = useSelector((store) => store.artwork)
 
-  // artworks = artworks.filter((artwork) =>{artwork.createdBy._id == user._id})
   return (
     <div className="home-container">
       <Navbar />

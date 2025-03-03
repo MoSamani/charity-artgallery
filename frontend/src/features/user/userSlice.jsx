@@ -103,7 +103,7 @@ const userSlice = createSlice({
         state.user = user
         removeUserFromLocalStorage()
         addUserToLocalStorage(user)
-        toast.success(`Account Updated`)
+        // toast.success(`Account Updated`)
       })
       .addCase(updateUser.rejected, (state, { payload }) => {
         state.isLoading = false

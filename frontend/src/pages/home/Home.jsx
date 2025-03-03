@@ -7,12 +7,14 @@ import SearchBar from '../../components/SearchBar'
 import Footer from '../../components/Footer'
 import { useSelector, useDispatch } from 'react-redux'
 import { getAllArtworks } from '../../features/artwork/artworkSlice.jsx'
+import { useNavigate } from 'react-router-dom'
 import './Home.css'
 
 function Home() {
   const { artworks } = useSelector((store) => store.artwork)
   console.log('Artworks: ', artworks)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const [paintings, setPaintings] = useState([])
   const [sizes, setSizes] = useState([])
@@ -134,7 +136,11 @@ function Home() {
       >
         {artworks.length > 0 ? (
           artworks.map((artwork) => (
-            <PaintingCard key={artwork._id} painting={artwork} />
+            <PaintingCard
+              key={artwork._id}
+              painting={artwork}
+              onClick={() => navigate('/ViewArtwork')}
+            />
           ))
         ) : (
           <p>No paintings match the selected filters.</p>
