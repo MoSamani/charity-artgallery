@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import Textarea from '../../components/Textarea'
 import FormRow from '../../components/FormRow'
 import { postArtwork } from '../../features/artwork/artworkSlice'
+import Footer from '../../components/Footer'
 
 const initialState = {
   name: '',
@@ -86,9 +87,9 @@ function Upload() {
   return (
     <div>
       <Navbar />
-      <h1>Upload Artwork</h1>
+      <div className="main-content">
+        <h1>Upload Artwork</h1>
 
-      <div>
         <form className="form" onSubmit={onSubmit}>
           {/* name field */}
 
@@ -167,6 +168,9 @@ function Upload() {
             {isLoading ? 'loading...' : 'submit'}
           </button>
         </form>
+      </div>
+      <div>
+        <Footer />
       </div>
     </div>
   )
