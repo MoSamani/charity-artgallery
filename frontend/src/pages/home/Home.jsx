@@ -121,6 +121,7 @@ function Home() {
           fontSize: '18px',
           fontWeight: 'bold',
         }}
+        class="main-content"
       >
         <Countdown />
       </div>
