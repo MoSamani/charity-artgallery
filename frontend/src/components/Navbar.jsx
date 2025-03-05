@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 // import { getUserFromLocalStorage } from '../utils/localstorage'
 import { useSelector } from 'react-redux'
-import './Navbar.css';
 
 function Navbar() {
   const { user } = useSelector((store) => store.user)
