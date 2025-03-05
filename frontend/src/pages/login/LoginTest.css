@@ -4,17 +4,6 @@
   object-fit: contain; /* 🔥 Stellt sicher, dass das Bild nicht verzerrt wird */
 }
 
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  flex-direction: column;
-}
-
 form {
   background: #fff;
   padding: 2rem;
@@ -23,7 +12,7 @@ form {
   width: 350px;
   text-align: left;
   /* margin-top: 350px; Abstand zur Navbar */
-  margin: 22rem auto 0rem auto;
+  margin: 10rem auto 0rem auto;
 }
 
 h3 {
