@@ -1,0 +1,25 @@
+.logo {
+  display: block;
+  width: 30vw !important;
+  max-width: 600px !important;
+  min-width: 150px !important;
+  height: auto !important;
+  object-fit: contain !important;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 100%;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.right-part {
+  padding: 3vw;
+}
+
+.left-part {
+  padding: 3vw;
+}

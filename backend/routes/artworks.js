@@ -1,5 +1,5 @@
 const express = require('express')
-const router = express.Router()
+const artworkRouter = express.Router()
 
 const {
   postArtwork,
@@ -7,14 +7,20 @@ const {
   getArtwork,
   updateArtwork,
   deleteArtwork,
+  getArtworksOFUser,
 } = require('../controller/artwork')
 
-router
+artworkRouter
   .route('/')
   .get(getArtwork)
   .post(postArtwork)
   .patch(updateArtwork)
   .delete(deleteArtwork)
-router.get('/all', getAllArtworks)
+artworkRouter.get('/user', getArtworksOFUser)
 
-module.exports = router
+// Öffentliche Route ohne Authentifizierung
+const publicRouter = express.Router()
+publicRouter.get('/', getAllArtworks)
+
+// Exportiere beide Router
+module.exports = { artworkRouter, publicRouter }

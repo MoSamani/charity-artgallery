@@ -13,15 +13,17 @@ import User from './pages/user/User'
 import './App.css'
 import EditUser from './pages/editUser/EditUser'
 import EditPassword from './pages/editPassword/EditPassword'
+import EditArtwork from './pages/editArtwork/EditArtwork'
+import ViewArtwork from './pages/viewArtwork/ViewArtwork'
 
 const App = () => {
-  const fetchAPI = async () => {
-    const response = await axios.get('http://localhost:5000/api/user')
-    console.log(response.data)
-  }
-  useEffect(() => {
-    fetchAPI()
-  }, [])
+  // const fetchAPI = async () => {
+  //   const response = await axios.get('http://localhost:5000/api/user')
+  //   console.log(response.data)
+  // }
+  // useEffect(() => {
+  //   fetchAPI()
+  // }, [])
   return (
     <div className="app-container">
       <Routes>
@@ -34,6 +36,8 @@ const App = () => {
         <Route path="/user" element={<User />} />
         <Route path="/EditUser" element={<EditUser />} />
         <Route path="/EditPassword" element={<EditPassword />} />
+        <Route path="/EditArtwork" element={<EditArtwork />} />
+        <Route path="/ViewArtwork" element={<ViewArtwork />} />
       </Routes>
       <ToastContainer position="top-right" />
     </div>

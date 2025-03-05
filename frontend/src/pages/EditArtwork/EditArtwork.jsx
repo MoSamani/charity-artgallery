@@ -5,32 +5,25 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Textarea from '../../components/Textarea'
 import FormRow from '../../components/FormRow'
-import { postArtwork } from '../../features/artwork/artworkSlice'
+import { updateArtwork } from '../../features/artwork/artworkSlice'
+import DeleteArtworkButton from '../../components/DeleteArtworkButton'
 
-const initialState = {
-  name: '',
-  medium: '',
-  size: '',
-  description: '',
-  mprise: 20,
-  donate: false,
-}
-
-function Upload() {
-  const [values, setValues] = useState(initialState)
-  const [checked, setChecked] = useState(false)
-  const [file, setFile] = useState(null)
-  const [preview, setPreview] = useState(null)
-
+function EditArtwork() {
   const { user } = useSelector((store) => store.user)
-  const { isLoading } = useSelector((store) => store.artwork)
+  const { artwork, isLoading } = useSelector((store) => store.artwork)
+  const [values, setValues] = useState(artwork)
+
+  const [checked, setChecked] = useState(artwork?.donate || false)
+  const [file, setFile] = useState(null)
+  const [preview, setPreview] = useState(artwork?.image1_url || null)
+  console.log('EditArtwork', artwork)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const onSubmit = (e) => {
     e.preventDefault()
-    const { name, medium, size, description, mprise, donate } = values
+    const { name, medium, size, description, mprise, donate, _id } = values
     const email = user.email
 
     const formData = new FormData()
@@ -41,11 +34,15 @@ function Upload() {
     formData.append('mprise', mprise)
     formData.append('donate', donate)
     formData.append('email', email)
-    formData.append('image', file)
-    console.log(file)
+    formData.append('_id', _id)
+    if (file) {
+      formData.append('image', file)
+    }
 
-    dispatch(postArtwork(formData))
-    setValues(initialState)
+    dispatch(updateArtwork(formData))
+    setTimeout(() => {
+      navigate('/User')
+    }, 2000)
   }
 
   const handleChange = (e) => {
@@ -53,14 +50,16 @@ function Upload() {
     const value = e.target.value
 
     setValues({ ...values, [name]: value })
-    console.log(values)
+    console.log('handleChange', values)
   }
 
   const handleChangeDonate = (e) => {
     setChecked(!checked)
-    const name = e.target.name
-    setValues({ ...values, [name]: !checked })
-    console.log(values)
+    setValues((prevValues) => ({
+      ...prevValues,
+      donate: !checked,
+    }))
+    console.log('handleChangeDonate', values)
   }
 
   const handleChangeFile = (e) => {
@@ -76,17 +75,26 @@ function Upload() {
     console.log(file)
   }
 
+  //   useEffect(() => {
+  //     if (!user) {
+  //       setTimeout(() => {
+  //         navigate('/Login')
+  //       }, 1000)
+  //     }
+  //   }, [user])
+
   useEffect(() => {
-    if (!user) {
+    if (!artwork) {
       setTimeout(() => {
-        navigate('/Login')
+        navigate('/User')
       }, 1000)
     }
-  }, [user])
+  }, [artwork])
+
   return (
     <div>
       <Navbar />
-      <h1>Upload Artwork</h1>
+      <h1>Edit Artwork</h1>
 
       <div>
         <form className="form" onSubmit={onSubmit}>
@@ -122,8 +130,8 @@ function Upload() {
           <FormRow type="file" name="image" handleChange={handleChangeFile} />
           {preview && (
             <div>
-              <p>File name: {file.name} </p>
-              <p>Type : {file.type}</p>
+              <p>File name: {file?.name} </p>
+              <p>Type : {file?.type}</p>
               <img
                 src={preview}
                 alt="Preview"
@@ -137,7 +145,7 @@ function Upload() {
               />
             </div>
           )}
-          <button
+          {/* <button
             type="button"
             onClick={(e) => {
               e.preventDefault()
@@ -146,7 +154,7 @@ function Upload() {
             }}
           >
             Remove Image
-          </button>
+          </button> */}
 
           <FormRow
             type="text"
@@ -168,8 +176,20 @@ function Upload() {
           </button>
         </form>
       </div>
+
+      <DeleteArtworkButton artworkID={artwork?._id} />
+
+      <button
+        type="button"
+        onClick={() => {
+          navigate(-1)
+        }}
+        className="member-btn"
+      >
+        {'Back'}
+      </button>
     </div>
   )
 }
 
-export default Upload
+export default EditArtwork

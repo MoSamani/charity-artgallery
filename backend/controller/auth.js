@@ -56,16 +56,19 @@ const login = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-  const { firstname, lastname, email } = req.body
+  const { firstname, lastname, email, favorites } = req.body
 
   const user = await User.findOne({ email })
+  if (!user) {
+    return res.status(StatusCodes.NOT_FOUND).json({ msg: 'User not found' })
+  }
   user.firstname = firstname
   user.lastname = lastname
 
   // await user.save()
   await User.findByIdAndUpdate(
     { _id: user._id },
-    { firstname: firstname, lastname: lastname },
+    { firstname: firstname, lastname: lastname, favorites: favorites },
     {
       new: true,
       runValidators: true,
@@ -113,7 +116,7 @@ const deleteUser = async (req, res) => {
   try {
     const user = await User.findOneAndDelete({ email: email })
     if (!user) {
-      res.status(404).json({ msg: `No User with id: ${userId}` })
+      res.status(404).json({ msg: `No User with email: ${email}` })
     }
     res.status(200).json({ user: user })
   } catch (error) {
@@ -121,4 +124,24 @@ const deleteUser = async (req, res) => {
   }
 }
 
-module.exports = { login, register, updateUser, updatePassword, deleteUser }
+const getUser = async (req, res) => {
+  const { email } = req.body
+  try {
+    const user = await User.findOne({ email: email })
+    if (!user) {
+      return res.status(404).json({ msg: `No User with email: ${email}` })
+    }
+    return res.status(200).json({ user: user })
+  } catch (error) {
+    return res.status(500).json({ msg: error.message })
+  }
+}
+
+module.exports = {
+  login,
+  register,
+  updateUser,
+  updatePassword,
+  deleteUser,
+  getUser,
+}

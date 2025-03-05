@@ -12,12 +12,8 @@ import {
   updatePasswordThunk,
   removeUserThunk,
   clearStoreThunk,
+  getUserThunk,
 } from './userThunk'
-
-const initialState = {
-  isLoading: false,
-  user: getUserFromLocalStorage(),
-}
 
 export const registerUser = createAsyncThunk(
   'user/registerUser',
@@ -51,7 +47,19 @@ export const removeUser = createAsyncThunk(
     return removeUserThunk('user/auth/removeUser', user, thunkAPI)
   }
 )
+export const getUser = createAsyncThunk(
+  'user/getUser',
+  async (user, thunkAPI) => {
+    return getUserThunk('user/auth/getuser', user, thunkAPI)
+  }
+)
 export const clearStore = createAsyncThunk('user/clearStore', clearStoreThunk)
+
+const initialState = {
+  isLoading: false,
+  user: getUserFromLocalStorage(),
+}
+
 const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -85,7 +93,6 @@ const userSlice = createSlice({
         const { user } = payload
         state.isLoading = false
         state.user = user
-        console.log(payload)
         removeUserFromLocalStorage()
         addUserToLocalStorage(user)
         toast.success(`Welcome Back ${user.firstname}`)
@@ -109,9 +116,7 @@ const userSlice = createSlice({
         state.isLoading = false
         toast.error(payload || 'Update failed')
       })
-      .addCase(updatePassword.rejected, (state) => {
-        state.isLoading = false
-      })
+
       .addCase(updatePassword.pending, (state, { payload }) => {
         state.isLoading = true
         toast.error(payload || 'Change password failed')
@@ -123,7 +128,7 @@ const userSlice = createSlice({
         // addUserToLocalStorage(user)
         toast.success(`Password changed`)
       })
-      .addCase(removeUser.rejected, (state) => {
+      .addCase(updatePassword.rejected, (state) => {
         state.isLoading = false
       })
       .addCase(removeUser.pending, (state) => {
@@ -135,6 +140,22 @@ const userSlice = createSlice({
         state.user = null
         removeUserFromLocalStorage()
         toast.success(`Account is deleted!`)
+      })
+      .addCase(removeUser.rejected, (state) => {
+        state.isLoading = false
+      })
+      .addCase(getUser.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(getUser.fulfilled, (state, { payload }) => {
+        const { user } = payload
+        state.isLoading = false
+        state.user = user
+        removeUserFromLocalStorage()
+        addUserToLocalStorage(user)
+      })
+      .addCase(getUser.rejected, (state) => {
+        state.isLoading = false
       })
       .addCase(clearStore.rejected, () => {})
   },
