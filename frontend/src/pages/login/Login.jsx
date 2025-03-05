@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { loginUser, registerUser } from '../../features/user/userSlice'
 import FormRow from '../../components/FormRow'
-
 import Navbar from '../../components/Navbar'
+import './LoginTest.css'
+import Footer from '../../components/Footer'
 
 const initialState = {
   firstname: '',
@@ -52,7 +53,10 @@ function Login() {
 
   return (
     <div>
-      <Navbar />
+      <div className="navbar">
+        <Navbar />
+      </div>
+
       <form className="form" onSubmit={onSubmit}>
         <h3>{values.isMember ? 'Login' : 'Register'}</h3>
         {/* name field */}
@@ -63,6 +67,7 @@ function Login() {
               name="firstname"
               value={values.firstname}
               handleChange={handleChange}
+              className="test"
             />
 
             <FormRow
@@ -73,13 +78,17 @@ function Login() {
             />
           </>
         )}
-        {/* email field */}
-        <FormRow
-          type="email"
-          name="email"
-          value={values.email}
-          handleChange={handleChange}
-        />
+
+        <div className="input">
+          {/* email field */}
+          <FormRow
+            type="email"
+            name="email"
+            value={values.email}
+            handleChange={handleChange}
+          />
+        </div>
+
         {/* password field */}
         <FormRow
           type="password"
@@ -87,6 +96,7 @@ function Login() {
           value={values.password}
           handleChange={handleChange}
         />
+
         <button type="submit" disabled={isLoading}>
           {isLoading ? 'loading...' : 'submit'}
         </button>
@@ -98,6 +108,10 @@ function Login() {
           </button>
         </p>
       </form>
+
+      <div>
+        <Footer />
+      </div>
     </div>
   )
 }
