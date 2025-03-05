@@ -111,7 +111,7 @@ function Home() {
 
   return (
     <div>
-      <div className="home-container">
+      <div>
         <Navbar />
       </div>
       <div
@@ -121,6 +121,7 @@ function Home() {
           fontSize: '18px',
           fontWeight: 'bold',
         }}
+        class="main-content"
       >
         <Countdown />
       </div>

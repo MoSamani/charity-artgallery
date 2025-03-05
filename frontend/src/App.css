@@ -8,14 +8,34 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 100px;
-  padding-bottom: 40px;
-  font-size: 1.5rem;
+  padding-top: 4rem;
+  padding-bottom: 2.5rem;
+  font-size: 2rem;
+  position: fixed;
 }
-
+.main-content {
+  padding-top: 12rem;
+}
 .navbar .link {
   text-decoration: none;
   color: black;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 0.625rem;
+  padding-right: 0.625rem;
+}
+
+.right-part {
+  padding: 3vw;
+}
+
+.left-part {
+  padding: 3vw;
+}
+
+.logo {
+  display: block;
+  width: 30vw !important;
+  max-width: 600px !important;
+  min-width: 150px !important;
+  height: auto !important;
+  object-fit: contain !important;
 }
