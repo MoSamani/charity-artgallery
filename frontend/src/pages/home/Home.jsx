@@ -111,7 +111,7 @@ function Home() {
 
   return (
     <div>
-      <div className="home-container">
+      <div>
         <Navbar />
       </div>
       <div
