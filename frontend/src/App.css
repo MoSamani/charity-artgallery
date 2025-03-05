@@ -4,11 +4,21 @@
   margin-right: auto;
 }
 
+/* 
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 100%;
+  font-family: 'Cormorant Garamond', serif;
+} */
+
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 20rem;
+  padding-top: 8rem;
   padding-bottom: 2.5rem;
   font-size: 2rem;
 }
