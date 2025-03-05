@@ -1,28 +1,7 @@
-.navbar {
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: #f4f4f4ff; 
-  text-align: center;
-  z-index: 1000;
-}
-
 .logo {
   height: 60px; /* 🔥 Größe des Logos anpassen */
   max-width: 150px; /* 🔥 Maximale Breite festlegen */
   object-fit: contain; /* 🔥 Stellt sicher, dass das Bild nicht verzerrt wird */
-}
-
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  flex-direction: column;
 }
 
 form {
@@ -32,7 +11,8 @@ form {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 350px;
   text-align: left;
-  margin-top: 350px; /* Abstand zur Navbar */
+  /* margin-top: 350px; Abstand zur Navbar */
+  margin: 10rem auto 0rem auto;
 }
 
 h3 {
@@ -88,25 +68,25 @@ p button:hover {
   color: #0056b3;
 }
 
-.form-group{
-  border:1px solid #999;
-  margin:10px;
+.form-group {
+  border: 1px solid #999;
+  margin: 10px;
   border-radius: 5px;
 }
-.form-group>label{
-  position:absolute;
-  top:-1px;
-  left:25px;
-  background-color:white;
-  color:#666;
-  padding:0 5px;
+.form-group > label {
+  position: absolute;
+  top: -1px;
+  left: 25px;
+  background-color: white;
+  color: #666;
+  padding: 0 5px;
 }
-.form-group .required{
-  color:red;
-  padding:0 5px;
+.form-group .required {
+  color: red;
+  padding: 0 5px;
 }
-.form-group>input{
-  border:none;
-  border:0;
+.form-group > input {
+  border: none;
+  border: 0;
   line-height: 100%;
 }

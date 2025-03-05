@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { loginUser, registerUser } from '../../features/user/userSlice'
 import FormRow from '../../components/FormRow'
 import Navbar from '../../components/Navbar'
-import './LoginTest.css'
+import './Login.css'
 import Footer from '../../components/Footer'
 
 const initialState = {
