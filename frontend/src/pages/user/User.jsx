@@ -4,6 +4,7 @@ import { logoutUser } from '../../features/user/userSlice'
 import Navbar from '../../components/Navbar.jsx'
 import { useNavigate } from 'react-router-dom'
 import { getUsersArtworks } from '../../features/artwork/artworkSlice.jsx'
+import { getUser } from '../../features/user/userSlice.jsx'
 import { useSelector } from 'react-redux'
 import PaintingCard from '../../components/PaintingCard'
 import Footer from '../../components/Footer.jsx'
@@ -13,8 +14,14 @@ function User() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  let { user } = useSelector((store) => store.user)
+
   useEffect(() => {
-    dispatch(getUsersArtworks({}))
+    if (user) {
+      dispatch(getUser({ email: user.email }))
+      dispatch(getUsersArtworks({}))
+      console.log(user)
+    }
   }, [])
   let { usersArtworks } = useSelector((store) => store.artwork)
 

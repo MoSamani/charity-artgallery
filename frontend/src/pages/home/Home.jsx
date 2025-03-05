@@ -7,6 +7,7 @@ import SearchBar from '../../components/SearchBar'
 import Footer from '../../components/Footer'
 import { useSelector, useDispatch } from 'react-redux'
 import { getAllArtworks } from '../../features/artwork/artworkSlice.jsx'
+import { getUser } from '../../features/user/userSlice.jsx'
 import { useNavigate } from 'react-router-dom'
 import './Home.css'
 
@@ -15,6 +16,15 @@ function Home() {
   console.log('Artworks: ', artworks)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  let { user } = useSelector((store) => store.user)
+
+  useEffect(() => {
+    if (user) {
+      dispatch(getUser({ email: user.email }))
+
+      console.log(user)
+    }
+  }, [])
 
   const [paintings, setPaintings] = useState([])
   const [sizes, setSizes] = useState([])
