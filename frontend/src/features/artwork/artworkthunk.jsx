@@ -41,7 +41,6 @@ export const removeArtworkThunk = async (url, artwork, thunkAPI) => {
 export const getAllArtworksThunk = async (url, artwork, thunkAPI) => {
   try {
     const resp = await customFetch.get(url, artwork)
-    console.log('getAllArtworksThunk', resp.data)
     return resp.data
   } catch (error) {
     const errorMsg = error.response?.data?.msg || 'Fetch failed'

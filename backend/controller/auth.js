@@ -131,7 +131,16 @@ const getUser = async (req, res) => {
     if (!user) {
       return res.status(404).json({ msg: `No User with email: ${email}` })
     }
-    return res.status(200).json({ user: user })
+    const _token = user.createJWT()
+    return res.status(StatusCodes.OK).json({
+      user: {
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email,
+        favorites: user.favorites,
+        token: _token,
+      },
+    })
   } catch (error) {
     return res.status(500).json({ msg: error.message })
   }

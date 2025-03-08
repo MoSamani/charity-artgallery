@@ -1,7 +1,7 @@
 import React from 'react'
 import FavoriteIcon from './FavoriteIcon'
 
-function PaintingCard({ painting, onClick }) {
+function PaintingCard({ painting, onClick, isFavorite, onToggleFavorite }) {
   return (
     <div
       className="painting-card"
@@ -58,7 +58,11 @@ function PaintingCard({ painting, onClick }) {
           <p style={{ fontSize: '16px', fontWeight: 'bold' }}>
             €{painting.mprise}
           </p>{' '}
-          <FavoriteIcon itemId={painting._id} />
+          <FavoriteIcon
+            itemId={painting._id}
+            isFavorite={isFavorite}
+            onToggle={onToggleFavorite}
+          />
         </div>
       </div>
     </div>

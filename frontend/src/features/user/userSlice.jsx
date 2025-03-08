@@ -47,12 +47,14 @@ export const removeUser = createAsyncThunk(
     return removeUserThunk('user/auth/removeUser', user, thunkAPI)
   }
 )
+
 export const getUser = createAsyncThunk(
-  'user/getUser',
+  'user/getSingleUser',
   async (user, thunkAPI) => {
-    return getUserThunk('user/auth/getuser', user, thunkAPI)
+    return getUserThunk('user/auth/getUser', user, thunkAPI)
   }
 )
+
 export const clearStore = createAsyncThunk('user/clearStore', clearStoreThunk)
 
 const initialState = {
@@ -153,6 +155,7 @@ const userSlice = createSlice({
         state.user = user
         removeUserFromLocalStorage()
         addUserToLocalStorage(user)
+        //  toast.success(`Account Updated`)
       })
       .addCase(getUser.rejected, (state) => {
         state.isLoading = false
