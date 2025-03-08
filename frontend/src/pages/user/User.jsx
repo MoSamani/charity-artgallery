@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { logoutUser } from '../../features/user/userSlice'
 import Navbar from '../../components/Navbar.jsx'
 import { useNavigate } from 'react-router-dom'
 import { getUsersArtworks } from '../../features/artwork/artworkSlice.jsx'
-import { getUser } from '../../features/user/userSlice.jsx'
 import { useSelector } from 'react-redux'
 import PaintingCard from '../../components/PaintingCard'
 import Footer from '../../components/Footer.jsx'
 import { setArtwork } from '../../features/artwork/artworkSlice.jsx'
+import { getUser, updateUser } from '../../features/user/userSlice.jsx'
 
 function User() {
   const dispatch = useDispatch()
@@ -18,12 +18,37 @@ function User() {
 
   useEffect(() => {
     if (user) {
-      dispatch(getUser({ email: user.email }))
       dispatch(getUsersArtworks({}))
       console.log(user)
     }
   }, [])
   let { usersArtworks } = useSelector((store) => store.artwork)
+
+  const [favorites, setFavorites] = useState(user?.favorites || [])
+
+  useEffect(() => {
+    if (user) {
+      setFavorites(user.favorites || [])
+    }
+  }, [user])
+
+  const toggleFavorite = (itemId) => {
+    const isFavorite = favorites.includes(itemId)
+    const updatedFavorites = isFavorite
+      ? favorites.filter((id) => id !== itemId)
+      : [...favorites, itemId]
+
+    setFavorites(updatedFavorites)
+
+    console.log('favorites: ', favorites)
+    console.log('updatedFavorites: ', updatedFavorites)
+    dispatch(
+      updateUser({
+        ...user,
+        favorites: updatedFavorites,
+      })
+    )
+  }
 
   return (
     <div>
@@ -43,10 +68,9 @@ function User() {
               <PaintingCard
                 key={artwork._id}
                 painting={artwork}
-                onClick={(artwork) => {
-                  navigate('/EditArtwork')
-                  dispatch(setArtwork(artwork))
-                }}
+                onClick={() => navigate('/ViewArtwork')}
+                isFavorite={favorites.includes(artwork._id)}
+                onToggleFavorite={toggleFavorite}
               />
             ))
           ) : (
