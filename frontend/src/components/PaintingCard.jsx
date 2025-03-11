@@ -56,7 +56,7 @@ function PaintingCard({ painting, onClick, isFavorite, onToggleFavorite }) {
           }}
         >
           <p style={{ fontSize: '16px', fontWeight: 'bold' }}>
-            €{painting.mprise}
+            €{painting.highestOffer ? painting.highestOffer : painting.mprise}
           </p>{' '}
           <FavoriteIcon
             itemId={painting._id}

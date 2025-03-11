@@ -1,0 +1,4 @@
+.bootstrap-tabs {
+  /* Nur für Tabs Bootstrap-Stile aktivieren */
+  @import 'bootstrap/dist/css/bootstrap.min.css';
+}

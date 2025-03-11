@@ -8,6 +8,7 @@ const {
   updateArtwork,
   deleteArtwork,
   getArtworksOFUser,
+  getFavoriteArtworks,
 } = require('../controller/artwork')
 
 artworkRouter
@@ -17,6 +18,7 @@ artworkRouter
   .patch(updateArtwork)
   .delete(deleteArtwork)
 artworkRouter.get('/user', getArtworksOFUser)
+artworkRouter.get('/favorietsOfUser', getFavoriteArtworks)
 
 // Öffentliche Route ohne Authentifizierung
 const publicRouter = express.Router()
