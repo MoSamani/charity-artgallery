@@ -19,18 +19,20 @@ function User() {
   useEffect(() => {
     if (user) {
       dispatch(getUsersArtworks({}))
-      console.log(user)
+      dispatch(getUser({ email: user.email }))
+
+      // console.log(user)
     }
   }, [])
-  let { usersArtworks } = useSelector((store) => store.artwork)
 
+  let { usersArtworks } = useSelector((store) => store.artwork)
   const [favorites, setFavorites] = useState(user?.favorites || [])
 
-  useEffect(() => {
-    if (user) {
-      setFavorites(user.favorites || [])
-    }
-  }, [user])
+  // useEffect(() => {
+  //   if (user) {
+  //     setFavorites(user.favorites || [])
+  //   }
+  // }, [user])
 
   const toggleFavorite = (itemId) => {
     const isFavorite = favorites.includes(itemId)

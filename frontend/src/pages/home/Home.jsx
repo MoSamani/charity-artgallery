@@ -15,31 +15,15 @@ function Home() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   let { user } = useSelector((store) => store.user)
+  console.log(user)
   const [favorites, setFavorites] = useState(user?.favorites || [])
 
   useEffect(() => {
+    dispatch(getAllArtworks({}))
+
     if (user) {
       dispatch(getUser({ email: user.email }))
-      // setFavorites(user.favorites || [])
     }
-  }, [])
-
-  // useEffect(() => {
-  //   if (user) {
-  //     dispatch(getUser({ email: user.email }))
-  //     setFavorites(user?.favorites)
-  //   }
-  // }, [user, dispatch])
-  // useEffect(() => {
-  //   if (user) {
-  //     console.log('Userrrrrrrrr: ', user.email)
-  //     dispatch(getUser({ email: user.email }))
-  //     console.log(user)
-  //   }
-  // }, [])
-
-  useEffect(() => {
-    dispatch(getAllArtworks({}))
   }, [])
 
   const toggleFavorite = (itemId) => {
