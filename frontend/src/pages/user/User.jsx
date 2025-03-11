@@ -17,8 +17,8 @@ import { getUser, updateUser } from '../../features/user/userSlice.jsx'
 import DeleteButton from '../../components/DeleteButton'
 import FormRow from '../../components/FormRow'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
-// import '../../bootstrap-styles/custom-bootstrap.scss' // Nur die benötigten Bootstrap-Styles
+// import 'bootstrap/dist/css/bootstrap.min.css'
+import '../../bootstrap-styles/custom-bootstrap.scss' // Nur die benötigten Bootstrap-Styles
 
 function User() {
   const { user, isLoading } = useSelector((store) => store.user)
@@ -138,15 +138,6 @@ function User() {
             </Tab.Container>
           </Tab>
           <Tab eventKey="profile" title="Profile">
-            {/* <button
-              type="button"
-              onClick={() => {
-                navigate('/EditUser')
-              }}
-              className="member-btn"
-            >
-              {'Edit user information'}
-            </button> */}
             <div>
               <form className="form" onSubmit={onSubmit}>
                 <h3>{'Edit'}</h3>
@@ -182,15 +173,7 @@ function User() {
               <br />
               <br />
               <DeleteButton />
-              {/* <button
-        type="button"
-        onClick={() => {
-          dispatch(removeUser({ email: user.email }))
-        }}
-        style={{ backgroundColor: 'red' }}
-      >
-        {'remove user'}
-      </button> */}
+
               <br />
               <br />
               <button
