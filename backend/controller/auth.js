@@ -57,7 +57,7 @@ const login = async (req, res) => {
 
 const updateUser = async (req, res) => {
   const { firstname, lastname, email, favorites } = req.body
-
+  console.log(req.body)
   const user = await User.findOne({ email })
   if (!user) {
     return res.status(StatusCodes.NOT_FOUND).json({ msg: 'User not found' })

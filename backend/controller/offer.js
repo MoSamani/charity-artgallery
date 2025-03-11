@@ -137,6 +137,57 @@ const getUserArtworksWithOffers = async (req, res) => {
   }
 }
 
+const getUserArtworksWithHighestOffer = async (req, res) => {
+  try {
+    if (!req.user || !req.user.userID) {
+      return res.status(401).json({ msg: 'User not authenticated' })
+    }
+
+    const artworkIds = await Offer.distinct('createdFor', {
+      createdBy: req.user.userID,
+    })
+
+    if (artworkIds.length === 0) {
+      return res.status(404).json({ msg: 'No artworks found for this user' })
+    }
+
+    const artworks = await Artwork.find({ _id: { $in: artworkIds } })
+      .populate('createdBy', 'firstname lastname') // Künstlerdaten mitnehmen
+      .lean()
+
+    const highestOffers = await Offer.aggregate([
+      {
+        $match: {
+          createdFor: { $in: artworkIds },
+          createdBy: req.user.userID,
+        },
+      },
+      {
+        $group: {
+          _id: '$createdFor', // Gruppieren nach Artwork-ID
+          highestOffer: { $max: '$price' }, // Nur das höchste Offer behalten
+        },
+      },
+    ])
+
+    const artworksWithHighestOffer = artworks.map((artwork) => {
+      const highestOfferData = highestOffers.find(
+        (offer) => String(offer._id) === String(artwork._id)
+      )
+
+      return {
+        ...artwork,
+        highestOffer: highestOfferData ? highestOfferData.highestOffer : null,
+      }
+    })
+
+    res.status(200).json({ artworks: artworksWithHighestOffer })
+  } catch (error) {
+    console.error(error.message)
+    res.status(500).json({ msg: 'Server error', error: error.message })
+  }
+}
+
 const getAllOffersOfArtwork = async (req, res) => {
   res.status(200).json({ msg: 'getAllOffers' })
 }
@@ -147,4 +198,5 @@ module.exports = {
   RemoveOffer,
   getUserArtworksWithOffers,
   deleteUserOffersForArtwork,
+  getUserArtworksWithHighestOffer,
 }
