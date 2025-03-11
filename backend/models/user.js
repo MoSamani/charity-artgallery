@@ -56,6 +56,8 @@ userSchema.pre('findOneAndDelete', async function (next) {
     const doc = await this.model.findOne(this.getFilter())
     if (doc) {
       await mongoose.model('Artwork').deleteMany({ createdBy: doc._id })
+      await mongoose.model('Offer').deleteMany({ createdBy: doc._id })
+      await mongoose.model('Offer').deleteMany({ createdFor: { $in: doc._id } })
     }
     next()
   } catch (err) {

@@ -3,7 +3,7 @@ import './Countdown.css'
 
 const Countdown = () => {
   const calculateTimeLeft = () => {
-    const targetDate = new Date('2025-12-12T00:00:00Z').getTime()
+    const targetDate = new Date('2025-12-12T12:00:00Z').getTime()
     const now = new Date().getTime()
     const difference = targetDate - now
 
@@ -38,8 +38,7 @@ const Countdown = () => {
         <span>{timeLeft.seconds}</span>
       </div>
       <div className="countdown-labels">
-        <span>Tage</span> <span>Uhr</span> <span>Minuten</span>{' '}
-        <span>Sekunden</span>
+        <span>Uhr</span> <span>Minuten</span> <span>Sekunden</span>
       </div>
     </div>
   )
