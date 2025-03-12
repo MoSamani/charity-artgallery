@@ -74,3 +74,20 @@
 .offer-section button:hover {
   background-color: #45a049;
 }
+
+/* Mobile Ansicht: Bild über den Infos */
+@media (max-width: 768px) {
+  .artwork-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .artwork-image {
+    max-width: 100%;
+  }
+
+  .artwork-info {
+    max-width: 100%;
+    text-align: left;
+  }
+}
