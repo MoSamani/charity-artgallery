@@ -99,8 +99,8 @@ function User() {
       <div className="main-content">
         <div>
           <div className="win-donate">
-            <span>{userSumOffers.wonOffers}</span>,{' '}
-            <span>{userSumOffers.donatedOffers}</span>
+            <span>{userSumOffers.wonOffers} €</span>,{' '}
+            <span>{userSumOffers.donatedOffers} €</span>
           </div>
           <div className="win-donate-lable">
             <span>Win</span> <span>Donate</span>
@@ -285,6 +285,7 @@ function User() {
                 onClick={() => {
                   navigate('/User')
                 }}
+                className="button-back"
               >
                 {'back'}
               </button>

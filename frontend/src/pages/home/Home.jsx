@@ -74,8 +74,8 @@ function Home() {
           : true
 
         const priceMatch =
-          (minPrice ? artwork.mprise >= minPrice : true) &&
-          (maxPrice ? artwork.mprise <= maxPrice : true)
+          (minPrice ? artwork.highestOffer >= minPrice : true) &&
+          (maxPrice ? artwork.highestOffer <= maxPrice : true)
 
         return sizeMatch && mediumMatch && priceMatch
       })
@@ -86,6 +86,7 @@ function Home() {
       <div>
         <Navbar />
       </div>
+
       <div
         style={{
           textAlign: 'center',
@@ -93,7 +94,6 @@ function Home() {
           fontSize: '18px',
           fontWeight: 'bold',
         }}
-        class="main-content"
       >
         <Countdown />
       </div>

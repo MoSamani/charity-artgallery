@@ -1,5 +1,6 @@
 import React from 'react'
 import FavoriteIcon from './FavoriteIcon'
+import './PaintingCard.css'
 
 function PaintingCard({ painting, onClick, isFavorite, onToggleFavorite }) {
   return (
