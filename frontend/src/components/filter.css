@@ -3,9 +3,9 @@
 /* Main container */
 .filter-container {
   display: flex;
-  flex-wrap: wrap;  /* Allow wrapping on smaller screens */
-  gap: 10px;  /* Space between elements */
-  justify-content: center;  /* Center elements horizontally */ /* Center elements vertically */
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  gap: 10px; /* Space between elements */
+  justify-content: center; /* Center elements horizontally */ /* Center elements vertically */
   padding: 20px;
   margin-left: 10%;
   max-width: 1000px; /* Optional: set a maximum width */
@@ -22,8 +22,8 @@ select {
   cursor: pointer;
   margin: 5px 0;
   width: auto;
-  flex-grow: 0; 
-  font-size: medium; /* Prevent buttons and selects from growing */
+  flex-grow: 0;
+  font-size: medium;
 }
 
 /* Specific styles for buttons */
@@ -46,7 +46,7 @@ select {
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 350px;  /* Optional: set a maximum width for price filter */
+  max-width: 350px; /* Optional: set a maximum width for price filter */
 }
 
 .price-inputs {
@@ -83,8 +83,8 @@ select {
 }
 /* Add a style for the labels */
 .price-inputs div span {
-  display: inline-block;  /* Ensure the span is displayed inline with other elements */
-  margin-right: 2px;  /* Space between the label and the input */
-  color: black ;
+  display: inline-block; /* Ensure the span is displayed inline with other elements */
+  margin-right: 2px; /* Space between the label and the input */
+  color: black;
   font-size: small;
 }

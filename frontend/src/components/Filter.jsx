@@ -1,130 +1,137 @@
-import React, { useState } from "react";
-import './filter.css';
+import React, { useState } from 'react'
+import './filter.css'
 
-function Filter({ filters, setFilters, sizes, techniques, artists }) {
-  const [showPriceSlider, setShowPriceSlider] = useState(false);
-
-  const handlePriceChange = (e) => {
-    const { name, value } = e.target;
-    setFilters({
-      ...filters,
-      [name]: Number(value),
-    });
-  };
-
-  const togglePriceSlider = () => {
-    setShowPriceSlider(!showPriceSlider);
-  };
-
-  const handleSizeChange = (e) => {
-    setFilters({ ...filters, size: e.target.value });
-  };
-
-  const handleTechniqueChange = (e) => {
-    setFilters({ ...filters, technique: e.target.value });
-  };
-
-  const handleArtistChange = (e) => {
-    setFilters({ ...filters, artist: e.target.value });
-  };
-
-  const showAllImages = () => {
-    setFilters({ minPrice: 0, maxPrice: 50, size: "", technique: "", artist: "" });
-  };
+function Filter({
+  selectedSize,
+  setSelectedSize,
+  sizes,
+  selectedMedium,
+  setSelectedMedium,
+  mediums,
+  minPrice,
+  setMinPrice,
+  maxPrice,
+  setMaxPrice,
+}) {
+  // برای باز و بسته شدن فیلتر قیمت
+  const [isPriceFilterOpen, setIsPriceFilterOpen] = useState(false)
 
   return (
-    <div className="filter-container">
-      <button className="filter-button" onClick={showAllImages}>
-        All
-      </button>
+    <div
+      className="filter-container"
+      style={{
+        display: 'flex',
+        justifyContent: 'center', // مرکز کردن فیلترها افقی
+        alignItems: 'center', // مرکز کردن فیلترها عمودی
+        flexWrap: 'wrap', // اگر جا نشد، به خط بعدی بروند
+        gap: '20px', // فاصله بین فیلترها
+      }}
+    >
+      {/* فیلتر سایز */}
+      <div className="filter-item size-filter">
+        <select
+          value={selectedSize}
+          onChange={(e) => setSelectedSize(e.target.value)}
+          className="filter-select"
+          style={{ padding: '10px', fontSize: '16px' }}
+        >
+          <option value="">All Sizes</option>
+          {sizes.map((size) => (
+            <option key={size} value={size}>
+              {size}
+            </option>
+          ))}
+        </select>
+      </div>
 
-      <select value={filters.size} onChange={handleSizeChange}>
-        <option value="">Size</option>
-        {(sizes || []).map((size, index) => (
-          <option key={index} value={size}>
-            {size}
-          </option>
-        ))}
-      </select>
+      {/* فیلتر مدیوم */}
+      <div className="filter-item medium-filter">
+        <select
+          value={selectedMedium}
+          onChange={(e) => setSelectedMedium(e.target.value)}
+          className="filter-select"
+          style={{ padding: '10px', fontSize: '16px' }}
+        >
+          <option value="">All Mediums</option>
+          {mediums.map((medium) => (
+            <option key={medium} value={medium}>
+              {medium}
+            </option>
+          ))}
+        </select>
+      </div>
 
-      <select value={filters.technique} onChange={handleTechniqueChange}>
-        <option value="">Technique</option>
-        {(techniques || []).map((technique, index) => (
-          <option key={index} value={technique}>
-            {technique}
-          </option>
-        ))}
-      </select>
+      {/* فیلتر قیمت */}
+      <div
+        className="filter-item price-filter-container"
+        style={{ display: 'flex', alignItems: 'center' }}
+      >
+        <button
+          onClick={() => setIsPriceFilterOpen(!isPriceFilterOpen)}
+          className="price-filter-toggle"
+          style={{
+            padding: '10px 20px',
+            fontSize: '16px',
+            color: 'black',
+            border: '1px solid #000',
+            backgroundColor: 'transparent',
+            cursor: 'pointer',
+            width: 'auto',
+            display: 'inline-block',
+          }}
+        >
+          {isPriceFilterOpen ? 'Close Price Filter' : 'Open Price Filter'}
+        </button>
 
-      <select value={filters.artist} onChange={handleArtistChange}>
-        <option value="">Artist</option>
-        {(artists || []).map((artist, index) => (
-          <option key={index} value={artist}>
-            {artist}
-          </option>
-        ))}
-      </select>
-
-      <button className="filter-button" onClick={togglePriceSlider}>
-        Price
-      </button>
-
-      {showPriceSlider && (
-        <div className="price-filter">
-          {/* Price range inputs */}
-          <div className="price-inputs">
-            <div>
-              <span>Lowest price</span>
-              <input
-                type="number"
-                name="minPrice"
-                value={filters.minPrice}
-                onChange={handlePriceChange}
-                min="0"
-                max="500"
-              />
-              €
-            </div>
-            <div>—</div>
-            <div>
-              <span>Highest price</span>
-              <input
-                type="number"
-                name="maxPrice"
-                value={filters.maxPrice}
-                onChange={handlePriceChange}
-                min="0"
-                max="500"
-              />
-              €
-            </div>
-          </div>
-
-          {/* Range Slider */}
-          <div className="range-slider">
+        {/* نمایش فیلدهای قیمت در صورت باز بودن فیلتر */}
+        {isPriceFilterOpen && (
+          <div
+            className="price-range-inputs"
+            style={{
+              display: 'flex',
+              gap: '10px', // فاصله بین فیلدهای قیمت
+              marginLeft: '20px', // فاصله از دکمه
+            }}
+          >
             <input
-              type="range"
-              name="minPrice"
-              min="0"
-              max="500"
-              value={filters.minPrice}
-              onChange={handlePriceChange}
-              className="range-input min-range"
+              type="number"
+              placeholder="Min Price"
+              value={minPrice}
+              onChange={(e) => setMinPrice(e.target.value)}
+              className="price-input"
+              style={{
+                padding: '10px 20px',
+                fontSize: '16px',
+                color: 'black',
+                border: '1px solid #000',
+                backgroundColor: 'transparent',
+                cursor: 'pointer',
+                width: '100px', // عرض فیلدها بیشتر از 50px
+                margin: '8px 0px 0px 0px',
+              }}
             />
             <input
-              type="range"
-              name="maxPrice"
-              min="0"
-              max="500"
-              value={filters.maxPrice}
-              onChange={handlePriceChange}
-              className="range-input max-range"
+              type="number"
+              placeholder="Max Price"
+              value={maxPrice}
+              onChange={(e) => setMaxPrice(e.target.value)}
+              className="price-input"
+              style={{
+                padding: '10px 20px',
+                fontSize: '16px',
+                color: 'black',
+                border: '1px solid #000',
+                backgroundColor: 'transparent',
+                cursor: 'pointer',
+                width: '100px', // عرض فیلدها بیشتر از 50px
+                margin: '8px 0px 0px 0px',
+              }}
             />
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
-  );
+  )
 }
 
-export default Filter;
+export default Filter
