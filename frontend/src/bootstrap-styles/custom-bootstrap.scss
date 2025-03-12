@@ -1,8 +1,15 @@
-@import 'bootstrap/scss/functions';
-@import 'bootstrap/scss/variables';
-@import 'bootstrap/scss/mixins';
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
 
 // Nur die benötigten Komponenten importieren
+// @import 'bootstrap/scss/bootstrap';
+
 @import 'bootstrap/scss/navbar';
 @import 'bootstrap/scss/nav';
+
+// @import '~bootstrap/scss/grid';
 // @import 'bootstrap/scss/tabs';
+// @import '~bootstrap/scss/grid';
+@import 'bootstrap/scss/bootstrap-utilities';
+@import 'bootstrap/scss/bootstrap-grid';

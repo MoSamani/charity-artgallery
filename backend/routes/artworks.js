@@ -18,7 +18,7 @@ artworkRouter
   .patch(updateArtwork)
   .delete(deleteArtwork)
 artworkRouter.get('/user', getArtworksOFUser)
-artworkRouter.get('/favorietsOfUser', getFavoriteArtworks)
+artworkRouter.get('/favorietArtworks', getFavoriteArtworks)
 
 // Öffentliche Route ohne Authentifizierung
 const publicRouter = express.Router()
