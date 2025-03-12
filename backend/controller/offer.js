@@ -107,7 +107,7 @@ const getUserArtworksWithOffers = async (req, res) => {
     if (!req.user || !req.user.userID) {
       return res.status(401).json({ msg: 'User not authenticated' })
     }
-
+    console.log(req.user)
     const artworkIds = await Offer.distinct('createdFor', {
       createdBy: req.user.userID,
     })
@@ -146,7 +146,7 @@ const getUserArtworksWithHighestOffer = async (req, res) => {
     const artworkIds = await Offer.distinct('createdFor', {
       createdBy: req.user.userID,
     })
-
+    console.log(artworkIds)
     if (artworkIds.length === 0) {
       return res.status(404).json({ msg: 'No artworks found for this user' })
     }
@@ -159,7 +159,6 @@ const getUserArtworksWithHighestOffer = async (req, res) => {
       {
         $match: {
           createdFor: { $in: artworkIds },
-          createdBy: req.user.userID,
         },
       },
       {
@@ -169,7 +168,7 @@ const getUserArtworksWithHighestOffer = async (req, res) => {
         },
       },
     ])
-
+    console.log(highestOffers)
     const artworksWithHighestOffer = artworks.map((artwork) => {
       const highestOfferData = highestOffers.find(
         (offer) => String(offer._id) === String(artwork._id)

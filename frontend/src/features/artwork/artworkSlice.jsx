@@ -5,7 +5,8 @@ import {
   getUsersArtworksThunk,
   updateArtworkThunk,
   removeArtworkThunk,
-} from './artworkthunk'
+  getUsersFavoriteArtworksThunk,
+} from './artworkThunk'
 
 export const getAllArtworks = createAsyncThunk(
   'artwork/getAllArtworks',
@@ -21,6 +22,16 @@ export const getUsersArtworks = createAsyncThunk(
   }
 )
 
+export const getUsersFavoriteArtworks = createAsyncThunk(
+  'artwork/getUsersFavoriteArtworks',
+  async (artwork, thunkAPI) => {
+    return getUsersFavoriteArtworksThunk(
+      'artwork/favorietArtworks',
+      artwork,
+      thunkAPI
+    )
+  }
+)
 export const postArtwork = createAsyncThunk(
   'artwork/postArtwork',
   async (artwork, thunkAPI) => {
@@ -47,6 +58,7 @@ const initialState = {
   artwork: {},
   artworks: [],
   usersArtworks: [],
+  favoriteArtworks: [],
 }
 
 const artworkSlice = createSlice({
@@ -112,6 +124,18 @@ const artworkSlice = createSlice({
         state.usersArtworks = artworks
       })
       .addCase(removeArtwork.rejected, (state) => {
+        state.isLoading = false
+      })
+
+      .addCase(getUsersFavoriteArtworks.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(getUsersFavoriteArtworks.fulfilled, (state, { payload }) => {
+        const { artworks } = payload
+        state.isLoading = false
+        state.favoriteArtworks = artworks
+      })
+      .addCase(getUsersFavoriteArtworks.rejected, (state) => {
         state.isLoading = false
       })
   },

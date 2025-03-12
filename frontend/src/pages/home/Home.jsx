@@ -81,7 +81,7 @@ function Home() {
             />
           ))
         ) : (
-          <p>No paintings match the selected filters.</p>
+          <p>No Artworks match the selected filters.</p>
         )}
       </div>
       <div>
