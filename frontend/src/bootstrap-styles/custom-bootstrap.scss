@@ -5,9 +5,11 @@
 // Nur die benötigten Komponenten importieren
 // @import 'bootstrap/scss/bootstrap';
 
-@import '~bootstrap/scss/navbar';
+@import 'bootstrap/scss/navbar';
 @import 'bootstrap/scss/nav';
+
 // @import '~bootstrap/scss/grid';
 // @import 'bootstrap/scss/tabs';
 // @import '~bootstrap/scss/grid';
-@import 'bootstrap/scss/bootstrap';
+@import 'bootstrap/scss/bootstrap-utilities';
+@import 'bootstrap/scss/bootstrap-grid';
