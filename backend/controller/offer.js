@@ -14,7 +14,7 @@ const createOffer = async (req, res) => {
     if (!user) {
       return res.status(404).json({ msg: 'User not found' })
     }
-
+    console.log(req.body)
     // Daten aus dem Request-Body holen
     const { artworkID, price } = req.body
     if (!artworkID || !price) {
@@ -78,7 +78,6 @@ const deleteUserOffersForArtwork = async (req, res) => {
     }
 
     const { artworkID } = req.body
-
     const offers = await Offer.find({
       createdBy: req.user.userID,
       createdFor: artworkID,
@@ -146,7 +145,7 @@ const getUserArtworksWithHighestOffer = async (req, res) => {
     const artworkIds = await Offer.distinct('createdFor', {
       createdBy: req.user.userID,
     })
-    console.log(artworkIds)
+
     if (artworkIds.length === 0) {
       return res.status(404).json({ msg: 'No artworks found for this user' })
     }
@@ -168,7 +167,6 @@ const getUserArtworksWithHighestOffer = async (req, res) => {
         },
       },
     ])
-    console.log(highestOffers)
     const artworksWithHighestOffer = artworks.map((artwork) => {
       const highestOfferData = highestOffers.find(
         (offer) => String(offer._id) === String(artwork._id)
@@ -187,6 +185,36 @@ const getUserArtworksWithHighestOffer = async (req, res) => {
   }
 }
 
+const berechneBekommeneOffers = async (req, res) => {
+  try {
+    // Finde alle Artworks des Benutzers
+    const artworks = await Artwork.find({ createdBy: req.user.userID })
+    const artworkIds = artworks.map((a) => a._id)
+
+    // Finde alle Offers, die zu den Artworks des Benutzers gehören
+    const offers = await Offer.find({ createdFor: { $in: artworkIds } })
+
+    let wonOffers = 0
+    let donatedOffers = 0
+
+    offers.forEach((offer) => {
+      const artwork = artworks.find((a) => a._id.equals(offer.createdFor))
+      if (artwork) {
+        if (artwork.donate) {
+          donatedOffers += offer.price
+        } else {
+          wonOffers += offer.price
+        }
+      }
+    })
+
+    return res.status(200).json({ offers: { wonOffers, donatedOffers } })
+  } catch (error) {
+    console.error('Fehler beim Berechnen der Offers:', error)
+    res.status(500).json({ msg: 'Server error', error: error.message })
+  }
+}
+
 const getAllOffersOfArtwork = async (req, res) => {
   res.status(200).json({ msg: 'getAllOffers' })
 }
@@ -198,4 +226,5 @@ module.exports = {
   getUserArtworksWithOffers,
   deleteUserOffersForArtwork,
   getUserArtworksWithHighestOffer,
+  berechneBekommeneOffers,
 }

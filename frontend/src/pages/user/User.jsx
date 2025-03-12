@@ -11,18 +11,26 @@ import { useNavigate } from 'react-router-dom'
 import {
   getUsersArtworks,
   getUsersFavoriteArtworks,
+  setArtwork,
+  removeUsersArtworks,
+  removeFavoriteArtworks,
 } from '../../features/artwork/artworkSlice.jsx'
-import { getOfferdArtworks } from '../../features/offer/offerSlice.jsx'
+
+import {
+  getOfferdArtworks,
+  getUsersumOffers,
+  removeOfferdArtworks,
+  removeOffer,
+} from '../../features/offer/offerSlice.jsx'
 import { useSelector } from 'react-redux'
 import PaintingCard from '../../components/PaintingCard'
 import Footer from '../../components/Footer.jsx'
-// import { setArtwork } from '../../features/artwork/artworkSlice.jsx'
 import { getUser, updateUser } from '../../features/user/userSlice.jsx'
 import DeleteButton from '../../components/DeleteButton'
 import FormRow from '../../components/FormRow'
-
 // import 'bootstrap/dist/css/bootstrap.min.css'
 import '../../bootstrap-styles/custom-bootstrap.scss' // Nur die benötigten Bootstrap-Styles
+import './User.css'
 
 function User() {
   const { user, isLoading } = useSelector((store) => store.user)
@@ -57,6 +65,7 @@ function User() {
       dispatch(getUsersArtworks({}))
       dispatch(getUsersFavoriteArtworks({}))
       dispatch(getOfferdArtworks({}))
+      dispatch(getUsersumOffers({}))
       dispatch(getUser({ email: user.email }))
     }
   }, [])
@@ -64,8 +73,8 @@ function User() {
   let { usersArtworks, favoriteArtworks } = useSelector(
     (store) => store.artwork
   )
-  let { offerdArtworks } = useSelector((store) => store.offer)
-  console.log(offerdArtworks)
+  let { offerdArtworks, userSumOffers } = useSelector((store) => store.offer)
+
   const [favorites, setFavorites] = useState(user?.favorites || [])
 
   const toggleFavorite = (itemId) => {
@@ -88,6 +97,17 @@ function User() {
     <div>
       <Navbar />
       <div className="main-content">
+        <div>
+          <div className="win-donate">
+            <span>{userSumOffers.wonOffers}</span>,{' '}
+            <span>{userSumOffers.donatedOffers}</span>
+          </div>
+          <div className="win-donate-lable">
+            <span>Win</span> <span>Donate</span>
+          </div>
+          {/* Win in Total: {userSumOffers.wonOffers}, Donate in Total:{' '}
+          {userSumOffers.donatedOffers} */}
+        </div>
         <Tabs
           id="controlled-tab-example"
           activeKey={key}
@@ -127,7 +147,10 @@ function User() {
                             <PaintingCard
                               key={artwork._id}
                               painting={artwork}
-                              onClick={() => navigate('/ViewArtwork')}
+                              onClick={() => {
+                                navigate('/EditArtwork')
+                                dispatch(setArtwork(artwork))
+                              }}
                               isFavorite={favorites.includes(artwork._id)}
                               onToggleFavorite={toggleFavorite}
                             />
@@ -149,13 +172,36 @@ function User() {
                       >
                         {offerdArtworks ? (
                           offerdArtworks.map((artwork) => (
-                            <PaintingCard
-                              key={artwork._id}
-                              painting={artwork}
-                              onClick={() => navigate('/ViewArtwork')}
-                              isFavorite={favorites.includes(artwork._id)}
-                              onToggleFavorite={toggleFavorite}
-                            />
+                            <div
+                              style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                gap: '10px',
+                              }}
+                            >
+                              <PaintingCard
+                                key={artwork._id}
+                                painting={artwork}
+                                onClick={() => {
+                                  navigate('/ViewArtwork')
+                                  dispatch(setArtwork(artwork))
+                                }}
+                                isFavorite={favorites.includes(artwork._id)}
+                                onToggleFavorite={toggleFavorite}
+                              />
+                              <button
+                                style={{ backgroundColor: 'red' }} // Breite etwas erhöht für bessere Sichtbarkeit
+                                onClick={() => {
+                                  dispatch(
+                                    removeOffer({ artworkID: artwork._id })
+                                  )
+                                  window.location.reload()
+                                }}
+                              >
+                                Remove Offer
+                              </button>
+                            </div>
                           ))
                         ) : (
                           <p>No Offers for any Artworks!</p>
@@ -177,7 +223,10 @@ function User() {
                             <PaintingCard
                               key={artwork._id}
                               painting={artwork}
-                              onClick={() => navigate('/ViewArtwork')}
+                              onClick={() => {
+                                navigate('/ViewArtwork')
+                                dispatch(setArtwork(artwork))
+                              }}
                               isFavorite={favorites.includes(artwork._id)}
                               onToggleFavorite={toggleFavorite}
                             />
@@ -247,6 +296,9 @@ function User() {
         type="button"
         onClick={() => {
           dispatch(logoutUser())
+          dispatch(removeFavoriteArtworks())
+          dispatch(removeUsersArtworks())
+          dispatch(removeOfferdArtworks())
           navigate('/login')
         }}
         className="member-btn"

@@ -68,6 +68,12 @@ const artworkSlice = createSlice({
     setArtwork: (state, action) => {
       state.artwork = action.payload
     },
+    removeFavoriteArtworks: (state, action) => {
+      state.favoriteArtworks = []
+    },
+    removeUsersArtworks: (state, action) => {
+      state.usersArtworks = []
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -141,6 +147,7 @@ const artworkSlice = createSlice({
   },
 })
 
-export const { setArtwork } = artworkSlice.actions
+export const { setArtwork, removeUsersArtworks, removeFavoriteArtworks } =
+  artworkSlice.actions
 
 export default artworkSlice.reducer

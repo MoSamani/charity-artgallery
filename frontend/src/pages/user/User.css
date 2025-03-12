@@ -1,4 +1,26 @@
-.bootstrap-tabs {
-  /* Nur für Tabs Bootstrap-Stile aktivieren */
-  @import 'bootstrap/dist/css/bootstrap.min.css';
+.won-offers-container {
+  font-size: '2rem';
+  font-weight: 'semibold';
+  text-align: 'center';
+  display: 'flex';
+  justify-content: 'center';
+  align-items: 'center';
+}
+
+.win-donate-lable {
+  font-size: 2rem;
+  color: #666;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 5px;
+}
+
+.win-donate {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #121010;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }

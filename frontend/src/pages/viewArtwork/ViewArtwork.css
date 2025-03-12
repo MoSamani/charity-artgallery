@@ -1,0 +1,76 @@
+.artwork-container {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.artwork-image {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.artwork-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.artwork-info {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.artwork-info h2 {
+  margin-top: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.artwork-info p {
+  margin: 8px 0;
+  font-size: 16px;
+  color: #555;
+}
+
+.artwork-info strong {
+  color: #222;
+}
+
+/* Styling für das Offer Input Feld */
+.offer-section {
+  margin-top: 20px;
+}
+
+.offer-section label {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.offer-section input {
+  max-width: 5rem;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.offer-section button {
+  /* padding: 0px 16px; */
+  font-size: 16px;
+  max-width: 7rem;
+
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.offer-section button:hover {
+  background-color: #45a049;
+}
