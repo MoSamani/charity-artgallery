@@ -8,23 +8,35 @@ import Tabs from 'react-bootstrap/Tabs'
 import { logoutUser } from '../../features/user/userSlice'
 import Navbar from '../../components/Navbar.jsx'
 import { useNavigate } from 'react-router-dom'
-import { getUsersArtworks } from '../../features/artwork/artworkSlice.jsx'
+import {
+  getUsersArtworks,
+  getUsersFavoriteArtworks,
+  setArtwork,
+  removeUsersArtworks,
+  removeFavoriteArtworks,
+} from '../../features/artwork/artworkSlice.jsx'
+
+import {
+  getOfferdArtworks,
+  getUsersumOffers,
+  removeOfferdArtworks,
+  removeOffer,
+} from '../../features/offer/offerSlice.jsx'
 import { useSelector } from 'react-redux'
 import PaintingCard from '../../components/PaintingCard'
 import Footer from '../../components/Footer.jsx'
-import { setArtwork } from '../../features/artwork/artworkSlice.jsx'
 import { getUser, updateUser } from '../../features/user/userSlice.jsx'
 import DeleteButton from '../../components/DeleteButton'
 import FormRow from '../../components/FormRow'
-
 // import 'bootstrap/dist/css/bootstrap.min.css'
 import '../../bootstrap-styles/custom-bootstrap.scss' // Nur die benötigten Bootstrap-Styles
+import './User.css'
 
 function User() {
   const { user, isLoading } = useSelector((store) => store.user)
   const { artwork } = useSelector((store) => store.artwork)
   const [values, setValues] = useState(artwork)
-  console.log(user)
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -51,11 +63,18 @@ function User() {
   useEffect(() => {
     if (user) {
       dispatch(getUsersArtworks({}))
+      dispatch(getUsersFavoriteArtworks({}))
+      dispatch(getOfferdArtworks({}))
+      dispatch(getUsersumOffers({}))
       dispatch(getUser({ email: user.email }))
     }
   }, [])
 
-  let { usersArtworks } = useSelector((store) => store.artwork)
+  let { usersArtworks, favoriteArtworks } = useSelector(
+    (store) => store.artwork
+  )
+  let { offerdArtworks, userSumOffers } = useSelector((store) => store.offer)
+
   const [favorites, setFavorites] = useState(user?.favorites || [])
 
   const toggleFavorite = (itemId) => {
@@ -66,8 +85,6 @@ function User() {
 
     setFavorites(updatedFavorites)
 
-    console.log('favorites: ', favorites)
-    console.log('updatedFavorites: ', updatedFavorites)
     dispatch(
       updateUser({
         ...user,
@@ -80,6 +97,17 @@ function User() {
     <div>
       <Navbar />
       <div className="main-content">
+        <div>
+          <div className="win-donate">
+            <span>{userSumOffers.wonOffers}</span>,{' '}
+            <span>{userSumOffers.donatedOffers}</span>
+          </div>
+          <div className="win-donate-lable">
+            <span>Win</span> <span>Donate</span>
+          </div>
+          {/* Win in Total: {userSumOffers.wonOffers}, Donate in Total:{' '}
+          {userSumOffers.donatedOffers} */}
+        </div>
         <Tabs
           id="controlled-tab-example"
           activeKey={key}
@@ -105,7 +133,6 @@ function User() {
                 <Col sm={11}>
                   <Tab.Content>
                     <Tab.Pane eventKey="first">
-                      {' '}
                       <div
                         style={{
                           display: 'flex',
@@ -120,18 +147,95 @@ function User() {
                             <PaintingCard
                               key={artwork._id}
                               painting={artwork}
-                              onClick={() => navigate('/ViewArtwork')}
+                              onClick={() => {
+                                navigate('/EditArtwork')
+                                dispatch(setArtwork(artwork))
+                              }}
                               isFavorite={favorites.includes(artwork._id)}
                               onToggleFavorite={toggleFavorite}
                             />
                           ))
                         ) : (
-                          <p>No paintings is uploaded!</p>
+                          <p>No paintings is Artworks!</p>
                         )}
                       </div>
                     </Tab.Pane>
-                    <Tab.Pane eventKey="second">Second tab content</Tab.Pane>
-                    <Tab.Pane eventKey="third">Third tab content</Tab.Pane>
+                    <Tab.Pane eventKey="second">
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexWrap: 'wrap',
+                          justifyContent: 'center',
+                          gap: '20px',
+                          marginTop: '20px',
+                        }}
+                      >
+                        {offerdArtworks ? (
+                          offerdArtworks.map((artwork) => (
+                            <div
+                              style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                gap: '10px',
+                              }}
+                            >
+                              <PaintingCard
+                                key={artwork._id}
+                                painting={artwork}
+                                onClick={() => {
+                                  navigate('/ViewArtwork')
+                                  dispatch(setArtwork(artwork))
+                                }}
+                                isFavorite={favorites.includes(artwork._id)}
+                                onToggleFavorite={toggleFavorite}
+                              />
+                              <button
+                                style={{ backgroundColor: 'red' }} // Breite etwas erhöht für bessere Sichtbarkeit
+                                onClick={() => {
+                                  dispatch(
+                                    removeOffer({ artworkID: artwork._id })
+                                  )
+                                  window.location.reload()
+                                }}
+                              >
+                                Remove Offer
+                              </button>
+                            </div>
+                          ))
+                        ) : (
+                          <p>No Offers for any Artworks!</p>
+                        )}
+                      </div>
+                    </Tab.Pane>
+                    <Tab.Pane eventKey="third">
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexWrap: 'wrap',
+                          justifyContent: 'center',
+                          gap: '20px',
+                          marginTop: '20px',
+                        }}
+                      >
+                        {favoriteArtworks ? (
+                          favoriteArtworks.map((artwork) => (
+                            <PaintingCard
+                              key={artwork._id}
+                              painting={artwork}
+                              onClick={() => {
+                                navigate('/ViewArtwork')
+                                dispatch(setArtwork(artwork))
+                              }}
+                              isFavorite={favorites.includes(artwork._id)}
+                              onToggleFavorite={toggleFavorite}
+                            />
+                          ))
+                        ) : (
+                          <p>No favorite Artworks!</p>
+                        )}
+                      </div>
+                    </Tab.Pane>
                   </Tab.Content>
                 </Col>
               </Row>
@@ -192,6 +296,9 @@ function User() {
         type="button"
         onClick={() => {
           dispatch(logoutUser())
+          dispatch(removeFavoriteArtworks())
+          dispatch(removeUsersArtworks())
+          dispatch(removeOfferdArtworks())
           navigate('/login')
         }}
         className="member-btn"

@@ -22,7 +22,7 @@ function DeleteArtworkButton({ artworkID }) {
         onClick={() => setShowModal(true)}
         style={{ backgroundColor: 'red' }}
       >
-        remove user
+        Remove artwork
       </button>
 
       {showModal && (

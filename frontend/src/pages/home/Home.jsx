@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getAllArtworks } from '../../features/artwork/artworkSlice.jsx'
 import { getUser, updateUser } from '../../features/user/userSlice.jsx'
 import { useNavigate } from 'react-router-dom'
+import { setArtwork } from '../../features/artwork/artworkSlice.jsx'
 import './Home.css'
 
 function Home() {
@@ -75,13 +76,16 @@ function Home() {
             <PaintingCard
               key={artwork._id}
               painting={artwork}
-              onClick={() => navigate('/ViewArtwork')}
+              onClick={() => {
+                navigate('/ViewArtwork')
+                dispatch(setArtwork(artwork))
+              }}
               isFavorite={favorites.includes(artwork._id)}
               onToggleFavorite={toggleFavorite}
             />
           ))
         ) : (
-          <p>No paintings match the selected filters.</p>
+          <p>No Artworks match the selected filters.</p>
         )}
       </div>
       <div>
