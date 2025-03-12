@@ -8,6 +8,8 @@ import { getAllArtworks } from '../../features/artwork/artworkSlice.jsx'
 import { getUser, updateUser } from '../../features/user/userSlice.jsx'
 import { useNavigate } from 'react-router-dom'
 import { setArtwork } from '../../features/artwork/artworkSlice.jsx'
+import Filter from '../../components/Filter.jsx'
+
 import './Home.css'
 
 function Home() {
@@ -45,6 +47,40 @@ function Home() {
     )
   }
 
+  const [selectedSize, setSelectedSize] = useState('')
+  const [selectedMedium, setSelectedMedium] = useState('')
+  const [minPrice, setMinPrice] = useState('')
+  const [maxPrice, setMaxPrice] = useState('')
+
+  const sizes = [
+    ...new Set(artworks?.map((artwork) => artwork.size.toLowerCase().trim())),
+  ]
+
+  const mediums = [
+    ...new Set(artworks?.map((artwork) => artwork.medium.toLowerCase())),
+  ]
+
+  const filteredPaintingsList = artworks?.length
+    ? artworks.filter((artwork) => {
+        const sizeMatch = selectedSize
+          ? artwork.size
+              .toLowerCase()
+              .includes(selectedSize.toLowerCase().trim())
+          : true
+
+        const mediumMatch = selectedMedium
+          ? artwork.medium.toLowerCase().trim() ===
+            selectedMedium.toLowerCase().trim()
+          : true
+
+        const priceMatch =
+          (minPrice ? artwork.mprise >= minPrice : true) &&
+          (maxPrice ? artwork.mprise <= maxPrice : true)
+
+        return sizeMatch && mediumMatch && priceMatch
+      })
+    : []
+
   return (
     <div>
       <div>
@@ -62,6 +98,20 @@ function Home() {
         <Countdown />
       </div>
 
+      <div>
+        <Filter
+          selectedSize={selectedSize}
+          setSelectedSize={setSelectedSize}
+          sizes={sizes}
+          selectedMedium={selectedMedium}
+          setSelectedMedium={setSelectedMedium}
+          mediums={mediums}
+          minPrice={minPrice}
+          setMinPrice={setMinPrice}
+          maxPrice={maxPrice}
+          setMaxPrice={setMaxPrice}
+        />
+      </div>
       <div
         style={{
           display: 'flex',
@@ -71,8 +121,10 @@ function Home() {
           marginTop: '20px',
         }}
       >
-        {artworks.length > 0 ? (
-          artworks.map((artwork) => (
+        {artworks.length === 0 ? (
+          <p>Loading artworks...</p>
+        ) : filteredPaintingsList.length > 0 ? (
+          filteredPaintingsList.map((artwork) => (
             <PaintingCard
               key={artwork._id}
               painting={artwork}
@@ -96,3 +148,127 @@ function Home() {
 }
 
 export default Home
+
+// import React, { useState, useEffect } from 'react'
+// import { useSelector, useDispatch } from 'react-redux'
+// import { useNavigate } from 'react-router-dom'
+// import Navbar from '../../components/Navbar.jsx'
+// import PaintingCard from '../../components/PaintingCard'
+// import Filter from '../../components/Filter.jsx'
+// import Countdown from '../../components/Countdown.jsx'
+// import Footer from '../../components/Footer'
+// import { getAllArtworks } from '../../features/artwork/artworkSlice.jsx'
+// import { getUser } from '../../features/user/userSlice.jsx'
+// import './Home.css'
+
+// function Home() {
+//   const dispatch = useDispatch()
+//   const navigate = useNavigate()
+
+//   const { artworks } = useSelector((store) => store.artwork)
+//   const { user } = useSelector((store) => store.user)
+
+//   useEffect(() => {
+//     dispatch(getAllArtworks({}))
+
+//     if (user) {
+//       dispatch(getUser({ email: user.email }))
+//     }
+//   }, [])
+
+//   const [selectedSize, setSelectedSize] = useState('')
+//   const [selectedMedium, setSelectedMedium] = useState('')
+//   const [minPrice, setMinPrice] = useState('')
+//   const [maxPrice, setMaxPrice] = useState('')
+
+//   const sizes = [
+//     ...new Set(artworks?.map((artwork) => artwork.size.toLowerCase().trim())),
+//   ]
+
+//   const mediums = [
+//     ...new Set(artworks?.map((artwork) => artwork.medium.toLowerCase())),
+//   ]
+
+//   const filteredPaintingsList = artworks?.length
+//     ? artworks.filter((artwork) => {
+//         const sizeMatch = selectedSize
+//           ? artwork.size
+//               .toLowerCase()
+//               .includes(selectedSize.toLowerCase().trim())
+//           : true
+
+//         const mediumMatch = selectedMedium
+//           ? artwork.medium.toLowerCase().trim() ===
+//             selectedMedium.toLowerCase().trim()
+//           : true
+
+//         const priceMatch =
+//           (minPrice ? artwork.mprise >= minPrice : true) &&
+//           (maxPrice ? artwork.mprise <= maxPrice : true)
+
+//         return sizeMatch && mediumMatch && priceMatch
+//       })
+//     : []
+
+//   return (
+//     <div>
+//       <Navbar />
+//       <div
+//         className="main-content"
+//         style={{
+//           textAlign: 'center',
+//           margin: '20px 0',
+//           fontSize: '18px',
+//           fontWeight: 'bold',
+//         }}
+//       >
+//         <Countdown />
+//       </div>
+
+//       <Filter
+//         selectedSize={selectedSize}
+//         setSelectedSize={setSelectedSize}
+//         sizes={sizes}
+//         selectedMedium={selectedMedium}
+//         setSelectedMedium={setSelectedMedium}
+//         mediums={mediums}
+//         minPrice={minPrice}
+//         setMinPrice={setMinPrice}
+//         maxPrice={maxPrice}
+//         setMaxPrice={setMaxPrice}
+//       />
+//       <div
+//         style={{
+//           display: 'flex',
+//           flexWrap: 'wrap',
+//           justifyContent: 'center',
+//           gap: '20px',
+//           marginTop: '20px',
+//         }}
+//       >
+//         {artworks.length === 0 ? (
+//           <p>Loading artworks...</p>
+//         ) : filteredPaintingsList.length > 0 ? (
+//           filteredPaintingsList.map((artwork) => (
+//                       <PaintingCard
+//               key={artwork._id}
+//               painting={artwork}
+//               onClick={() => {
+//                 navigate('/ViewArtwork')
+//                 dispatch(setArtwork(artwork))
+//               }}
+//               isFavorite={favorites.includes(artwork._id)}
+//               onToggleFavorite={toggleFavorite}
+//             />
+//           ))
+//         ) : (
+//           <p>No paintings match the selected filters.</p>
+//         )}
+//       </div>
+
+//       <Footer />
+//     </div>
+//   )
+// }
+
+// export default Home
