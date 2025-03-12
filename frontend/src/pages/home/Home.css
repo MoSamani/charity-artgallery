@@ -2,6 +2,10 @@
   font-family: 'Cormorant Garamond', serif;
 } */
 
+.main-content {
+  background-color: white;
+}
+
 .painting-card {
   transition: transform 0.3s ease;
 }

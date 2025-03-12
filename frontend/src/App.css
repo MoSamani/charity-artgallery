@@ -40,3 +40,61 @@
   height: auto !important;
   object-fit: contain !important;
 }
+
+.mobile-menu .link {
+  font-size: 1.5rem;
+  margin: 5px;
+  text-decoration: none;
+  color: black;
+  text-align: center;
+}
+
+/* .mobile-menu .link {
+  font-size: 1.5rem;
+  margin: 5px;
+  text-decoration: none;
+  color: black;
+  text-align: center;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  padding: 10px;
+  border-radius: 5px;
+} */
+
+/* .mobile-menu .link:hover {
+  color: rgb(63, 62, 62);
+  background-color: #ffffff;
+} */
+.menu-icon {
+  width: 30px;
+  cursor: pointer;
+}
+
+.mobile-menu {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  padding: 10px;
+}
+
+.navbar-mobile {
+  display: none;
+}
+
+/* Mobile Ansicht: Bild über den Infos */
+@media (max-width: 480px) {
+  .navbar {
+    display: none;
+  }
+  .navbar-mobile {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 20px;
+    background: white;
+    color: black;
+  }
+  .navbar-mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

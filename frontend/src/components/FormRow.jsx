@@ -14,7 +14,7 @@ const FormRow = ({ type, name, value, handleChange, labelText, checked }) => {
         {...(type !== 'file' && type !== 'checkbox' && { value })}
         {...(type === 'checkbox' && { checked })}
         onChange={handleChange}
-        className="form-input"
+        // className="form-input"
       />
     </div>
   )

@@ -21,7 +21,7 @@ h3 {
 }
 
 input {
-  width: 100%;
+  width: 94%;
   padding: 10px;
   margin: 8px 0;
   border: 1px solid #ccc;
@@ -36,7 +36,7 @@ button {
   border-radius: 5px;
   cursor: pointer;
   width: 100%;
-  margin-top: 10px;
+  margin: 10px 0px;
   font-size: 1rem;
   transition: background 0.3s;
 }

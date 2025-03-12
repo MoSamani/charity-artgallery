@@ -2,7 +2,7 @@ body {
   font-family: 'Cormorant Garamond', serif;
   /* font-family: 'Cormorant Garamond', serif; */
   /* font-family: 'Roboto', sans-serif; */
-  /* background-color: #e3dcd5; */
+  /* background-color: #f7eee6ea; */
   color: #000000;
 }
 
@@ -28,4 +28,17 @@ body {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 700;
   font-style: italic;
+}
+
+.button-back {
+  background-color: #fba94b;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 23rem;
+  font-size: 1rem;
+  align-items: center;
+  /* margin: auto; */
 }
