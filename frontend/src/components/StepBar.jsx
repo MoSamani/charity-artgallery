@@ -11,24 +11,43 @@ export default function StepBar({ amount }) {
 
   return (
     <Box
-      sx={{ width: '100%', maxWidth: 400, mx: 'auto', p: 2, marginTop: '30px' }}
+      sx={{ width: '100%', maxWidth: 400, mx: 'auto', p: 2, marginTop: '20px' }}
     >
       <Typography
-        variant="h6"
+        variant="h4"
         sx={{
-          mb: 3,
+          mb: 4,
           fontFamily: 'cormorant-garamond',
           //   fontWeight: 'bold',
-          fontSize: '1.8rem',
+          fontSize: '2rem',
         }}
       >
         {/* Spenden-Schrittleiste: {steps[stepIndex]}€ */}
         Spenden-Schrittleiste
       </Typography>
-      <Stepper activeStep={stepIndex} alternativeLabel>
+      <Stepper activeStep={stepIndex} alternativeLabel sx={{ scale: '1.2' }}>
         {steps.map((step, index) => (
           <Step key={index}>
-            <StepLabel>{stepLabels[index]}€</StepLabel>
+            <StepLabel sx={{ color: index <= stepIndex ? 'black' : 'gray' }}>
+              {stepLabels[index]}€
+              {index < steps.length - 1 && (
+                <Typography
+                  sx={{
+                    position: 'absolute',
+                    top: '-20px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    fontSize: '14px',
+                    color: '#1976d2',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  {amount >= step && amount < steps[index + 1]
+                    ? `${amount}€`
+                    : ''}
+                </Typography>
+              )}
+            </StepLabel>
           </Step>
         ))}
       </Stepper>
