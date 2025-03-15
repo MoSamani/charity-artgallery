@@ -14,7 +14,7 @@ const createOffer = async (req, res) => {
     if (!user) {
       return res.status(404).json({ msg: 'User not found' })
     }
-    console.log(req.body)
+
     // Daten aus dem Request-Body holen
     const { artworkID, price } = req.body
     if (!artworkID || !price) {
@@ -106,7 +106,7 @@ const getUserArtworksWithOffers = async (req, res) => {
     if (!req.user || !req.user.userID) {
       return res.status(401).json({ msg: 'User not authenticated' })
     }
-    console.log(req.user)
+
     const artworkIds = await Offer.distinct('createdFor', {
       createdBy: req.user.userID,
     })
@@ -215,6 +215,34 @@ const berechneBekommeneOffers = async (req, res) => {
   }
 }
 
+const getTotalDonations = async (req, res) => {
+  try {
+    const donationArtworks = await Artwork.find({
+      donate: true,
+    }).select('_id')
+
+    const artworkIds = donationArtworks.map((artwork) => artwork._id)
+
+    const result = await Offer.aggregate([
+      {
+        $match: { createdFor: { $in: artworkIds } }, // Nur Spenden für freigegebene Artworks zählen
+      },
+      {
+        $group: {
+          _id: null,
+          totalAmount: { $sum: '$price' },
+        },
+      },
+    ])
+
+    const totalDonates = result.length > 0 ? result[0].totalAmount : 0
+    console.log(totalDonates)
+    return res.status(200).json({ totalDonates: totalDonates })
+  } catch (error) {
+    return res.status(500).json({ msg: error.message })
+  }
+}
+
 const getAllOffersOfArtwork = async (req, res) => {
   res.status(200).json({ msg: 'getAllOffers' })
 }
@@ -227,4 +255,5 @@ module.exports = {
   deleteUserOffersForArtwork,
   getUserArtworksWithHighestOffer,
   berechneBekommeneOffers,
+  getTotalDonations,
 }
