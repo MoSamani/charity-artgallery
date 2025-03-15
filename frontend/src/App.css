@@ -64,17 +64,6 @@
   color: rgb(63, 62, 62);
   background-color: #ffffff;
 } */
-.menu-icon {
-  width: 30px;
-  cursor: pointer;
-}
-
-.mobile-menu {
-  display: flex;
-  flex-direction: column;
-  background: white;
-  padding: 10px;
-}
 
 .navbar-mobile {
   display: none;
@@ -85,6 +74,25 @@
   .navbar {
     display: none;
   }
+
+  .navbar-mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .menu-icon {
+    width: 30px;
+    cursor: pointer;
+  }
+
+  .mobile-menu {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    padding: 10px;
+  }
+
   .navbar-mobile {
     display: flex;
     flex-direction: column;
@@ -92,9 +100,9 @@
     background: white;
     color: black;
   }
-  .navbar-mobile-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+
+  .mobile-menu .link:hover {
+    color: rgb(63, 62, 62);
+    background-color: #ffffff;
   }
 }
