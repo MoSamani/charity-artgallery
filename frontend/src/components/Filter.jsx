@@ -63,14 +63,14 @@ function Filter({
 
       {/* فیلتر قیمت */}
       <div
-        className="filter-item price-filter-container"
-        style={{ display: 'flex', alignItems: 'center' }}
+        className="price-filter-container"
+        // style={{ display: 'flex', alignItems: 'center' }}
       >
         <button
           onClick={() => setIsPriceFilterOpen(!isPriceFilterOpen)}
           className="price-filter-toggle"
           style={{
-            padding: '10px 20px',
+            padding: '10px 10px',
             fontSize: '16px',
             color: 'black',
             border: '1px solid #000',
@@ -78,6 +78,7 @@ function Filter({
             cursor: 'pointer',
             width: 'auto',
             display: 'inline-block',
+            marginRight: '5px',
           }}
         >
           {isPriceFilterOpen ? 'Close Price Filter' : 'Open Price Filter'}
@@ -86,12 +87,12 @@ function Filter({
         {/* نمایش فیلدهای قیمت در صورت باز بودن فیلتر */}
         {isPriceFilterOpen && (
           <div
-            className="price-range-inputs"
-            style={{
-              display: 'flex',
-              gap: '10px', // فاصله بین فیلدهای قیمت
-              marginLeft: '20px', // فاصله از دکمه
-            }}
+          // className="price-range-inputs"
+          // style={{
+          //   display: 'flex',
+          //   gap: '10px', // فاصله بین فیلدهای قیمت
+          //   marginLeft: '20px', // فاصله از دکمه
+          // }}
           >
             <input
               type="number"
@@ -107,7 +108,7 @@ function Filter({
                 backgroundColor: 'transparent',
                 cursor: 'pointer',
                 width: '100px', // عرض فیلدها بیشتر از 50px
-                margin: '8px 0px 0px 0px',
+                marginRight: '5px',
               }}
             />
             <input
@@ -124,7 +125,6 @@ function Filter({
                 backgroundColor: 'transparent',
                 cursor: 'pointer',
                 width: '100px', // عرض فیلدها بیشتر از 50px
-                margin: '8px 0px 0px 0px',
               }}
             />
           </div>
