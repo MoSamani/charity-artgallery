@@ -4,6 +4,14 @@ const jwt = require('jsonwebtoken')
 const { BadRequestError, UnauthenticatedError } = require('../errors')
 
 const register = async (req, res) => {
+  const { email } = req.body
+  const hsdEmailPattern = /^[a-zA-Z0-9._%+-]+@(study\.)?hs-duesseldorf\.de$/
+  if (!hsdEmailPattern.test(email)) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      msg: 'Please provide a valid HSD email!',
+    })
+  }
+
   try {
     const user = await User.create({ ...req.body })
     const token = user.createJWT()
@@ -43,16 +51,20 @@ const login = async (req, res) => {
     return res.status(StatusCodes.UNAUTHORIZED).send('Invalid Credentials!')
   }
 
-  const token = user.createJWT()
-  res.status(StatusCodes.OK).json({
-    user: {
-      firstname: user.firstname,
-      lastname: user.lastname,
-      email: user.email,
-      favorites: user.favorites,
-      token: token,
-    },
-  })
+  try {
+    const token = user.createJWT()
+    res.status(StatusCodes.OK).json({
+      user: {
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email,
+        favorites: user.favorites,
+        token: token,
+      },
+    })
+  } catch (error) {
+    res.status(StatusCodes.BAD_REQUEST).json({ msg: error.message })
+  }
 }
 
 const updateUser = async (req, res) => {
@@ -65,49 +77,66 @@ const updateUser = async (req, res) => {
   user.firstname = firstname
   user.lastname = lastname
 
-  // await user.save()
-  await User.findByIdAndUpdate(
-    { _id: user._id },
-    { firstname: firstname, lastname: lastname, favorites: favorites },
-    {
-      new: true,
-      runValidators: true,
-    }
-  )
-  const _token = user.createJWT()
-  res.status(StatusCodes.OK).json({
-    user: {
-      firstname: user.firstname,
-      lastname: user.lastname,
-      email: user.email,
-      favorites: user.favorites,
-      token: _token,
-    },
-  })
+  try {
+    await User.findByIdAndUpdate(
+      { _id: user._id },
+      { firstname: firstname, lastname: lastname, favorites: favorites },
+      {
+        new: true,
+        runValidators: true,
+      }
+    )
+    const _token = user.createJWT()
+    res.status(StatusCodes.OK).json({
+      user: {
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email,
+        favorites: user.favorites,
+        token: _token,
+      },
+    })
+  } catch (error) {
+    res.status(StatusCodes.BAD_REQUEST).json({ msg: error.message })
+  }
 }
 
 const updatePassword = async (req, res) => {
   const { email, password, newpassword } = req.body
-  console.log(req.body)
 
   const user = await User.findOne({ email })
-
+  if (!user) {
+    return res.status(StatusCodes.NOT_FOUND).json({ msg: 'User not found' })
+  }
   const isPasswordCorrect = await user.comparePassword(password)
   if (!isPasswordCorrect) {
     // throw new UnauthenticatedError('Invalid credentials!')
     return res.status(StatusCodes.UNAUTHORIZED).send('Invalid Credentials!')
   }
 
-  const _token = user.createJWT()
-  res.status(StatusCodes.OK).json({
-    user: {
-      firstname: user.firstname,
-      lastname: user.lastname,
-      email: user.email,
-      favorites: user.favorites,
-      token: _token,
-    },
-  })
+  try {
+    await User.findByIdAndUpdate(
+      { _id: user._id },
+      { password: newpassword },
+      {
+        new: true,
+        runValidators: true,
+      }
+    )
+
+    const _token = user.createJWT()
+    res.status(StatusCodes.OK).json({
+      user: {
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email,
+        favorites: user.favorites,
+        token: _token,
+      },
+    })
+  } catch (error) {
+    res.status(StatusCodes.BAD_REQUEST).json({ msg: error.message })
+  }
 }
 
 const deleteUser = async (req, res) => {
