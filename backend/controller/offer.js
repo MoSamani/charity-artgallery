@@ -236,7 +236,7 @@ const getTotalDonations = async (req, res) => {
     ])
 
     const totalDonates = result.length > 0 ? result[0].totalAmount : 0
-    console.log(totalDonates)
+
     return res.status(200).json({ totalDonates: totalDonates })
   } catch (error) {
     return res.status(500).json({ msg: error.message })

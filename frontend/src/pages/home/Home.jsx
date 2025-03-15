@@ -8,22 +8,26 @@ import { getAllArtworks } from '../../features/artwork/artworkSlice.jsx'
 import { getUser, updateUser } from '../../features/user/userSlice.jsx'
 import { useNavigate } from 'react-router-dom'
 import { setArtwork } from '../../features/artwork/artworkSlice.jsx'
+import { gettotalDonates } from '../../features/offer/offerSlice.jsx'
+import StepBar from '../../components/StepBar.jsx'
 import Filter from '../../components/Filter.jsx'
 
 import './Home.css'
 
 function Home() {
   const { artworks } = useSelector((store) => store.artwork)
-  console.log('Artworks: ', artworks)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  let { user } = useSelector((store) => store.user)
-  console.log(user)
+  const { user } = useSelector((store) => store.user)
+  const { totalDonates } = useSelector((store) => store.offer)
+  // console.log('totalDonates', totalDonates)
+  // console.log('Artworks: ', artworks)
+
   const [favorites, setFavorites] = useState(user?.favorites || [])
 
   useEffect(() => {
     dispatch(getAllArtworks({}))
-
+    dispatch(gettotalDonates({}))
     if (user) {
       dispatch(getUser({ email: user.email }))
     }
@@ -37,8 +41,8 @@ function Home() {
 
     setFavorites(updatedFavorites)
 
-    console.log('favorites: ', favorites)
-    console.log('updatedFavorites: ', updatedFavorites)
+    // console.log('favorites: ', favorites)
+    // console.log('updatedFavorites: ', updatedFavorites)
     dispatch(
       updateUser({
         ...user,
@@ -95,7 +99,10 @@ function Home() {
           fontWeight: 'bold',
         }}
       >
-        <Countdown />
+        <div className="countdown-stepbar">
+          <Countdown />
+          <StepBar amount={totalDonates} />
+        </div>
       </div>
 
       <div>

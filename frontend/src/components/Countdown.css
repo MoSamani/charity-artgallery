@@ -1,6 +1,6 @@
 .countdown-container {
   text-align: center;
-  font-family: Arial, sans-serif;
+  /* font-family: Arial, sans-serif; */
 
   padding: 20px;
   border-radius: 10px;
@@ -9,14 +9,14 @@
 }
 
 .date-title {
-  font-size: 24px;
+  font-size: 2.2rem;
   font-weight: bold;
   color: #333;
   margin-bottom: 10px;
 }
 
 .countdown-timer {
-  font-size: 32px;
+  font-size: 38px;
   font-weight: bold;
   color: #d9534f;
   display: flex;
