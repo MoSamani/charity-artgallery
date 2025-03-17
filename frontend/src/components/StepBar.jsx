@@ -5,6 +5,9 @@ const steps = [50, 200, 500, 1000, 2000]
 const stepLabels = ['50', '200', '500', '1000', '>2000']
 
 export default function StepBar({ amount }) {
+  if (!amount) {
+    amount = 0
+  }
   // Berechnet den aktuellen Schritt basierend auf dem Verkaufsbetrag
   const currentStep = steps.findIndex((step) => amount < step)
   const stepIndex = currentStep === -1 ? steps.length - 1 : currentStep
@@ -30,7 +33,7 @@ export default function StepBar({ amount }) {
           <Step key={index}>
             <StepLabel sx={{ color: index <= stepIndex ? 'black' : 'gray' }}>
               {stepLabels[index]}€
-              {index < steps.length - 1 && (
+              {index === stepIndex && Number.isFinite(amount) && (
                 <Typography
                   sx={{
                     position: 'absolute',
@@ -42,9 +45,7 @@ export default function StepBar({ amount }) {
                     fontWeight: 'bold',
                   }}
                 >
-                  {amount >= step && amount < steps[index + 1]
-                    ? `${amount}€`
-                    : ''}
+                  {amount}€
                 </Typography>
               )}
             </StepLabel>
