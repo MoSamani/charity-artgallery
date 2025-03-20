@@ -20,7 +20,7 @@ function Home() {
   const navigate = useNavigate()
   const { user } = useSelector((store) => store.user)
   const { totalDonates } = useSelector((store) => store.offer)
-  // console.log('totalDonates', totalDonates)
+  console.log('totalDonates', totalDonates)
   // console.log('Artworks: ', artworks)
 
   const [favorites, setFavorites] = useState(user?.favorites || [])

@@ -9,7 +9,7 @@ const {
   deleteUserOffersForArtwork,
   getUserArtworksWithHighestOffer,
   berechneBekommeneOffers,
-  getTotalDonations,
+  getTotalMaxDonations,
 } = require('../controller/offer')
 
 offerRouter.get('/', getAllOffersOfArtwork)
@@ -19,9 +19,9 @@ offerRouter.delete('/deleteoffer', deleteUserOffersForArtwork)
 // router.get('/userartworks', getUserArtworksWithOffers)
 offerRouter.get('/userartworks', getUserArtworksWithHighestOffer)
 offerRouter.get('/getoffers', berechneBekommeneOffers)
-offerRouter.get('/totaldonations', getTotalDonations)
+// offerRouter.get('/totaldonations', getTotalMaxDonations)
 
 const publicDonationRouter = express.Router()
-publicDonationRouter.get('/', getTotalDonations)
+publicDonationRouter.get('/', getTotalMaxDonations)
 
 module.exports = { offerRouter, publicDonationRouter }

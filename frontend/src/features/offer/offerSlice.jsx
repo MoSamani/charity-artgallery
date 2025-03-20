@@ -107,8 +107,8 @@ const offerSlice = createSlice({
         state.isLoading = true
       })
       .addCase(gettotalDonates.fulfilled, (state, { payload }) => {
-        const { totalDonates } = payload
-        state.totalDonates = totalDonates
+        const { totalMaxDonates } = payload
+        state.totalDonates = totalMaxDonates
         state.isLoading = false
       })
       .addCase(gettotalDonates.rejected, (state) => {

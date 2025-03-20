@@ -215,29 +215,38 @@ const berechneBekommeneOffers = async (req, res) => {
   }
 }
 
-const getTotalDonations = async (req, res) => {
+const getTotalMaxDonations = async (req, res) => {
   try {
-    const donationArtworks = await Artwork.find({
-      donate: true,
-    }).select('_id')
+    // Finde alle Artworks, die für Spenden freigegeben sind
+    const donationArtworks = await Artwork.find({ donate: true }).select('_id')
 
     const artworkIds = donationArtworks.map((artwork) => artwork._id)
 
+    if (artworkIds.length === 0) {
+      return res.status(200).json({ totalMaxDonates: 0 })
+    }
+
     const result = await Offer.aggregate([
       {
-        $match: { createdFor: { $in: artworkIds } }, // Nur Spenden für freigegebene Artworks zählen
+        $match: { createdFor: { $in: artworkIds } }, // Nur Offers für Spenden-Artworks
+      },
+      {
+        $group: {
+          _id: '$createdFor', // Gruppieren nach Artwork-ID
+          maxDonation: { $max: '$price' }, // Maximaler Preis pro Artwork
+        },
       },
       {
         $group: {
           _id: null,
-          totalAmount: { $sum: '$price' },
+          totalAmount: { $sum: '$maxDonation' }, // Summe der höchsten Spenden pro Artwork
         },
       },
     ])
 
-    const totalDonates = result.length > 0 ? result[0].totalAmount : 0
+    const totalMaxDonates = result.length > 0 ? result[0].totalAmount : 0
 
-    return res.status(200).json({ totalDonates: totalDonates })
+    return res.status(200).json({ totalMaxDonates: totalMaxDonates })
   } catch (error) {
     return res.status(500).json({ msg: error.message })
   }
@@ -255,5 +264,5 @@ module.exports = {
   deleteUserOffersForArtwork,
   getUserArtworksWithHighestOffer,
   berechneBekommeneOffers,
-  getTotalDonations,
+  getTotalMaxDonations,
 }
