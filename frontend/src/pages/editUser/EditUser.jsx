@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { updateUser } from '../../features/user/userSlice'
 import DeleteButton from '../../components/DeleteButton'
+import './EditUser.css'
 
 // const initialState = {
 //   firstname: '',
@@ -76,7 +77,7 @@ function EditUser() {
       </form>
 
       <h3>{'change password'}</h3>
-      <button
+      <button 
         type="button"
         onClick={() => {
           navigate('/EditPassword')

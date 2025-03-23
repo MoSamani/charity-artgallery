@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { removeUser } from '../features/user/userSlice'
+import './DeleteButton.css';
 
 function DeleteUserButton() {
   const [showModal, setShowModal] = useState(false)
@@ -17,9 +18,9 @@ function DeleteUserButton() {
       <button
         type="button"
         onClick={() => setShowModal(true)}
-        style={{ backgroundColor: 'red' }}
+        className="Test"
       >
-        remove user
+        Remove user
       </button>
 
       {showModal && (
@@ -41,7 +42,7 @@ const overlayStyles = {
   left: 0,
   right: 0,
   bottom: 0,
-  backgroundColor: 'rgba(0,0,0,0.5)',
+  backgroundColor: 'rgba(22, 14, 14, 0.5)',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',

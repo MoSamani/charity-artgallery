@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { updatePassword } from '../../features/user/userSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
+import './EditPassword.css'
 
 function EditPassword() {
   const { user, isLoading } = useSelector((store) => store.user)
@@ -48,6 +49,7 @@ function EditPassword() {
   return (
     <div>
       <Navbar />
+      <div class="main-content">
       <form className="form" onSubmit={onSubmit}>
         <h3>{'Change password'}</h3>
         {/* name field */}
@@ -73,15 +75,15 @@ function EditPassword() {
           </button>
         )}
       </form>
-
       <button
         type="button"
         onClick={() => {
           navigate(-1)
         }}
-      >
+        className="button-back">
         {'back'}
       </button>
+      </div>
     </div>
   )
 }

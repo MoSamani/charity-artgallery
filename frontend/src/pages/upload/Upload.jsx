@@ -7,6 +7,7 @@ import Textarea from '../../components/Textarea'
 import FormRow from '../../components/FormRow'
 import { postArtwork } from '../../features/artwork/artworkSlice'
 import Footer from '../../components/Footer'
+import './Upload.css'
 
 const initialState = {
   name: '',
@@ -88,9 +89,10 @@ function Upload() {
     <div>
       <Navbar />
       <div className="main-content">
-        <h1>Upload Artwork</h1>
+      <div className="upload-container">
+        <h1 className="upload-heading">Upload Artwork</h1>
 
-        <form className="form" onSubmit={onSubmit}>
+        <form className="form-upload" onSubmit={onSubmit}>
           {/* name field */}
 
           <FormRow
@@ -139,6 +141,7 @@ function Upload() {
             </div>
           )}
           <button
+            class="button-removeimage"
             type="button"
             onClick={(e) => {
               e.preventDefault()
@@ -164,10 +167,11 @@ function Upload() {
             handleChange={handleChangeDonate}
           />
 
-          <button type="submit" disabled={isLoading}>
+          <button class="button-upload" type="submit" disabled={isLoading}>
             {isLoading ? 'loading...' : 'submit'}
           </button>
         </form>
+        </div>
       </div>
       <div>
         <Footer />

@@ -1,7 +1,21 @@
 .navbar-mobile {
   display: none;
 }
-
+.left-part {
+  justify-content: flex-start;
+  display: flex;
+  gap: 1rem;
+  flex: 1 0 0;
+  min-width: 0; 
+  white-space: nowrap;
+}
+.right-part {
+  display: flex;
+  gap: 1rem;
+  flex: 1 1 0;
+  min-width: 0; 
+  white-space: nowrap;
+}
 /* Mobile Ansicht: Bild über den Infos */
 /* @media (max-width: 480px) {
   .navbar-home {

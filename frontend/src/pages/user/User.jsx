@@ -108,190 +108,131 @@ function User() {
           {/* Win in Total: {userSumOffers.wonOffers}, Donate in Total:{' '}
           {userSumOffers.donatedOffers} */}
         </div>
+
         <Tabs
-          id="controlled-tab-example"
-          activeKey={key}
-          onSelect={(k) => setKey(k)}
-          className="mb-3"
-        >
-          <Tab eventKey="Activity" title="Activity">
-            <Tab.Container id="left-tabs-example" defaultActiveKey="first">
-              <Row>
-                <Col sm={1}>
-                  <Nav variant="pills" className="flex-column">
-                    <Nav.Item>
-                      <Nav.Link eventKey="first">Uploads</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                      <Nav.Link eventKey="second">Offers</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                      <Nav.Link eventKey="third">Favorites</Nav.Link>
-                    </Nav.Item>
-                  </Nav>
-                </Col>
-                <Col sm={11}>
-                  <Tab.Content>
-                    <Tab.Pane eventKey="first">
-                      <div
-                        style={{
-                          display: 'flex',
-                          flexWrap: 'wrap',
-                          justifyContent: 'center',
-                          gap: '20px',
-                          marginTop: '20px',
-                        }}
-                      >
-                        {usersArtworks ? (
-                          usersArtworks.map((artwork) => (
-                            <PaintingCard
-                              key={artwork._id}
-                              painting={artwork}
-                              onClick={() => {
-                                navigate('/EditArtwork')
-                                dispatch(setArtwork(artwork))
-                              }}
-                              isFavorite={favorites.includes(artwork._id)}
-                              onToggleFavorite={toggleFavorite}
-                            />
-                          ))
-                        ) : (
-                          <p>No paintings is Artworks!</p>
-                        )}
-                      </div>
-                    </Tab.Pane>
-                    <Tab.Pane eventKey="second">
-                      <div
-                        style={{
-                          display: 'flex',
-                          flexWrap: 'wrap',
-                          justifyContent: 'center',
-                          gap: '20px',
-                          marginTop: '20px',
-                        }}
-                      >
-                        {offerdArtworks ? (
-                          offerdArtworks.map((artwork) => (
-                            <div
-                              style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                                gap: '10px',
-                              }}
-                            >
-                              <PaintingCard
-                                key={artwork._id}
-                                painting={artwork}
-                                onClick={() => {
-                                  navigate('/ViewArtwork')
-                                  dispatch(setArtwork(artwork))
-                                }}
-                                isFavorite={favorites.includes(artwork._id)}
-                                onToggleFavorite={toggleFavorite}
-                              />
-                              <button
-                                style={{ backgroundColor: 'red' }} // Breite etwas erhöht für bessere Sichtbarkeit
-                                onClick={() => {
-                                  dispatch(
-                                    removeOffer({ artworkID: artwork._id })
-                                  )
-                                  window.location.reload()
-                                }}
-                              >
-                                Remove Offer
-                              </button>
-                            </div>
-                          ))
-                        ) : (
-                          <p>No Offers for any Artworks!</p>
-                        )}
-                      </div>
-                    </Tab.Pane>
-                    <Tab.Pane eventKey="third">
-                      <div
-                        style={{
-                          display: 'flex',
-                          flexWrap: 'wrap',
-                          justifyContent: 'center',
-                          gap: '20px',
-                          marginTop: '20px',
-                        }}
-                      >
-                        {favoriteArtworks ? (
-                          favoriteArtworks.map((artwork) => (
-                            <PaintingCard
-                              key={artwork._id}
-                              painting={artwork}
-                              onClick={() => {
-                                navigate('/ViewArtwork')
-                                dispatch(setArtwork(artwork))
-                              }}
-                              isFavorite={favorites.includes(artwork._id)}
-                              onToggleFavorite={toggleFavorite}
-                            />
-                          ))
-                        ) : (
-                          <p>No favorite Artworks!</p>
-                        )}
-                      </div>
-                    </Tab.Pane>
-                  </Tab.Content>
-                </Col>
-              </Row>
-            </Tab.Container>
-          </Tab>
-          <Tab eventKey="profile" title="Profile">
-            <div>
-              <form className="form" onSubmit={onSubmit}>
-                <h3>{'Edit'}</h3>
-                {/* name field */}
-                <FormRow
-                  type="text"
-                  name="firstname"
-                  value={values?.firstname}
-                  handleChange={handleChange}
-                />
-                <FormRow
-                  type="text"
-                  name="lastname"
-                  value={values?.lastname}
-                  handleChange={handleChange}
-                />
-                {/* email field */}
+  id="controlled-tab-example"
+  activeKey={key}
+  onSelect={(k) => setKey(k)}
+  className="mb-3"
+>
+  <Tab eventKey="Activity" title="Activity">
+    <Tabs
+      id="activity-sub-tabs"
+      defaultActiveKey="Uploads"
+      className="mb-3 inner-tabs"
+    >
+      <Tab eventKey="Uploads" title="Uploads">
+        <div className="painting-card-wrapper">
+          {usersArtworks?.length > 0 ? (
+            usersArtworks.map((artwork) => (
+              <PaintingCard
+                key={artwork._id}
+                painting={artwork}
+                onClick={() => {
+                  navigate('/EditArtwork')
+                  dispatch(setArtwork(artwork))
+                }}
+                isFavorite={favorites.includes(artwork._id)}
+                onToggleFavorite={toggleFavorite}
+              />
+            ))
+          ) : (
+            <p>No artworks uploaded yet.</p>
+          )}
+        </div>
+      </Tab>
 
-                <button type="submit" disabled={isLoading}>
-                  {isLoading ? 'loading...' : 'submit'}
+      <Tab eventKey="Offers" title="Offers">
+        <div className="painting-card-wrapper">
+          {offerdArtworks?.length > 0 ? (
+            offerdArtworks.map((artwork) => (
+              <div key={artwork._id} className="offer-wrapper">
+                <PaintingCard
+                  painting={artwork}
+                  onClick={() => {
+                    navigate('/ViewArtwork')
+                    dispatch(setArtwork(artwork))
+                  }}
+                  isFavorite={favorites.includes(artwork._id)}
+                  onToggleFavorite={toggleFavorite}
+                />
+                <button
+                  className="remove-offer-btn"
+                  onClick={() => {
+                    dispatch(removeOffer({ artworkID: artwork._id }))
+                    window.location.reload()
+                  }}
+                >
+                  Remove Offer
                 </button>
-              </form>
+              </div>
+            ))
+          ) : (
+            <p>No offers available.</p>
+          )}
+        </div>
+      </Tab>
 
-              <h3>{'change password'}</h3>
-              <button
-                type="button"
+      <Tab eventKey="Favorites" title="Favorites">
+        <div className="painting-card-wrapper">
+          {favoriteArtworks?.length > 0 ? (
+            favoriteArtworks.map((artwork) => (
+              <PaintingCard
+                key={artwork._id}
+                painting={artwork}
                 onClick={() => {
-                  navigate('/EditPassword')
+                  navigate('/ViewArtwork')
+                  dispatch(setArtwork(artwork))
                 }}
-              >
-                {'change password'}
-              </button>
-              <br />
-              <br />
-              <DeleteButton />
+                isFavorite={favorites.includes(artwork._id)}
+                onToggleFavorite={toggleFavorite}
+              />
+            ))
+          ) : (
+            <p>No favorite artworks yet.</p>
+          )}
+        </div>
+      </Tab>
+    </Tabs>
+  </Tab>
 
-              <br />
-              <br />
-              <button
-                type="button"
-                onClick={() => {
-                  navigate('/User')
-                }}
-                className="button-back"
-              >
-                {'back'}
-              </button>
-            </div>
-          </Tab>
-        </Tabs>
+  <Tab eventKey="Profile" title="Profile">
+    <div className="tab-pane-content">
+      <form className="form" onSubmit={onSubmit}>
+        <h3>Edit Profile</h3>
+        <FormRow
+          type="text"
+          name="firstname"
+          value={values?.firstname}
+          handleChange={handleChange}
+        />
+        <FormRow
+          type="text"
+          name="lastname"
+          value={values?.lastname}
+          handleChange={handleChange}
+        />npm setArtwork
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? 'loading...' : 'Submit'}
+        </button>
+      </form>
+
+      <div className="profile-buttons">
+        <h3>Account Settings</h3>
+        <button type="button" onClick={() => navigate('/EditPassword')} className="button-changepassword" style={{color:'#fff'}}> 
+          Change password
+        </button>
+        <DeleteButton />
+        <button type="button" onClick={() => navigate('/User')} className="button-back2" style={{color:'#fff'}}>
+          Back
+        </button>
+      </div>
+    </div>
+  </Tab>
+</Tabs>
+ 
+  
+
       </div>
       <button
         type="button"
