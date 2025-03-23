@@ -125,13 +125,14 @@ function EditArtwork() {
             name="description"
             value={values.description}
             handleChange={handleChange}
+            labelText="Description"
           />
 
           <FormRow type="file" name="image" handleChange={handleChangeFile} />
           {preview && (
             <div>
-              <p>File name: {file?.name} </p>
-              <p>Type : {file?.type}</p>
+              {file?.name ? <p>File name: {file?.name} </p> : ''}
+              {file?.type ? <p>Type : {file?.type} </p> : ''}
               <img
                 src={preview}
                 alt="Preview"

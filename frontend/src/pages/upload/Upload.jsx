@@ -123,6 +123,7 @@ function Upload() {
               name="description"
               value={values.description}
               handleChange={handleChange}
+              labelText="Description"
             />
 
             <FormRow type="file" name="image" handleChange={handleChangeFile} />
