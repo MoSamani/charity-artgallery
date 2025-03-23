@@ -78,7 +78,6 @@ function Upload() {
       }
       reader.readAsDataURL(file)
     }
-    console.log(file)
   }
 
   useEffect(() => {
