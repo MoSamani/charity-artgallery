@@ -29,7 +29,6 @@ export const updateUserThunk = async (url, user, thunkAPI) => {
 }
 
 export const getUserThunk = async (url, user, thunkAPI) => {
-  console.log('getSingleUserThunk: ', user)
   try {
     const resp = await customFetch.post(url, user)
     return resp.data
@@ -49,7 +48,6 @@ export const updatePasswordThunk = async (url, user, thunkAPI) => {
 
 export const removeUserThunk = async (url, user, thunkAPI) => {
   try {
-    console.log(user)
     const resp = await customFetch.delete(url, { data: user })
     return resp.data
   } catch (error) {

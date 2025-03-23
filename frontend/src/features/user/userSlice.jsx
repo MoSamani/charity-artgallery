@@ -121,7 +121,6 @@ const userSlice = createSlice({
 
       .addCase(updatePassword.pending, (state, { payload }) => {
         state.isLoading = true
-        toast.error(payload || 'Change password failed')
       })
       .addCase(updatePassword.fulfilled, (state, { payload }) => {
         // const { user } = payload

@@ -47,6 +47,10 @@ function Upload() {
 
     dispatch(postArtwork(formData))
     setValues(initialState)
+
+    setTimeout(() => {
+      navigate('/')
+    }, 1000)
   }
 
   const handleChange = (e) => {

@@ -4,33 +4,41 @@ import {
   getUserSumOffersThunk,
   removeOfferThunk,
   postOfferThunk,
+  getTotalDonatesThunk,
 } from './offerThunk'
 
 export const postOffer = createAsyncThunk(
-  'artwork/postOffer',
+  'offer/postOffer',
   async (artwork, thunkAPI) => {
     return postOfferThunk('offer/', artwork, thunkAPI)
   }
 )
 
 export const getOfferdArtworks = createAsyncThunk(
-  'artwork/getOfferdArtworks',
+  'offer/getOfferdArtworks',
   async (artwork, thunkAPI) => {
     return getOfferdArtworkThunk('offer/userartworks', artwork, thunkAPI)
   }
 )
 
 export const getUsersumOffers = createAsyncThunk(
-  'artwork/getUsersumOffers',
+  'offer/getUsersumOffers',
   async (artwork, thunkAPI) => {
     return getUserSumOffersThunk('offer/getoffers', artwork, thunkAPI)
   }
 )
 
 export const removeOffer = createAsyncThunk(
-  'artwork/removeOffer',
+  'offer/removeOffer',
   async (artwork, thunkAPI) => {
     return removeOfferThunk('offer/deleteoffer', artwork, thunkAPI)
+  }
+)
+
+export const gettotalDonates = createAsyncThunk(
+  'offer/totalDonate',
+  async (artwork, thunkAPI) => {
+    return getTotalDonatesThunk('public/donates', artwork, thunkAPI)
   }
 )
 
@@ -39,6 +47,7 @@ const initialState = {
   userSumOffers: {},
   offers: [],
   offerdArtworks: [],
+  totalDonates: {},
 }
 
 const offerSlice = createSlice({
@@ -92,6 +101,17 @@ const offerSlice = createSlice({
         state.isLoading = false
       })
       .addCase(removeOffer.rejected, (state) => {
+        state.isLoading = false
+      })
+      .addCase(gettotalDonates.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(gettotalDonates.fulfilled, (state, { payload }) => {
+        const { totalMaxDonates } = payload
+        state.totalDonates = totalMaxDonates
+        state.isLoading = false
+      })
+      .addCase(gettotalDonates.rejected, (state) => {
         state.isLoading = false
       })
   },

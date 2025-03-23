@@ -20,14 +20,19 @@ const initialState = {
 function Login() {
   const [values, setValues] = useState(initialState)
   const { user, isLoading } = useSelector((store) => store.user)
+  const [error, setError] = useState('')
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const handleChange = (e) => {
-    const name = e.target.name
-    const value = e.target.value
+    const { name, value } = e.target
 
-    setValues({ ...values, [name]: value })
+    setValues((prevValues) => ({ ...prevValues, [name]: value }))
+    if (!values.isMember && name === 'password')
+      setError(
+        value.length < 8 ? 'Password must be at least 8 characters long.' : ''
+      )
   }
   const onSubmit = (e) => {
     e.preventDefault()
@@ -95,6 +100,7 @@ function Login() {
             name="password"
             value={values.password}
             handleChange={handleChange}
+            errorMessage={error}
           />
 
           <button type="submit" disabled={isLoading}>

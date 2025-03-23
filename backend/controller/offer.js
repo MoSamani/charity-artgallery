@@ -14,7 +14,7 @@ const createOffer = async (req, res) => {
     if (!user) {
       return res.status(404).json({ msg: 'User not found' })
     }
-    console.log(req.body)
+
     // Daten aus dem Request-Body holen
     const { artworkID, price } = req.body
     if (!artworkID || !price) {
@@ -106,7 +106,7 @@ const getUserArtworksWithOffers = async (req, res) => {
     if (!req.user || !req.user.userID) {
       return res.status(401).json({ msg: 'User not authenticated' })
     }
-    console.log(req.user)
+
     const artworkIds = await Offer.distinct('createdFor', {
       createdBy: req.user.userID,
     })
@@ -215,6 +215,43 @@ const berechneBekommeneOffers = async (req, res) => {
   }
 }
 
+const getTotalMaxDonations = async (req, res) => {
+  try {
+    // Finde alle Artworks, die für Spenden freigegeben sind
+    const donationArtworks = await Artwork.find({ donate: true }).select('_id')
+
+    const artworkIds = donationArtworks.map((artwork) => artwork._id)
+
+    if (artworkIds.length === 0) {
+      return res.status(200).json({ totalMaxDonates: 0 })
+    }
+
+    const result = await Offer.aggregate([
+      {
+        $match: { createdFor: { $in: artworkIds } }, // Nur Offers für Spenden-Artworks
+      },
+      {
+        $group: {
+          _id: '$createdFor', // Gruppieren nach Artwork-ID
+          maxDonation: { $max: '$price' }, // Maximaler Preis pro Artwork
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          totalAmount: { $sum: '$maxDonation' }, // Summe der höchsten Spenden pro Artwork
+        },
+      },
+    ])
+
+    const totalMaxDonates = result.length > 0 ? result[0].totalAmount : 0
+
+    return res.status(200).json({ totalMaxDonates: totalMaxDonates })
+  } catch (error) {
+    return res.status(500).json({ msg: error.message })
+  }
+}
+
 const getAllOffersOfArtwork = async (req, res) => {
   res.status(200).json({ msg: 'getAllOffers' })
 }
@@ -227,4 +264,5 @@ module.exports = {
   deleteUserOffersForArtwork,
   getUserArtworksWithHighestOffer,
   berechneBekommeneOffers,
+  getTotalMaxDonations,
 }

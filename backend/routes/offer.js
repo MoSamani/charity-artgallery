@@ -1,22 +1,27 @@
 const express = require('express')
-const router = express.Router()
+const offerRouter = express.Router()
 
 const {
   createOffer,
   getAllOffersOfArtwork,
   RemoveOffer,
-  getUserArtworksWithOffers,
+  // getUserArtworksWithOffers,
   deleteUserOffersForArtwork,
   getUserArtworksWithHighestOffer,
   berechneBekommeneOffers,
+  getTotalMaxDonations,
 } = require('../controller/offer')
 
-router.get('/', getAllOffersOfArtwork)
-router.post('/', createOffer)
-router.delete('/', RemoveOffer)
-router.delete('/deleteoffer', deleteUserOffersForArtwork)
+offerRouter.get('/', getAllOffersOfArtwork)
+offerRouter.post('/', createOffer)
+offerRouter.delete('/', RemoveOffer)
+offerRouter.delete('/deleteoffer', deleteUserOffersForArtwork)
 // router.get('/userartworks', getUserArtworksWithOffers)
-router.get('/userartworks', getUserArtworksWithHighestOffer)
-router.get('/getoffers', berechneBekommeneOffers)
+offerRouter.get('/userartworks', getUserArtworksWithHighestOffer)
+offerRouter.get('/getoffers', berechneBekommeneOffers)
+// offerRouter.get('/totaldonations', getTotalMaxDonations)
 
-module.exports = router
+const publicDonationRouter = express.Router()
+publicDonationRouter.get('/', getTotalMaxDonations)
+
+module.exports = { offerRouter, publicDonationRouter }

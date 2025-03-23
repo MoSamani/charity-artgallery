@@ -13,12 +13,17 @@ function EditPassword() {
 
   const [password, setPassword] = useState('')
   const [newpassword, setNewpassword] = useState('')
+  const [error, setError] = useState('')
 
   const handleChangePassword = (e) => {
     setPassword(e.target.value)
   }
   const handleChangeNewPassword = (e) => {
-    setNewpassword(e.target.value)
+    const value = e.target.value
+    setNewpassword(value)
+    setError(
+      value.length < 8 ? 'Password must be at least 8 characters long.' : ''
+    )
   }
 
   const onSubmit = (e) => {
@@ -35,6 +40,8 @@ function EditPassword() {
         newpassword,
       })
     )
+    setPassword('')
+    setNewpassword('')
   }
 
   useEffect(() => {
@@ -57,16 +64,18 @@ function EditPassword() {
           value={password}
           handleChange={handleChangePassword}
         />
+
         <FormRow
-          type="text"
+          type="password"
           name="newpassword"
           value={newpassword}
           handleChange={handleChangeNewPassword}
+          errorMessage={error}
         />
         {/* email field */}
 
         {(password === '') | (newpassword === '') ? (
-          <p style={{ color: 'red' }}>Please give your password </p>
+          <p style={{ color: 'red' }}>Please fill input fields </p>
         ) : (
           <button type="submit" disabled={isLoading}>
             {isLoading ? 'loading...' : 'submit'}
