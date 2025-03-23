@@ -15,7 +15,14 @@ function DeleteUserButton() {
 
   return (
     <>
-      <button type="button" onClick={() => setShowModal(true)} className="Test">
+      <button
+        type="button"
+        onClick={() => setShowModal(true)}
+        style={{
+          backgroundColor: '#ff0000c7',
+          color: 'white',
+        }}
+      >
         Remove user
       </button>
 
