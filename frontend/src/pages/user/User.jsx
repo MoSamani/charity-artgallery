@@ -191,7 +191,10 @@ function User() {
                                 onToggleFavorite={toggleFavorite}
                               />
                               <button
-                                style={{ backgroundColor: 'red' }} // Breite etwas erhöht für bessere Sichtbarkeit
+                                style={{
+                                  backgroundColor: '#ff0000c7',
+                                  color: 'white',
+                                }}
                                 onClick={() => {
                                   dispatch(
                                     removeOffer({ artworkID: artwork._id })
@@ -242,44 +245,43 @@ function User() {
             </Tab.Container>
           </Tab>
           <Tab eventKey="profile" title="Profile">
-            <div>
-              <form className="form" onSubmit={onSubmit}>
-                <h3>{'Edit'}</h3>
-                {/* name field */}
-                <FormRow
-                  type="text"
-                  name="firstname"
-                  value={values?.firstname}
-                  handleChange={handleChange}
-                />
-                <FormRow
-                  type="text"
-                  name="lastname"
-                  value={values?.lastname}
-                  handleChange={handleChange}
-                />
-                {/* email field */}
+            <form className="form" onSubmit={onSubmit}>
+              <h3>{'Edit'}</h3>
+              {/* name field */}
+              <FormRow
+                type="text"
+                name="firstname"
+                value={values?.firstname}
+                handleChange={handleChange}
+              />
+              <FormRow
+                type="text"
+                name="lastname"
+                value={values?.lastname}
+                handleChange={handleChange}
+              />
+              {/* email field */}
 
-                <button type="submit" disabled={isLoading}>
-                  {isLoading ? 'loading...' : 'submit'}
-                </button>
-              </form>
-
-              <h3>{'change password'}</h3>
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="form-button"
+              >
+                {isLoading ? 'loading...' : 'submit'}
+              </button>
+              <h3>{'Change password'}</h3>
               <button
                 type="button"
                 onClick={() => {
                   navigate('/EditPassword')
                 }}
+                className="form-button"
               >
                 {'change password'}
               </button>
-              <br />
-              <br />
               <DeleteButton />
-
-              <br />
-              <br />
+            </form>
+            <div className="profile-bottom">
               <button
                 type="button"
                 onClick={() => {

@@ -1,0 +1,12 @@
+button {
+  display: block;
+  background-color: #ccc;
+  color: #333;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 200px;
+  /* margin: 10px auto; */
+}

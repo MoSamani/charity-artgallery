@@ -1,4 +1,5 @@
 import React from 'react'
+import './Textarea.css'
 
 const Textarea = ({ type, name, value, handleChange, labelText }) => {
   return (
@@ -10,6 +11,7 @@ const Textarea = ({ type, name, value, handleChange, labelText }) => {
         name={name}
         value={value}
         onChange={handleChange}
+        className='form-textarea'
       />
     </div>
   )

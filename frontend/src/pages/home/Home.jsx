@@ -210,8 +210,8 @@ export default Home
 //           : true
 
 //         const priceMatch =
-//           (minPrice ? artwork.mprise >= minPrice : true) &&
-//           (maxPrice ? artwork.mprise <= maxPrice : true)
+//           (minPrice ? artwork.price >= minPrice : true) &&
+//           (maxPrice ? artwork.price <= maxPrice : true)
 
 //         return sizeMatch && mediumMatch && priceMatch
 //       })

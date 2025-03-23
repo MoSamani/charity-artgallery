@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { updatePassword } from '../../features/user/userSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
+import './EditPassword.css'
 
 function EditPassword() {
   const { user, isLoading } = useSelector((store) => store.user)
@@ -55,42 +56,44 @@ function EditPassword() {
   return (
     <div>
       <Navbar />
-      <form className="form" onSubmit={onSubmit}>
-        <h3>{'Change password'}</h3>
-        {/* name field */}
-        <FormRow
-          type="password"
-          name="password"
-          value={password}
-          handleChange={handleChangePassword}
-        />
+      <div class="main-content">
+        <form className="form" onSubmit={onSubmit}>
+          <h3>{'Change password'}</h3>
+          {/* name field */}
+          <FormRow
+            type="password"
+            name="password"
+            value={password}
+            handleChange={handleChangePassword}
+          />
 
-        <FormRow
-          type="password"
-          name="newpassword"
-          value={newpassword}
-          handleChange={handleChangeNewPassword}
-          errorMessage={error}
-        />
-        {/* email field */}
+          <FormRow
+            type="password"
+            name="newpassword"
+            value={newpassword}
+            handleChange={handleChangeNewPassword}
+            errorMessage={error}
+          />
+          {/* email field */}
 
-        {(password === '') | (newpassword === '') ? (
-          <p style={{ color: 'red' }}>Please fill input fields </p>
-        ) : (
-          <button type="submit" disabled={isLoading}>
-            {isLoading ? 'loading...' : 'submit'}
-          </button>
-        )}
-      </form>
-
-      <button
-        type="button"
-        onClick={() => {
-          navigate(-1)
-        }}
-      >
-        {'back'}
-      </button>
+          {(password === '') | (newpassword === '') ? (
+            <p style={{ color: 'red' }}>Please fill input fields </p>
+          ) : (
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? 'loading...' : 'submit'}
+            </button>
+          )}
+        </form>
+        <button
+          type="button"
+          onClick={() => {
+            navigate(-1)
+          }}
+          className="button-back"
+        >
+          {'back'}
+        </button>
+      </div>
     </div>
   )
 }

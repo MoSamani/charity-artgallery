@@ -24,6 +24,8 @@ function Navbar() {
             About
           </Link>
         </div>
+        
+        <a href="http://localhost:3000" src="/title_v2.svg"><img src="/title_v2.svg" alt="Logo" className="logo"/></a>
         <div className="right-part">
           <Link className="link" to={`/upload`}>
             Upload

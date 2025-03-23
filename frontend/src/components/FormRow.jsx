@@ -1,4 +1,5 @@
 import React from 'react'
+import './FormRow.css'
 
 const FormRow = ({
   type,
@@ -12,7 +13,7 @@ const FormRow = ({
   return (
     <div className="form-row">
       <label htmlFor={name} className="form-label">
-        {labelText || name}
+        {labelText || name.charAt(0).toUpperCase() + name.slice(1)}
       </label>
       <input
         id={name}

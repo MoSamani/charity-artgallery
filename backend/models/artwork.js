@@ -18,7 +18,7 @@ const artworkSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
-  mprise: {
+  price: {
     type: Number,
     default: 20,
   },

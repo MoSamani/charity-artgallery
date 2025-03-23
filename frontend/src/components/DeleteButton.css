@@ -1,0 +1,12 @@
+.remove-user-button-yes {
+  background-color: #f9ae65;
+  margin: 10px auto;
+}
+
+.remove-user-button-yes:hover {
+  background-color: #e79a51;
+}
+
+.remove-user-button-cancel {
+  margin: 10px auto;
+}

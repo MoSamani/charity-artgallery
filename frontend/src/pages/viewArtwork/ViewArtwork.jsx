@@ -45,7 +45,7 @@ function ViewArtwork() {
             <strong>Size:</strong> {artwork.size}
           </p>
           <p>
-            <strong>Minimum Price:</strong> {artwork.mprise},00€
+            <strong>Minimum Price:</strong> {artwork.price},00€
           </p>
           <p>
             <strong>Donate:</strong> {artwork.donate ? 'True' : 'False'}

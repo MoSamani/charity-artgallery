@@ -58,11 +58,9 @@ function Login() {
 
   return (
     <div>
-      <div className="navbar">
-        <Navbar />
-      </div>
-      <div class="main-content">
-        <form className="form" onSubmit={onSubmit}>
+      <Navbar />
+      <div class="main-content-login">
+        <form className="form-login" onSubmit={onSubmit}>
           <h3>{values.isMember ? 'Login' : 'Register'}</h3>
           {/* name field */}
           {!values.isMember && (
@@ -103,13 +101,17 @@ function Login() {
             errorMessage={error}
           />
 
-          <button type="submit" disabled={isLoading}>
+          <button class="button-login" type="submit" disabled={isLoading}>
             {isLoading ? 'loading...' : 'submit'}
           </button>
 
-          <p>
+          <p class="p-NotAMemberYet">
             {values.isMember ? 'Not a member yet?' : 'Already a member?'}
-            <button type="button" onClick={toggleMember}>
+            <button
+              type="button"
+              class="button-register"
+              onClick={toggleMember}
+            >
               {values.isMember ? 'Register' : 'Login'}
             </button>
           </p>

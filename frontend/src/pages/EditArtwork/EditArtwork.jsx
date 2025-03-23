@@ -23,7 +23,7 @@ function EditArtwork() {
 
   const onSubmit = (e) => {
     e.preventDefault()
-    const { name, medium, size, description, mprise, donate, _id } = values
+    const { name, medium, size, description, price, donate, _id } = values
     const email = user.email
 
     const formData = new FormData()
@@ -31,7 +31,7 @@ function EditArtwork() {
     formData.append('medium', medium)
     formData.append('size', size)
     formData.append('description', description)
-    formData.append('mprise', mprise)
+    formData.append('price', price)
     formData.append('donate', donate)
     formData.append('email', email)
     formData.append('_id', _id)
@@ -158,8 +158,8 @@ function EditArtwork() {
 
           <FormRow
             type="text"
-            name="mprise"
-            value={values.mprise}
+            name="price"
+            value={values.price}
             handleChange={handleChange}
           />
 
@@ -171,7 +171,7 @@ function EditArtwork() {
             handleChange={handleChangeDonate}
           />
 
-          <button type="submit" disabled={isLoading}>
+          <button type="submit" disabled={isLoading} className="submit-button">
             {isLoading ? 'loading...' : 'submit'}
           </button>
         </form>

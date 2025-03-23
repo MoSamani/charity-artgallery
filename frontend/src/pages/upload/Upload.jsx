@@ -7,13 +7,14 @@ import Textarea from '../../components/Textarea'
 import FormRow from '../../components/FormRow'
 import { postArtwork } from '../../features/artwork/artworkSlice'
 import Footer from '../../components/Footer'
+import './Upload.css'
 
 const initialState = {
   name: '',
   medium: '',
   size: '',
   description: '',
-  mprise: 20,
+  price: 20,
   donate: false,
 }
 
@@ -31,7 +32,7 @@ function Upload() {
 
   const onSubmit = (e) => {
     e.preventDefault()
-    const { name, medium, size, description, mprise, donate } = values
+    const { name, medium, size, description, price, donate } = values
     const email = user.email
 
     const formData = new FormData()
@@ -39,7 +40,7 @@ function Upload() {
     formData.append('medium', medium)
     formData.append('size', size)
     formData.append('description', description)
-    formData.append('mprise', mprise)
+    formData.append('price', price)
     formData.append('donate', donate)
     formData.append('email', email)
     formData.append('image', file)
@@ -90,87 +91,90 @@ function Upload() {
   return (
     <div>
       <Navbar />
-      <div className="main-content">
-        <h1>Upload Artwork</h1>
+      <div className="main-content-upload">
+        <div className="upload-container">
+          <h1 className="upload-heading">Upload Artwork</h1>
 
-        <form className="form" onSubmit={onSubmit}>
-          {/* name field */}
+          <form className="form-upload" onSubmit={onSubmit}>
+            {/* name field */}
 
-          <FormRow
-            type="text"
-            name="name"
-            value={values.name}
-            handleChange={handleChange}
-          />
+            <FormRow
+              type="text"
+              name="name"
+              value={values.name}
+              handleChange={handleChange}
+            />
 
-          <FormRow
-            type="text"
-            name="medium"
-            value={values.medium}
-            handleChange={handleChange}
-          />
+            <FormRow
+              type="text"
+              name="medium"
+              value={values.medium}
+              handleChange={handleChange}
+            />
 
-          <FormRow
-            type="text"
-            name="size"
-            value={values.size}
-            handleChange={handleChange}
-          />
+            <FormRow
+              type="text"
+              name="size"
+              value={values.size}
+              handleChange={handleChange}
+            />
 
-          <Textarea
-            name="description"
-            value={values.description}
-            handleChange={handleChange}
-          />
+            <Textarea
+              name="description"
+              value={values.description}
+              handleChange={handleChange}
+            />
 
-          <FormRow type="file" name="image" handleChange={handleChangeFile} />
-          {preview && (
-            <div>
-              <p>File name: {file.name} </p>
-              <p>Type : {file.type}</p>
-              <img
-                src={preview}
-                alt="Preview"
-                style={{
-                  width: '100px',
-                  height: '100px',
-                  objectFit: 'cover',
-                  borderRadius: '8px',
-                  marginTop: '10px',
-                }}
-              />
-            </div>
-          )}
-          <button
-            type="button"
-            onClick={(e) => {
-              e.preventDefault()
-              setPreview(null)
-              setFile(null)
-            }}
-          >
-            Remove Image
-          </button>
+            <FormRow type="file" name="image" handleChange={handleChangeFile} />
+            {preview && (
+              <div>
+                <p>File name: {file.name} </p>
+                <p>Type : {file.type}</p>
+                <img
+                  src={preview}
+                  alt="Preview"
+                  style={{
+                    width: '100px',
+                    height: '100px',
+                    objectFit: 'cover',
+                    borderRadius: '8px',
+                    marginTop: '10px',
+                  }}
+                />
+              </div>
+            )}
+            <button
+              class="button-removeimage"
+              type="button"
+              onClick={(e) => {
+                e.preventDefault()
+                setPreview(null)
+                setFile(null)
+              }}
+            >
+              Remove Image
+            </button>
 
-          <FormRow
-            type="text"
-            name="mprise"
-            value={values.mprise}
-            handleChange={handleChange}
-          />
+            <FormRow
+              type="text"
+              name="price"
+              value={values.price}
+              handleChange={handleChange}
+            />
 
-          <FormRow
-            type="checkbox"
-            checked={checked}
-            name="donate"
-            value={values.donate}
-            handleChange={handleChangeDonate}
-          />
+            <FormRow
+              type="checkbox"
+              checked={checked}
+              name="donate"
+              value={values.donate}
+              handleChange={handleChangeDonate}
+            />
 
-          <button type="submit" disabled={isLoading}>
-            {isLoading ? 'loading...' : 'submit'}
-          </button>
-        </form>
+            <button class="button-upload" type="submit" disabled={isLoading}>
+              {isLoading ? 'loading...' : 'submit'}
+            </button>
+          </form>
+        </div>
       </div>
       <div>
         <Footer />

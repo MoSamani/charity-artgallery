@@ -26,7 +26,7 @@ const postArtwork = async (req, res) => {
     res.status(500).json({ msg: error.message })
   }
 
-  const { name, medium, size, description, mprise, donate, email } = req.body
+  const { name, medium, size, description, price, donate, email } = req.body
   const user = await User.findOne({ email: email })
 
   try {
@@ -35,7 +35,7 @@ const postArtwork = async (req, res) => {
       medium,
       size,
       description,
-      mprise,
+      price,
       donate,
       image1_url: image.url,
       image1_public_id: image.public_id,
@@ -47,7 +47,7 @@ const postArtwork = async (req, res) => {
       medium: artwork.medium,
       size: artwork.size,
       description: artwork.description,
-      mprise: artwork.mprise,
+      price: artwork.price,
       donate: artwork.donate,
       image1_url: image.url,
       image1_public_id: image.public_id,
@@ -112,7 +112,7 @@ const getArtwork = async (req, res) => {
 }
 
 const updateArtwork = async (req, res) => {
-  const { name, medium, size, description, mprise, donate, _id } = req.body
+  const { name, medium, size, description, price, donate, _id } = req.body
   let image = null // Speichert die neue Bild-URL, falls vorhanden
 
   if (req.file) {
@@ -146,7 +146,7 @@ const updateArtwork = async (req, res) => {
         medium,
         size,
         description,
-        mprise,
+        price,
         donate,
         ...(image && {
           image1_url: image.url,
@@ -169,7 +169,7 @@ const updateArtwork = async (req, res) => {
       medium: updatedArtwork.medium,
       size: updatedArtwork.size,
       description: updatedArtwork.description,
-      mprise: updatedArtwork.mprise,
+      price: updatedArtwork.price,
       donate: updatedArtwork.donate,
       image1_url: updatedArtwork.image1_url,
       image1_public_id: updatedArtwork.image1_public_id,

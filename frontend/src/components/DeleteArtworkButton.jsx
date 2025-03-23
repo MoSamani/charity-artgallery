@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { removeArtwork } from '../features/artwork/artworkSlice'
 import { useNavigate } from 'react-router-dom'
+import './DeleteArtworkButton.css'
 
 function DeleteArtworkButton({ artworkID }) {
   const [showModal, setShowModal] = useState(false)
@@ -20,7 +21,11 @@ function DeleteArtworkButton({ artworkID }) {
       <button
         type="button"
         onClick={() => setShowModal(true)}
-        style={{ backgroundColor: 'red' }}
+        style={{
+          backgroundColor: '#ff0000c7',
+          color: 'white',
+          margin: '10px auto',
+        }}
       >
         Remove artwork
       </button>
@@ -29,8 +34,15 @@ function DeleteArtworkButton({ artworkID }) {
         <div style={overlayStyles}>
           <div style={modalStyles}>
             <p>Are you sure you want to delete this user?</p>
-            <button onClick={handleDelete}>Yes, delete</button>
-            <button onClick={() => setShowModal(false)}>cancel</button>
+            <button onClick={handleDelete} className="remove-user-button-yes">
+              Yes, delete
+            </button>
+            <button
+              onClick={() => setShowModal(false)}
+              className="remove-user-button-cancel"
+            >
+              cancel
+            </button>
           </div>
         </div>
       )}

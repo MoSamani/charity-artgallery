@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { removeUser } from '../features/user/userSlice'
+import './DeleteButton.css'
 
 function DeleteUserButton() {
   const [showModal, setShowModal] = useState(false)
@@ -14,20 +15,23 @@ function DeleteUserButton() {
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setShowModal(true)}
-        style={{ backgroundColor: 'red' }}
-      >
-        remove user
+      <button type="button" onClick={() => setShowModal(true)} className="Test">
+        Remove user
       </button>
 
       {showModal && (
         <div style={overlayStyles}>
           <div style={modalStyles}>
             <p>Are you sure you want to delete this user?</p>
-            <button onClick={handleDelete}>Yes, delete</button>
-            <button onClick={() => setShowModal(false)}>cancel</button>
+            <button onClick={handleDelete} className="remove-user-button-yes">
+              Yes, delete
+            </button>
+            <button
+              onClick={() => setShowModal(false)}
+              className="remove-user-button-cancel"
+            >
+              cancel
+            </button>
           </div>
         </div>
       )}
@@ -41,7 +45,7 @@ const overlayStyles = {
   left: 0,
   right: 0,
   bottom: 0,
-  backgroundColor: 'rgba(0,0,0,0.5)',
+  backgroundColor: 'rgba(22, 14, 14, 0.5)',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
