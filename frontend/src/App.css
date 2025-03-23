@@ -69,8 +69,14 @@
   display: none;
 }
 
+/* @media (max-width: 760px) {
+  .logo {
+    display: none;
+  }
+} */
+
 /* Mobile Ansicht: Bild über den Infos */
-@media (max-width: 480px) {
+@media (max-width: 760px) {
   .navbar {
     display: none;
   }

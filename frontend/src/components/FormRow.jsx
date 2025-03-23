@@ -11,7 +11,7 @@ const FormRow = ({
   errorMessage,
 }) => {
   return (
-    <div className="form-row">
+    <div className={`form-row ${type === 'checkbox' ? 'checkbox-row' : ''}`}>
       <label htmlFor={name} className="form-label">
         {labelText || name.charAt(0).toUpperCase() + name.slice(1)}
       </label>

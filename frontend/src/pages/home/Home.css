@@ -21,7 +21,7 @@
 }
 
 /* Mobile Ansicht: Bild über den Infos */
-@media (max-width: 480px) {
+@media (max-width: 760px) {
   .countdown-stepbar {
     display: contents;
     align-items: center;

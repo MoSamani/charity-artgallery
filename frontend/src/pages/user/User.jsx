@@ -5,21 +5,21 @@ import Col from 'react-bootstrap/Col'
 import Nav from 'react-bootstrap/Nav'
 import Row from 'react-bootstrap/Row'
 import Tabs from 'react-bootstrap/Tabs'
-import { logoutUser } from '../../features/user/userSlice'
+// import { logoutUser } from '../../components/LogoutButton.jsx'
 import Navbar from '../../components/Navbar.jsx'
 import { useNavigate } from 'react-router-dom'
 import {
   getUsersArtworks,
   getUsersFavoriteArtworks,
   setArtwork,
-  removeUsersArtworks,
-  removeFavoriteArtworks,
+  // removeUsersArtworks,
+  // removeFavoriteArtworks,
 } from '../../features/artwork/artworkSlice.jsx'
 
 import {
   getOfferdArtworks,
   getUsersumOffers,
-  removeOfferdArtworks,
+  // removeOfferdArtworks,
   removeOffer,
 } from '../../features/offer/offerSlice.jsx'
 import { useSelector } from 'react-redux'
@@ -28,6 +28,7 @@ import Footer from '../../components/Footer.jsx'
 import { getUser, updateUser } from '../../features/user/userSlice.jsx'
 import DeleteButton from '../../components/DeleteButton'
 import FormRow from '../../components/FormRow'
+import LogoutButton from '../../components/LogoutButton.jsx'
 // import 'bootstrap/dist/css/bootstrap.min.css'
 import '../../bootstrap-styles/custom-bootstrap.scss' // Nur die benötigten Bootstrap-Styles
 import './User.css'
@@ -159,6 +160,20 @@ function User() {
                           <p>No paintings is Artworks!</p>
                         )}
                       </div>
+                      {/* <button
+                        type="button"
+                        onClick={() => {
+                          dispatch(logoutUser())
+                          dispatch(removeFavoriteArtworks())
+                          dispatch(removeUsersArtworks())
+                          dispatch(removeOfferdArtworks())
+                          navigate('/login')
+                        }}
+                        className="member-btn"
+                      >
+                        {'Logout'}
+                      </button> */}
+                      <LogoutButton />
                     </Tab.Pane>
                     <Tab.Pane eventKey="second">
                       <div
@@ -210,6 +225,20 @@ function User() {
                           <p>No Offers for any Artworks!</p>
                         )}
                       </div>
+                      {/* <button
+                        type="button"
+                        onClick={() => {
+                          dispatch(logoutUser())
+                          dispatch(removeFavoriteArtworks())
+                          dispatch(removeUsersArtworks())
+                          dispatch(removeOfferdArtworks())
+                          navigate('/login')
+                        }}
+                        className="member-btn"
+                      >
+                        {'Logout'}
+                      </button> */}
+                      <LogoutButton />
                     </Tab.Pane>
                     <Tab.Pane eventKey="third">
                       <div
@@ -238,6 +267,20 @@ function User() {
                           <p>No favorite Artworks!</p>
                         )}
                       </div>
+                      {/* <button
+                        type="button"
+                        onClick={() => {
+                          dispatch(logoutUser())
+                          dispatch(removeFavoriteArtworks())
+                          dispatch(removeUsersArtworks())
+                          dispatch(removeOfferdArtworks())
+                          navigate('/login')
+                        }}
+                        className="member-btn"
+                      >
+                        {'Logout'}
+                      </button> */}
+                      <LogoutButton />
                     </Tab.Pane>
                   </Tab.Content>
                 </Col>
@@ -294,20 +337,20 @@ function User() {
             </div>
           </Tab>
         </Tabs>
+        {/* <button
+          type="button"
+          onClick={() => {
+            dispatch(logoutUser())
+            dispatch(removeFavoriteArtworks())
+            dispatch(removeUsersArtworks())
+            dispatch(removeOfferdArtworks())
+            navigate('/login')
+          }}
+          className="member-btn"
+        >
+          {'Logout'}
+        </button> */}
       </div>
-      <button
-        type="button"
-        onClick={() => {
-          dispatch(logoutUser())
-          dispatch(removeFavoriteArtworks())
-          dispatch(removeUsersArtworks())
-          dispatch(removeOfferdArtworks())
-          navigate('/login')
-        }}
-        className="member-btn"
-      >
-        {'Logout'}
-      </button>
 
       <div>
         <Footer />
