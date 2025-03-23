@@ -21,8 +21,9 @@ export default function StepBar({ amount }) {
         sx={{
           mb: 4,
           fontFamily: 'cormorant-garamond',
-          //   fontWeight: 'bold',
+          // fontWeight: 'bold',
           fontSize: '2rem',
+          marginBottom: '50px',
         }}
       >
         {/* Spenden-Schrittleiste: {steps[stepIndex]}€ */}
