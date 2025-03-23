@@ -324,7 +324,7 @@ function User() {
               </button>
               <DeleteButton />
             </form>
-            <div className="profile-bottom">
+            {/* <div className="profile-bottom">
               <button
                 type="button"
                 onClick={() => {
@@ -334,7 +334,7 @@ function User() {
               >
                 {'back'}
               </button>
-            </div>
+            </div> */}
           </Tab>
         </Tabs>
         {/* <button
