@@ -72,7 +72,11 @@ function ViewArtwork() {
               value={values.offer}
               onChange={handleChange} // Hier korrekt gesetzt
             />
-            <button type="button" onClick={handleSubmit}>
+            <button
+              type="submit-button"
+              onClick={handleSubmit}
+              style={{ marginTop: '1rem' }}
+            >
               Submit Offer
             </button>
           </div>

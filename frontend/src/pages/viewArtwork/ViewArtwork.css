@@ -32,7 +32,7 @@
 
 .artwork-info p {
   margin: 8px 0;
-  font-size: 16px;
+  font-size: 1.5rem;
   color: #555;
 }
 
@@ -46,8 +46,8 @@
 }
 
 .offer-section label {
-  font-size: 16px;
-  margin-right: 10px;
+  font-size: 1.5rem;
+  margin-right: 20px;
 }
 
 .offer-section input {
@@ -64,7 +64,7 @@
   font-size: 16px;
   max-width: 7rem;
 
-  background-color: #4caf50;
+  background-color: #67b6df;
   color: white;
   border: none;
   border-radius: 5px;
@@ -72,11 +72,11 @@
 }
 
 .offer-section button:hover {
-  background-color: #45a049;
+  background-color: #519fca;
 }
 
 /* Mobile Ansicht: Bild über den Infos */
-@media (max-width: 480px) {
+@media (max-width: 760px) {
   .artwork-container {
     flex-direction: column;
     text-align: center;

@@ -39,6 +39,7 @@
   min-width: 150px !important;
   height: auto !important;
   object-fit: contain !important;
+  padding: 1rem 1rem 1rem 1rem !important;
 }
 
 .mobile-menu .link {
