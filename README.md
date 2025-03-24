@@ -2,12 +2,30 @@
 
 ## Projektteam
 
--
--
--
+- Erfanulla Kazikhil
+- Trinh Le
+- Shima Navaeian
 - Mohammad Samani
 
 ## Abstract
+
+CANDU – Creativity, Art, and Democracy United
+Dieses Projekt wurde im Rahmen des Moduls "Konzeption und Entwicklung einer NPO-Auktionsplattform: UI und UX" an der Hochschule Düsseldorf entwickelt. Ziel ist die Schaffung einer Webanwendung, die es Studierenden – insbesondere aus dem Designbereich – ermöglicht, ihre eigenen Kunstwerke in einer eintägigen Auktion zum Verkauf anzubieten.
+
+Dabei können sie wählen, ob sie den Erlös behalten oder für humanitäre Zwecke spenden möchten. Das gesammelte Geld wird für wohltätige Zwecke genutzt. Gleichzeitig bietet die Plattform eine Möglichkeit, kreative Werke einem interessierten Publikum zugänglich zu machen.
+
+Funktionen der Plattform:
+Registrierung für alle Studierenden und Mitarbeitenden der Hochschule Düsseldorf
+
+Kunstwerke hochladen und für die Auktion freigeben
+
+Gebote auf Artworks abgeben
+
+Favoriten liken und verfolgen
+
+Die Auktion läuft über einen Zeitraum von 24 Stunden (12:00 Uhr bis 12:00 Uhr des Folgetags). Nach Ablauf der Auktion findet eine Veranstaltung statt, bei der sich Käufer und Künstler treffen, um die erworbenen Werke zu übergeben und den Abschluss gemeinsam zu feiern.
+
+CANDU steht für Creativity, Art, and Democracy United – eine Plattform, die Kunst, Gemeinschaft und soziales Engagement miteinander verbindet.
 
 ## Installation/Bedienungsanleitung
 
