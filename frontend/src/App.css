@@ -34,12 +34,12 @@
 
 .logo {
   display: block;
-  width: 30vw !important;
+  width: 20vw !important;
   max-width: 600px !important;
   min-width: 150px !important;
   height: auto !important;
   object-fit: contain !important;
-  padding: 1rem 1rem 1rem 1rem !important;
+  /* padding: 1rem 1rem 1rem 1rem !important; */
 }
 
 .mobile-menu .link {

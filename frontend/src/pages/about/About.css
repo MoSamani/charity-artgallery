@@ -30,11 +30,19 @@ ul li {
 }
 
 .about-body-p {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 500;
 }
 
 .about-body-ul {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 500;
+}
+
+.about-h1 {
+  font-size: 2.3rem;
+}
+
+.about-h2 {
+  font-size: 1.4rem;
 }

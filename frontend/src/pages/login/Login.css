@@ -48,7 +48,7 @@ button:disabled {
 
 .p-NotAMemberYet {
   margin-top: 1rem;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #666;
 }
 
@@ -60,4 +60,5 @@ button:disabled {
   text-decoration: underline;
   justify-content: right;
   margin: auto;
+  font-size: 1rem;
 }

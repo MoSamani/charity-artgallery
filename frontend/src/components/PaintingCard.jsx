@@ -43,8 +43,8 @@ function PaintingCard({ painting, onClick, isFavorite, onToggleFavorite }) {
             alignItems: 'flex-start',
           }}
         >
-          <p style={{ fontSize: '14px', color: '#666' }}>{painting.size}</p>{' '}
-          <h3 style={{ fontSize: '16px', fontWeight: 'bold' }}>
+          <p style={{ fontSize: '1rem', color: '#666' }}>{painting.size}</p>{' '}
+          <h3 style={{ fontSize: '1rem', fontWeight: 'bold' }}>
             {`${painting.createdBy.firstname} ${painting.createdBy.lastname}`}
           </h3>{' '}
         </div>
@@ -56,7 +56,7 @@ function PaintingCard({ painting, onClick, isFavorite, onToggleFavorite }) {
             alignItems: 'flex-end',
           }}
         >
-          <p style={{ fontSize: '16px', fontWeight: 'bold' }}>
+          <p style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>
             €{painting.highestOffer ? painting.highestOffer : painting.price}
           </p>{' '}
           <FavoriteIcon
