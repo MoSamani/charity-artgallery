@@ -8,52 +8,50 @@ function About() {
       <div>
         <Navbar />
         <div className="about-container">
-          <h1>Über CANDU</h1>
+          <h1>About CANDU</h1>
           <p className="about-body-p">
-            Willkommen bei CANDU, einer einzigartigen Plattform, die Kunst,
-            Kreativität und soziales Engagement miteinander verbindet.
+            Welcome to CANDU, a unique platform that connects art, creativity,
+            and social engagement.
           </p>
-          <h2>Was ist CANDU?</h2>
+          <h2>What is CANDU?</h2>
           <p className="about-body-p">
-            CANDU ist eine geschlossene Online-Galerie innerhalb der
-            Universität. Alle registrierten Nutzer*innen mit Uni-E-Mail können
-            eigene Kunstwerke hochladen und anderen zum Kauf anbieten. Dabei
-            entscheiden die Kunstschaffenden selbst, ob der Erlös behalten oder
-            an eine wohltätige Organisation gespendet werden soll.
+            CANDU is a private online gallery within the university. All
+            registered users with a university email can upload their own
+            artworks and offer them for sale. Artists decide whether to keep the
+            proceeds or donate them to a charitable organization.
           </p>
-          <h2>Wie funktioniert es?</h2>
+          <h2>How does it work?</h2>
           <ul className="about-body-ul">
             <li>
-              Zugang zur Plattform erhalten ausschließlich Personen mit gültiger
-              Uni-E-Mail.
+              Only users with a valid university email can access the platform.
             </li>
             <li>
-              Beim Upload eines Werks wird festgelegt, ob der Erlös gespendet
-              oder behalten wird.
+              When uploading an artwork, artists choose whether to keep or
+              donate the proceeds.
             </li>
             <li>
-              Spendenbereite Werke sind gekennzeichnet – Käufer*innen können in
-              diesem Fall freiwillig mehr als den Mindestpreis zahlen.
+              Artworks available for donation are marked, allowing buyers to
+              voluntarily pay more than the minimum price.
             </li>
             <li>
-              Ein Countdown auf der Startseite zeigt den Zeitraum der aktuellen
-              Spendenaktion an.
+              A countdown on the homepage shows the duration of the current
+              donation campaign.
             </li>
             <li>
-              Nach Ablauf werden alle gesammelten Beträge aus Verkäufen mit
-              Spendenoption an eine ausgewählte Organisation weitergeleitet.
+              Once the campaign ends, all funds from donation-based sales are
+              forwarded to a selected charity.
             </li>
           </ul>
-          <h2>Unsere Vision</h2>
+          <h2>Our Vision</h2>
           <p className="about-body-p">
-            Wir glauben, dass Kunst nicht nur Ausdruck von Individualität ist,
-            sondern auch Gemeinschaft stärken und positive Veränderung bewirken
-            kann. CANDU schafft eine Plattform, auf der Kreativität sichtbar
-            wird – und gleichzeitig Solidarität gelebt werden kann.
+            We believe that art is not only a form of individual expression but
+            also a way to strengthen communities and drive positive change.
+            CANDU provides a platform where creativity is showcased and
+            solidarity is brought to life.
           </p>
           <p className="about-body-p">
-            Ob als Künstler*in oder als Kunstliebhaber*in – werde Teil von CANDU
-            und unterstütze Kunst mit Sinn.
+            Whether you're an artist or an art enthusiast – join CANDU and
+            support art with purpose!
           </p>
         </div>
       </div>

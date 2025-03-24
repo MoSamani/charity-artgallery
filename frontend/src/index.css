@@ -30,7 +30,7 @@ body {
   font-style: italic;
 }
 
-.button-back {
+/* .button-back {
   background-color: #fba94b;
   color: white;
   padding: 10px;
@@ -40,11 +40,27 @@ body {
   width: 23rem;
   font-size: 1rem;
   align-items: center;
-  /* margin: auto; */
-}
+} */
 
 .submit-button {
   background-color: #67b6df;
   color: white;
   padding: 10px;
+}
+
+.back-button-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+  margin-top: auto;
+}
+
+.button-back {
+  color: #fff;
+  background-color: #ccc;
+  margin: 1rem auto;
+}
+
+.button-back:hover {
+  background-color: #82949f;
 }

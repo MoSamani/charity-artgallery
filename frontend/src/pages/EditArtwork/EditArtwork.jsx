@@ -185,7 +185,7 @@ function EditArtwork() {
         onClick={() => {
           navigate(-1)
         }}
-        className="member-btn"
+        className="button-back"
       >
         {'Back'}
       </button>

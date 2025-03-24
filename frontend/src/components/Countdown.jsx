@@ -31,7 +31,7 @@ const Countdown = () => {
 
   return (
     <div className="countdown-container">
-      <h2 className="date-title">12.Dezember</h2>
+      <h2 className="date-title">12.December</h2>
       <div className="countdown-timer">
         {/* <span>{timeLeft.days}</span> :  */}
         <span>{timeLeft.hours}</span> :<span>{timeLeft.minutes}</span> :

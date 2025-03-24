@@ -27,7 +27,7 @@ export default function StepBar({ amount }) {
         }}
       >
         {/* Spenden-Schrittleiste: {steps[stepIndex]}€ */}
-        Spenden-Schrittleiste
+        Donation step bar
       </Typography>
       <Stepper activeStep={stepIndex} alternativeLabel sx={{ scale: '1.2' }}>
         {steps.map((step, index) => (

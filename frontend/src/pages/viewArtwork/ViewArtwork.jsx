@@ -84,7 +84,7 @@ function ViewArtwork() {
         type="button"
         name="offer"
         onClick={() => navigate(-1)}
-        className="member-btn"
+        className="button-back"
       >
         Back
       </button>
