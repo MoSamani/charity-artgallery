@@ -46,7 +46,13 @@ CANDU steht für Creativity, Art, and Democracy United – eine Plattform, die K
 5. Navigiere zum _backend_-Ordner, erstelle eine _.env_-Datei für Umgebungsvariablen (wie z.B. API-Keys) und füge folgenden Inhalt hinzu:
 
    ```
-    ....
+   MONGO_URI=your_mongo_uri
+   JWT_SECRET=your_secret
+   JWT_LIFETIME=3600s  # Lebensdauer des Tokens, z. B. 1 Stunde
+   CLOUDINARY_CLOUD_NAME=your_cloudinary_name
+   CLOUDINARY_API_KEY=your_cloudinary_api_key
+   CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+
    ```
 
 6. Öffne ein [Terminal](https://code.visualstudio.com/docs/terminal/basics) in Visual Studio Code und installiere die benötigten Projekt-Pakete mit folgendem Befehl:
