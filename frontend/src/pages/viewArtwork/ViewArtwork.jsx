@@ -20,7 +20,11 @@ function ViewArtwork() {
   }
 
   const handleSubmit = () => {
-    if (values.offer && parseFloat(values.offer) > 20) {
+    if (
+      values.offer &&
+      parseFloat(values.offer) > 20 &&
+      parseFloat(values.offer) > artwork?.highestOffer
+    ) {
       dispatch(postOffer({ artworkID: artwork._id, price: values.offer }))
       setValues({ offer: '' })
       navigate('/')
