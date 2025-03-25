@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { updatePassword } from '../../features/user/userSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
+import Footer from '../../components/Footer'
 import './EditPassword.css'
 
 function EditPassword() {
@@ -69,7 +70,7 @@ function EditPassword() {
 
           <FormRow
             type="password"
-            name="newpassword"
+            name="new password"
             value={newpassword}
             handleChange={handleChangeNewPassword}
             errorMessage={error}
@@ -93,6 +94,9 @@ function EditPassword() {
         >
           {'back'}
         </button>
+      </div>
+      <div>
+        <Footer />
       </div>
     </div>
   )
