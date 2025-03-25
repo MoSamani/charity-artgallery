@@ -37,7 +37,7 @@ function User() {
   const { user, isLoading } = useSelector((store) => store.user)
   const { artwork } = useSelector((store) => store.artwork)
   const [values, setValues] = useState(artwork)
-
+  console.log(user)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 

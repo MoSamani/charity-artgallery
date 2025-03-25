@@ -256,6 +256,33 @@ const getAllOffersOfArtwork = async (req, res) => {
   res.status(200).json({ msg: 'getAllOffers' })
 }
 
+const getHighestOfferUser = async (req, res) => {
+  console.log(req.body)
+  try {
+    const { artworkId } = req.body
+
+    if (!artworkId) {
+      return res.status(400).json({ msg: 'Artwork ID is required' })
+    }
+
+    // Höchstes Angebot für das gegebene Artwork finden
+    const highestOffer = await Offer.findOne({ createdFor: artworkId })
+      .sort({ price: -1 }) // Höchstes zuerst
+      .limit(1)
+      .populate('createdBy', 'firstname lastname _id') // Nur relevante User-Felder abrufen
+
+    if (!highestOffer) {
+      return res.status(404).json({ msg: 'No offers found for this artwork' })
+    }
+
+    const { _id, firstname, lastname } = highestOffer.createdBy
+
+    return res.status(200).json({ userId: _id, firstname, lastname })
+  } catch (error) {
+    return res.status(500).json({ msg: error.message })
+  }
+}
+
 module.exports = {
   createOffer,
   getAllOffersOfArtwork,
@@ -265,4 +292,5 @@ module.exports = {
   getUserArtworksWithHighestOffer,
   berechneBekommeneOffers,
   getTotalMaxDonations,
+  getHighestOfferUser,
 }
