@@ -257,7 +257,6 @@ const getAllOffersOfArtwork = async (req, res) => {
 }
 
 const getHighestOfferUser = async (req, res) => {
-  console.log(req.body)
   try {
     const { artworkId } = req.body
 
