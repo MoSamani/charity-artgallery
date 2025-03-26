@@ -11,6 +11,7 @@ const {
   berechneBekommeneOffers,
   getTotalMaxDonations,
   getHighestOfferUser,
+  getHighestOfferUsers,
 } = require('../controller/offer')
 
 offerRouter.get('/', getAllOffersOfArtwork)
@@ -20,6 +21,8 @@ offerRouter.delete('/deleteoffer', deleteUserOffersForArtwork)
 offerRouter.get('/userartworks', getUserArtworksWithHighestOffer)
 offerRouter.get('/getoffers', berechneBekommeneOffers)
 offerRouter.get('/winner', getHighestOfferUser)
+offerRouter.get('/winners', getHighestOfferUsers)
+
 // router.get('/userartworks', getUserArtworksWithOffers)
 // offerRouter.get('/totaldonations', getTotalMaxDonations)
 

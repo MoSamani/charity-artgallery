@@ -13,6 +13,7 @@ import {
   removeUserThunk,
   clearStoreThunk,
   getUserThunk,
+  getGewonneneUsersThunk,
 } from './userThunk'
 
 export const registerUser = createAsyncThunk(
@@ -159,6 +160,7 @@ const userSlice = createSlice({
       .addCase(getUser.rejected, (state) => {
         state.isLoading = false
       })
+
       .addCase(clearStore.rejected, () => {})
   },
 })

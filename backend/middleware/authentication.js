@@ -9,7 +9,7 @@ const auth = async (req, res, next) => {
     return res.status(401).json({ msg: 'Authentication invalid!' })
   }
   const token = authHeader.split(' ')[1]
-
+  console.log(authHeader)
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET)
     req.user = { userID: payload.userID, firstname: payload.firstname }

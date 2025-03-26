@@ -5,6 +5,7 @@ import {
   removeOfferThunk,
   postOfferThunk,
   getTotalDonatesThunk,
+  getWinnersThunk,
 } from './offerThunk'
 
 export const postOffer = createAsyncThunk(
@@ -35,6 +36,13 @@ export const removeOffer = createAsyncThunk(
   }
 )
 
+export const getWinners = createAsyncThunk(
+  'offer/getWinners',
+  async (artwork, thunkAPI) => {
+    return getWinnersThunk('offer/winners', artwork, thunkAPI)
+  }
+)
+
 export const gettotalDonates = createAsyncThunk(
   'offer/totalDonate',
   async (artwork, thunkAPI) => {
@@ -47,6 +55,7 @@ const initialState = {
   userSumOffers: {},
   offers: [],
   offerdArtworks: [],
+  winners: [],
   totalDonates: {},
 }
 
@@ -112,6 +121,17 @@ const offerSlice = createSlice({
         state.isLoading = false
       })
       .addCase(gettotalDonates.rejected, (state) => {
+        state.isLoading = false
+      })
+      .addCase(getWinners.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(getWinners.fulfilled, (state, { payload }) => {
+        const { users } = payload
+        state.winners = users
+        state.isLoading = false
+      })
+      .addCase(getWinners.rejected, (state) => {
         state.isLoading = false
       })
   },

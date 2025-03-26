@@ -8,7 +8,10 @@ import { getAllArtworks } from '../../features/artwork/artworkSlice.jsx'
 import { getUser, updateUser } from '../../features/user/userSlice.jsx'
 import { useNavigate } from 'react-router-dom'
 import { setArtwork } from '../../features/artwork/artworkSlice.jsx'
-import { gettotalDonates } from '../../features/offer/offerSlice.jsx'
+import {
+  gettotalDonates,
+  getWinners,
+} from '../../features/offer/offerSlice.jsx'
 import StepBar from '../../components/StepBar.jsx'
 import Filter from '../../components/Filter.jsx'
 
@@ -16,11 +19,17 @@ import './Home.css'
 
 function Home() {
   const { artworks } = useSelector((store) => store.artwork)
+  // console.log(artworks)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { user } = useSelector((store) => store.user)
+
   const { totalDonates } = useSelector((store) => store.offer)
+  // const { winners } = useSelector((store) => store.offer)
+
   console.log('totalDonates', totalDonates)
+  // console.log('winners: ', winners)
+
   // console.log('Artworks: ', artworks)
 
   const [favorites, setFavorites] = useState(user?.favorites || [])
@@ -28,6 +37,7 @@ function Home() {
   useEffect(() => {
     dispatch(getAllArtworks({}))
     dispatch(gettotalDonates({}))
+    // dispatch(getWinners({}))
     if (user) {
       dispatch(getUser({ email: user.email }))
     }
